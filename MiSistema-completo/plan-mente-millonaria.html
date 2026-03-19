@@ -1,0 +1,1516 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Los Secretos de la Mente Millonaria — Plan Profundo</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:     #faf7f2;
+  --bg2:    #f3ede3;
+  --bg3:    #e8dfd0;
+  --card:   #ffffff;
+  --border: #ddd5c5;
+  --ink:    #1a1510;
+  --ink2:   #5a4e40;
+  --ink3:   #9c8e7e;
+  --gold:   #c8922a;
+  --gold2:  #e8b050;
+  --gold3:  #f5d080;
+  --red:    #c84040;
+  --blue:   #3a6898;
+  --purple: #7a4a9e;
+  --teal:   #2a8878;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 300;
+  line-height: 1.75;
+  overflow-x: hidden;
+}
+
+/* ── PAPER TEXTURE ── */
+body::before {
+  content:'';
+  position:fixed; inset:0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events:none; z-index:9998;
+}
+
+/* ── HERO ── */
+.hero {
+  min-height:100vh;
+  background: var(--ink);
+  display:flex; flex-direction:column;
+  justify-content:center; align-items:center;
+  text-align:center; padding:5rem 2rem;
+  position:relative; overflow:hidden;
+}
+
+.hero-lines {
+  position:absolute; inset:0;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(200,146,42,0.04) 0px, rgba(200,146,42,0.04) 1px, transparent 1px, transparent 60px),
+    repeating-linear-gradient(90deg, rgba(200,146,42,0.04) 0px, rgba(200,146,42,0.04) 1px, transparent 1px, transparent 60px);
+}
+
+.hero-glow {
+  position:absolute; top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  width:700px; height:700px;
+  background:radial-gradient(ellipse, rgba(200,146,42,0.08) 0%, transparent 65%);
+  animation: breathe 5s ease-in-out infinite;
+}
+
+@keyframes breathe { 0%,100%{opacity:.5;transform:translate(-50%,-50%) scale(1)} 50%{opacity:1;transform:translate(-50%,-50%) scale(1.1)} }
+
+.hero-inner { position:relative; z-index:2; }
+
+.hero-eyebrow {
+  font-family:'Space Mono', monospace;
+  font-size:0.68rem; letter-spacing:0.25em; text-transform:uppercase;
+  color:var(--gold2); margin-bottom:1.5rem; display:block;
+  opacity:0; animation:fuA .8s ease forwards .2s;
+}
+
+.hero h1 {
+  font-family:'Playfair Display', serif;
+  font-size:clamp(3rem,9vw,6.5rem);
+  font-weight:900; line-height:.95;
+  color:#faf7f2; margin-bottom:1rem;
+  opacity:0; animation:fuA .8s ease forwards .4s;
+}
+
+.hero h1 em { font-style:italic; color:var(--gold2); }
+
+.hero-sub {
+  font-size:1rem; color:rgba(250,247,242,0.6);
+  max-width:500px; margin:0 auto 2.5rem;
+  opacity:0; animation:fuA .8s ease forwards .6s;
+}
+
+.hero-pills {
+  display:flex; gap:.7rem; flex-wrap:wrap; justify-content:center;
+  opacity:0; animation:fuA .8s ease forwards .8s;
+}
+
+.hero-pill {
+  padding:.35rem 1rem; border-radius:99px;
+  font-size:.78rem; font-weight:500;
+  border:1px solid rgba(200,146,42,.4);
+  background:rgba(200,146,42,.08);
+  color:var(--gold3);
+}
+
+.hero-scroll {
+  position:absolute; bottom:2.5rem; left:50%; transform:translateX(-50%);
+  display:flex; flex-direction:column; align-items:center; gap:.5rem;
+  color:rgba(250,247,242,0.3); font-family:'Space Mono',monospace;
+  font-size:.6rem; letter-spacing:.15em;
+  opacity:0; animation:fuA 1s ease forwards 1.4s;
+}
+
+.hero-scroll-bar {
+  width:1px; height:40px;
+  background:linear-gradient(to bottom, var(--gold2), transparent);
+  animation: scrollB 1.8s ease-in-out infinite;
+}
+
+@keyframes scrollB { 0%,100%{opacity:.3;transform:scaleY(1)} 50%{opacity:1;transform:scaleY(1.3)} }
+@keyframes fuA { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fuB { from{opacity:0} to{opacity:1} }
+
+/* ── NAV ── */
+.nav {
+  position:sticky; top:0; z-index:100;
+  background:rgba(250,247,242,.95);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:.75rem 2rem;
+  display:flex; gap:.4rem; overflow-x:auto; scrollbar-width:none;
+}
+.nav::-webkit-scrollbar{display:none}
+.nav a {
+  font-family:'Space Mono',monospace; font-size:.65rem;
+  letter-spacing:.08em; text-transform:uppercase;
+  color:var(--ink3); text-decoration:none;
+  padding:.3rem .8rem; border-radius:4px;
+  white-space:nowrap; border:1px solid transparent;
+  transition:all .2s;
+}
+.nav a:hover { color:var(--gold); border-color:rgba(200,146,42,.3); background:rgba(200,146,42,.05); }
+
+/* ── LAYOUT ── */
+section { max-width:900px; margin:0 auto; padding:5rem 2rem; }
+
+.sec-tag {
+  font-family:'Space Mono',monospace; font-size:.65rem;
+  letter-spacing:.2em; text-transform:uppercase;
+  color:var(--gold); display:block; margin-bottom:.8rem;
+}
+
+section h2 {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2rem,5vw,3.2rem); font-weight:700;
+  line-height:1.15; color:var(--ink); margin-bottom:1.2rem;
+}
+
+section h2 em { font-style:italic; color:var(--gold); }
+
+.sec-intro {
+  color:var(--ink2); font-size:.95rem;
+  max-width:660px; margin-bottom:3rem;
+  border-left:3px solid var(--gold);
+  padding-left:1.2rem; line-height:1.8;
+}
+
+.divider {
+  max-width:900px; margin:0 auto;
+  border:none; border-top:1px solid var(--border);
+}
+
+/* ── THERMOSTAT ── */
+.thermo-wrap {
+  background:var(--ink); border-radius:16px;
+  padding:2.5rem 2rem; margin-bottom:2rem;
+  position:relative; overflow:hidden;
+}
+
+.thermo-wrap::before {
+  content:'';
+  position:absolute; inset:0;
+  background:repeating-linear-gradient(
+    -45deg, rgba(200,146,42,0.03) 0, rgba(200,146,42,0.03) 1px,
+    transparent 1px, transparent 10px
+  );
+}
+
+.thermo-inner { position:relative; z-index:1; }
+
+.thermo-title {
+  font-family:'Playfair Display',serif;
+  font-size:1.4rem; font-weight:700; color:#faf7f2;
+  margin-bottom:.4rem;
+}
+
+.thermo-sub { font-size:.85rem; color:rgba(250,247,242,.5); margin-bottom:2rem; }
+
+.thermo-scale {
+  display:flex; gap:0; border-radius:8px; overflow:hidden;
+  margin-bottom:1rem; height:48px;
+}
+
+.thermo-seg {
+  flex:1; display:flex; align-items:center; justify-content:center;
+  font-family:'Space Mono',monospace; font-size:.65rem;
+  font-weight:700; color:rgba(250,247,242,.9);
+  letter-spacing:.05em;
+}
+
+.ts1 { background: #5a3a2a; }
+.ts2 { background: #8a5a2a; }
+.ts3 { background: #b87820; }
+.ts4 { background: var(--gold2); color:var(--ink); }
+.ts5 { background: var(--gold3); color:var(--ink); }
+
+.thermo-marker {
+  display:flex; justify-content:center; margin-bottom:1.5rem;
+}
+
+.thermo-marker-inner {
+  background:var(--red); color:#fff;
+  padding:.3rem .8rem; border-radius:4px;
+  font-family:'Space Mono',monospace; font-size:.7rem;
+  font-weight:700; letter-spacing:.08em;
+}
+
+.thermo-conds {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:1rem;
+}
+
+@media(max-width:600px){ .thermo-conds{grid-template-columns:1fr} }
+
+.thermo-cond {
+  background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08);
+  border-radius:8px; padding:1rem 1.1rem;
+}
+
+.thermo-cond h4 {
+  font-family:'Playfair Display',serif; font-size:.95rem;
+  color:var(--gold2); margin-bottom:.4rem;
+}
+
+.thermo-cond p { font-size:.78rem; color:rgba(250,247,242,.55); line-height:1.6; }
+
+/* ── BLUEPRINT 4 PASOS ── */
+.steps4 {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+  gap:1px; background:var(--border); border:1px solid var(--border);
+  border-radius:12px; overflow:hidden; margin-bottom:2rem;
+}
+
+.step4 {
+  background:var(--card); padding:1.5rem 1.3rem;
+}
+
+.step4 .snum {
+  font-family:'Playfair Display',serif; font-size:2.5rem; font-weight:900;
+  color:var(--bg3); line-height:1; margin-bottom:.5rem;
+}
+
+.step4 h4 {
+  font-family:'Playfair Display',serif; font-size:1rem; font-weight:700;
+  color:var(--gold); margin-bottom:.4rem;
+}
+
+.step4 p { font-size:.8rem; color:var(--ink2); line-height:1.6; }
+
+.step4-deep {
+  background:var(--bg2); padding:1.5rem 1.3rem;
+  border-top:2px solid var(--gold);
+}
+
+.step4-deep h4 { color:var(--ink); }
+
+/* ── PROGRAMMING SOURCES ── */
+.prog-grid {
+  display:grid; grid-template-columns:1fr 1fr 1fr; gap:1rem; margin-bottom:2rem;
+}
+
+@media(max-width:640px){.prog-grid{grid-template-columns:1fr}}
+
+.prog-card {
+  border:1px solid var(--border); border-radius:10px;
+  overflow:hidden; background:var(--card);
+}
+
+.prog-head {
+  padding:1rem 1.2rem; display:flex; align-items:center; gap:.7rem;
+}
+
+.prog-icon { font-size:1.6rem; }
+
+.prog-head-text h3 {
+  font-family:'Playfair Display',serif; font-size:1rem; font-weight:700;
+}
+
+.prog-head-text span { font-size:.75rem; color:var(--ink3); }
+
+.prog-body { padding:0 1.2rem 1.2rem; }
+
+.prog-body p { font-size:.82rem; color:var(--ink2); line-height:1.7; margin-bottom:.7rem; }
+
+.prog-example {
+  background:var(--bg2); border-radius:6px; padding:.7rem .9rem;
+  font-size:.78rem; color:var(--ink2); border-left:2px solid var(--gold);
+  font-style:italic;
+}
+
+.prog-deep {
+  background:rgba(200,146,42,.06); border-top:1px solid var(--border);
+  padding:.8rem 1.2rem; font-size:.78rem; color:var(--ink2);
+}
+
+.prog-deep strong { color:var(--gold); display:block; margin-bottom:.2rem; font-size:.75rem; font-style:normal; }
+
+/* ── WEALTH FILES ── */
+.wf-header {
+  display:flex; align-items:center; gap:1rem;
+  padding:1.2rem 1.6rem; cursor:pointer; user-select:none;
+  transition:background .2s;
+}
+.wf-header:hover { background:rgba(200,146,42,.03); }
+
+.wf-num {
+  font-family:'Playfair Display',serif; font-size:1.6rem; font-weight:900;
+  color:var(--bg3); min-width:40px; line-height:1;
+}
+
+.wf-item.open .wf-num { color:var(--gold3); }
+
+.wf-texts { flex:1; }
+
+.wf-rich {
+  font-family:'Playfair Display',serif; font-size:1rem; font-weight:700;
+  color:var(--ink); display:block; line-height:1.3;
+}
+
+.wf-poor { font-size:.78rem; color:var(--ink3); font-style:italic; }
+
+.wf-badge {
+  padding:.25rem .7rem; border-radius:99px;
+  font-family:'Space Mono',monospace; font-size:.62rem;
+  font-weight:700; letter-spacing:.05em; white-space:nowrap;
+}
+
+.wf-chev { color:var(--ink3); font-size:.85rem; transition:transform .3s; }
+.wf-item.open .wf-chev { transform:rotate(180deg); }
+
+.wf-body {
+  display:none; padding:0 1.6rem 1.8rem;
+  border-top:1px solid var(--border);
+  padding-top:1.4rem;
+}
+
+.wf-item.open .wf-body { display:block; }
+
+.wf-body p { font-size:.88rem; color:var(--ink2); margin-bottom:.9rem; line-height:1.8; }
+.wf-body strong { color:var(--ink); font-weight:500; }
+
+.wf-body h4 {
+  font-family:'Playfair Display',serif; font-size:.95rem; font-weight:700;
+  color:var(--gold); margin:1.3rem 0 .5rem;
+}
+
+.wf-cols { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem; }
+@media(max-width:540px){.wf-cols{grid-template-columns:1fr}}
+
+.wf-rich-box {
+  background:rgba(200,146,42,.07); border:1px solid rgba(200,146,42,.2);
+  border-radius:8px; padding:1rem 1.1rem;
+}
+
+.wf-poor-box {
+  background:rgba(200,64,64,.05); border:1px solid rgba(200,64,64,.15);
+  border-radius:8px; padding:1rem 1.1rem;
+}
+
+.wf-rich-box h5 { color:var(--gold); font-size:.75rem; font-weight:600; margin-bottom:.4rem; font-family:'Space Mono',monospace; letter-spacing:.08em; }
+.wf-poor-box h5 { color:var(--red); font-size:.75rem; font-weight:600; margin-bottom:.4rem; font-family:'Space Mono',monospace; letter-spacing:.08em; }
+.wf-rich-box p,.wf-poor-box p { font-size:.8rem; margin:0; }
+
+.wf-deeper {
+  background:var(--bg2); border:1px solid var(--border);
+  border-radius:8px; padding:1.1rem 1.3rem; margin-bottom:1rem;
+}
+
+.wf-deeper h5 {
+  font-family:'Space Mono',monospace; font-size:.65rem; letter-spacing:.15em;
+  text-transform:uppercase; color:var(--teal); margin-bottom:.5rem;
+}
+
+.wf-deeper p { font-size:.82rem; color:var(--ink2); margin:0; }
+
+.decl-box {
+  background:var(--ink); border-radius:8px; padding:1.2rem 1.4rem;
+  margin:1rem 0;
+}
+
+.decl-box .decl-label {
+  font-family:'Space Mono',monospace; font-size:.62rem;
+  letter-spacing:.15em; color:var(--gold2); margin-bottom:.4rem; display:block;
+}
+
+.decl-box p {
+  font-family:'Playfair Display',serif; font-style:italic;
+  font-size:1rem; color:#faf7f2; margin:0; line-height:1.5;
+}
+
+.action-list { list-style:none; display:flex; flex-direction:column; gap:.5rem; margin-bottom:1rem; }
+
+.action-list li {
+  display:flex; gap:.7rem; font-size:.84rem; color:var(--ink2); align-items:flex-start;
+}
+
+.al-dot {
+  min-width:20px; height:20px; border-radius:50%;
+  background:rgba(200,146,42,.12); border:1px solid rgba(200,146,42,.3);
+  display:flex; align-items:center; justify-content:center;
+  font-size:.6rem; color:var(--gold); margin-top:.15rem; flex-shrink:0;
+}
+
+.for-you-wf {
+  background:rgba(42,136,120,.06); border:1px solid rgba(42,136,120,.2);
+  border-radius:8px; padding:1rem 1.2rem; margin-top:.8rem;
+  font-size:.82rem; color:#2a8878;
+}
+
+.for-you-wf strong { display:block; font-size:.75rem; margin-bottom:.25rem; color:var(--teal); }
+
+.wf-list { display:flex; flex-direction:column; gap:1px; background:var(--border); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+
+.wf-item { background:var(--card); }
+
+/* BADGE COLORS */
+.b-gold { background:rgba(200,146,42,.12); color:var(--gold); border:1px solid rgba(200,146,42,.3); }
+.b-red  { background:rgba(200,64,64,.1); color:var(--red); border:1px solid rgba(200,64,64,.25); }
+.b-blue { background:rgba(58,104,152,.1); color:var(--blue); border:1px solid rgba(58,104,152,.25); }
+.b-teal { background:rgba(42,136,120,.1); color:var(--teal); border:1px solid rgba(42,136,120,.25); }
+.b-purple { background:rgba(122,74,158,.1); color:var(--purple); border:1px solid rgba(122,74,158,.25); }
+
+/* ── REPROGRAMMING SYSTEM ── */
+.reprogram-grid {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:1rem; margin-bottom:2rem;
+}
+
+.reprogram-card {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:10px; padding:1.4rem;
+}
+
+.reprogram-card .rp-time {
+  font-family:'Space Mono',monospace; font-size:.62rem;
+  letter-spacing:.1em; color:var(--gold); margin-bottom:.6rem; display:block;
+}
+
+.reprogram-card h3 {
+  font-family:'Playfair Display',serif; font-size:1rem; font-weight:700;
+  color:var(--ink); margin-bottom:.5rem;
+}
+
+.reprogram-card p { font-size:.8rem; color:var(--ink2); line-height:1.65; }
+
+/* ── NET WORTH ── */
+.nw-table {
+  width:100%; border-collapse:collapse; margin-bottom:1.5rem;
+}
+
+.nw-table th {
+  font-family:'Space Mono',monospace; font-size:.65rem;
+  letter-spacing:.1em; text-transform:uppercase;
+  color:var(--ink3); padding:.7rem 1rem;
+  border-bottom:2px solid var(--border); text-align:left;
+}
+
+.nw-table td {
+  padding:.75rem 1rem; border-bottom:1px solid var(--border);
+  font-size:.85rem; color:var(--ink2);
+}
+
+.nw-table tr:hover td { background:var(--bg2); }
+.nw-pos { color:var(--teal) !important; font-family:'Space Mono',monospace; }
+.nw-neg { color:var(--red) !important; font-family:'Space Mono',monospace; }
+
+/* ── JARS SYSTEM ── */
+.jars-grid {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+  gap:.8rem; margin-bottom:2rem;
+}
+
+.jar-card {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:10px; padding:1.2rem 1rem; text-align:center;
+}
+
+.jar-card .jar-icon { font-size:2rem; display:block; margin-bottom:.5rem; }
+
+.jar-card .jar-name {
+  font-family:'Playfair Display',serif; font-size:.9rem; font-weight:700;
+  color:var(--ink); margin-bottom:.2rem; display:block;
+}
+
+.jar-card .jar-pct {
+  font-family:'Space Mono',monospace; font-size:1.1rem; font-weight:700;
+  color:var(--gold); display:block; margin-bottom:.3rem;
+}
+
+.jar-card .jar-desc { font-size:.72rem; color:var(--ink3); line-height:1.5; }
+
+/* ── CHECKLIST ── */
+.check-list { display:flex; flex-direction:column; gap:.6rem; }
+
+.check-item {
+  display:flex; align-items:flex-start; gap:.9rem;
+  background:var(--card); border:1px solid var(--border);
+  border-radius:8px; padding:.9rem 1.2rem;
+  cursor:pointer; transition:all .2s; user-select:none;
+}
+
+.check-item:hover { border-color:rgba(200,146,42,.3); }
+.check-item.done { opacity:.45; }
+.check-item.done .cbox { background:var(--teal); border-color:var(--teal); }
+.check-item.done .cbox::after { content:'✓'; color:#fff; }
+
+.cbox {
+  width:20px; height:20px; min-width:20px; border:1.5px solid var(--border);
+  border-radius:4px; display:flex; align-items:center; justify-content:center;
+  font-size:.7rem; margin-top:.1rem; transition:all .2s;
+}
+
+.ctext strong { display:block; font-size:.88rem; color:var(--ink); font-weight:500; margin-bottom:.15rem; }
+.ctext span { font-size:.78rem; color:var(--ink3); }
+
+/* ── INTEGRATION ── */
+.trinity {
+  display:grid; grid-template-columns:1fr 1fr 1fr; gap:1px;
+  background:var(--border); border:1px solid var(--border);
+  border-radius:12px; overflow:hidden; margin-bottom:2rem;
+}
+
+@media(max-width:600px){.trinity{grid-template-columns:1fr}}
+
+.trinity-col { background:var(--card); padding:1.5rem 1.3rem; }
+
+.trinity-col h3 {
+  font-family:'Playfair Display',serif; font-size:1rem; font-weight:700;
+  margin-bottom:.3rem;
+}
+
+.trinity-col .tc-label {
+  font-family:'Space Mono',monospace; font-size:.62rem;
+  letter-spacing:.1em; margin-bottom:.8rem; display:block;
+}
+
+.trinity-col p { font-size:.8rem; color:var(--ink2); line-height:1.65; }
+
+.tc-stutz h3 { color:#c47a6a; }
+.tc-stutz .tc-label { color:#c47a6a; }
+.tc-kiyosaki h3 { color:#4a9e5c; }
+.tc-kiyosaki .tc-label { color:#4a9e5c; }
+.tc-eker h3 { color:var(--gold); }
+.tc-eker .tc-label { color:var(--gold); }
+
+/* ── QUOTE ── */
+.big-quote {
+  background:var(--ink); border-radius:16px;
+  padding:2.5rem 2rem; text-align:center; margin-bottom:2rem;
+}
+
+.big-quote p {
+  font-family:'Playfair Display',serif; font-style:italic;
+  font-size:clamp(1.1rem,3vw,1.5rem); color:#faf7f2;
+  line-height:1.5; margin-bottom:.8rem;
+}
+
+.big-quote cite {
+  font-family:'Space Mono',monospace; font-size:.7rem;
+  letter-spacing:.1em; color:var(--gold2);
+}
+
+/* ── FOOTER ── */
+footer {
+  border-top:1px solid var(--border); padding:3.5rem 2rem;
+  text-align:center; max-width:900px; margin:0 auto;
+}
+
+.footer-quote {
+  font-family:'Playfair Display',serif; font-style:italic;
+  font-size:clamp(1.2rem,3vw,1.8rem); color:var(--ink); margin-bottom:1rem;
+}
+
+footer p { font-size:.8rem; color:var(--ink3); font-family:'Space Mono',monospace; margin-bottom:.3rem; }
+
+/* REVEAL */
+.reveal { opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+
+@media(max-width:600px){
+  section { padding:3rem 1.2rem; }
+  .wf-header { padding:.9rem 1rem; }
+  .wf-body { padding:0 1rem 1.4rem; padding-top:1.2rem; }
+  .wf-num { font-size:1.2rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-lines"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <span class="hero-eyebrow">// T. Harv Eker · Análisis profundo · Plan personalizado</span>
+    <h1>La Mente<br><em>Millonaria</em></h1>
+    <p class="hero-sub">Más allá del libro. Los 17 Archivos de Riqueza destilados, expandidos y aplicados a donde tú estás hoy.</p>
+    <div class="hero-pills">
+      <span class="hero-pill">📐 Blueprint del dinero</span>
+      <span class="hero-pill">🗂 17 Archivos de Riqueza</span>
+      <span class="hero-pill">🧠 Reprogramación profunda</span>
+      <span class="hero-pill">🫙 Sistema de 6 frascos</span>
+      <span class="hero-pill">🔗 Integración con Stutz + Kiyosaki</span>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>SCROLL</span>
+    <div class="hero-scroll-bar"></div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="#blueprint">Blueprint</a>
+  <a href="#programacion">Programación</a>
+  <a href="#archivos">17 Archivos</a>
+  <a href="#frascos">6 Frascos</a>
+  <a href="#reprogramar">Reprogramar</a>
+  <a href="#habitos">Hábitos</a>
+  <a href="#integracion">Integración</a>
+</nav>
+
+<!-- ── PARTE 1: BLUEPRINT ── -->
+<section id="blueprint" class="reveal">
+  <span class="sec-tag">// Parte 1 · El fundamento</span>
+  <h2>Tu Blueprint del <em>Dinero</em></h2>
+  <p class="sec-intro">Eker dice algo que muy poca gente entiende realmente: no puedes superar tu programación con fuerza de voluntad. La razón por la que el dinero "no te dura", o siempre ajusta, o nunca logras acumular — no es pereza ni mala suerte. Es tu termostato interno ajustado a un nivel específico desde la infancia.</p>
+
+  <div class="thermo-wrap">
+    <div class="thermo-inner">
+      <p class="thermo-title">El Termostato Financiero</p>
+      <p class="thermo-sub">Así como un termostato de temperatura siempre regresa al nivel programado, tu mente siempre regresa a tu nivel financiero condicionado.</p>
+      <div class="thermo-scale">
+        <div class="thermo-seg ts1">ESCASEZ</div>
+        <div class="thermo-seg ts2">AJUSTE</div>
+        <div class="thermo-seg ts3">COMODIDAD</div>
+        <div class="thermo-seg ts4">ABUNDANCIA</div>
+        <div class="thermo-seg ts5">MILLONARIO</div>
+      </div>
+      <div class="thermo-marker">
+        <div class="thermo-marker-inner">⬆ TU TERMOSTATO ACTUAL</div>
+      </div>
+      <div class="thermo-conds">
+        <div class="thermo-cond">
+          <h4>Si ganas de más</h4>
+          <p>Tu mente sabotea el exceso. Lo gastas, lo pierdes, lo regalas. Inconscientemente regresas a "tu nivel normal".</p>
+        </div>
+        <div class="thermo-cond">
+          <h4>Si ganas de menos</h4>
+          <p>La incomodidad te empuja a buscar más. Pero sólo hasta tu nivel programado — ahí te detienes sin saber por qué.</p>
+        </div>
+        <div class="thermo-cond">
+          <h4>La solución real</h4>
+          <p>No es ganar más. Es subir el termostato primero. El dinero exterior siempre sigue al nivel interior.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="big-quote">
+    <p>"Si quieres cambiar los frutos, primero tienes que cambiar las raíces. Si quieres cambiar lo visible, primero debes cambiar lo invisible."</p>
+    <cite>— T. Harv Eker</cite>
+  </div>
+
+  <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;margin-bottom:1.2rem;">Los 4 Pasos del Cambio — Profundizado</h3>
+  <p style="color:var(--ink2);font-size:.9rem;margin-bottom:1.5rem;">Eker los menciona pero no los desarrolla suficientemente. Aquí están expandidos para que realmente funcionen:</p>
+
+  <div class="steps4">
+    <div class="step4">
+      <div class="snum">01</div>
+      <h4>Conciencia</h4>
+      <p>No puedes cambiar lo que no ves. El problema: la mayoría tiene sus creencias financieras tan normalizadas que no las distingue como creencias — las vive como "la realidad".</p>
+    </div>
+    <div class="step4">
+      <div class="snum">02</div>
+      <h4>Comprensión</h4>
+      <p>Una vez que ves la creencia, entiendes de dónde viene. No es tuya. Te la instalaron. Eso le quita el poder que tiene sobre ti.</p>
+    </div>
+    <div class="step4">
+      <div class="snum">03</div>
+      <h4>Disociación</h4>
+      <p>El paso que el libro no desarrolla suficiente: separar la creencia de tu identidad. "Eso es lo que escuché de niño — no es quien soy." Crear distancia psicológica real.</p>
+    </div>
+    <div class="step4">
+      <div class="snum">04</div>
+      <h4>Reacondicionamiento</h4>
+      <p>Instalar el nuevo archivo. Las declaraciones, la acción y la exposición constante reescriben el código. Es el trabajo más largo — y el más poderoso.</p>
+    </div>
+    <div class="step4-deep" style="grid-column:1/-1">
+      <h4>Lo que Eker no dice explícitamente sobre estos 4 pasos</h4>
+      <p style="font-size:.82rem;color:var(--ink2);margin-top:.5rem;line-height:1.75;">El reacondicionamiento no ocurre leyendo el libro una vez. Ocurre con repetición consciente durante semanas y meses. Neurológicamente, cada vez que atrapas un "archivo de pobreza" y lo reemplazas con un "archivo de riqueza", estás literalmente debilitando un camino neuronal y fortaleciendo otro. Es por eso que las declaraciones deben hacerse con emoción, con convicción y en voz alta — el sistema nervioso aprende más rápido cuando hay carga emocional. La neutralidad no produce cambio.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ── PROGRAMACIÓN ── -->
+<section id="programacion" class="reveal">
+  <span class="sec-tag">// Parte 1 · Fuentes del condicionamiento</span>
+  <h2>De dónde viene tu <em>programación</em></h2>
+  <p class="sec-intro">Eker identifica 3 fuentes de condicionamiento. Lo que el libro no dice: estas tres fuentes se superponen y se refuerzan mutuamente. Tu blueprint es la suma de cientos de experiencias de estas tres categorías, muchas de las cuales ni recuerdas conscientemente.</p>
+
+  <div class="prog-grid">
+    <div class="prog-card">
+      <div class="prog-head">
+        <span class="prog-icon">🗣️</span>
+        <div class="prog-head-text">
+          <h3>Programación verbal</h3>
+          <span>Lo que escuchaste</span>
+        </div>
+      </div>
+      <div class="prog-body">
+        <p>Las frases sobre dinero que repetiste de niño se convirtieron en creencias. No por lógica — sino por repetición y autoridad (venían de tus padres).</p>
+        <div class="prog-example">"El dinero no crece en los árboles" · "Los ricos son corruptos" · "Para ganar hay que sufrir" · "Con lo que tenemos es suficiente"</div>
+      </div>
+      <div class="prog-deep">
+        <strong>🔬 MÁS PROFUNDO</strong>
+        Lo que nadie te dice: también internalizaste el <em>tono</em> con que se hablaba del dinero — el estrés, el miedo, el resentimiento. Tu cuerpo aprendió que el dinero = tensión emocional antes de que tuvieras lenguaje para entenderlo.
+      </div>
+    </div>
+
+    <div class="prog-card">
+      <div class="prog-head">
+        <span class="prog-icon">👁️</span>
+        <div class="prog-head-text">
+          <h3>Modelado</h3>
+          <span>Lo que observaste</span>
+        </div>
+      </div>
+      <div class="prog-body">
+        <p>Copiaste los patrones financieros de tus figuras primarias — o los rechazaste completamente. Ambas respuestas son el mismo programa.</p>
+        <div class="prog-example">Si tus padres eran gastadores, tú puedes ser gastador (modelo directo) o ahorrador obsesivo (rebelión) — en ambos casos, su patrón sigue controlándote.</div>
+      </div>
+      <div class="prog-deep">
+        <strong>🔬 MÁS PROFUNDO</strong>
+        Eker dice que o somos idénticos a uno de nuestros padres en dinero, o lo opuesto. Lo que no enfatiza: la rebelión es tan reactiva como la imitación. Si "juras que nunca serás como tu padre", ese voto de rebeldía también limita tu libertad.
+      </div>
+    </div>
+
+    <div class="prog-card">
+      <div class="prog-head">
+        <span class="prog-icon">⚡</span>
+        <div class="prog-head-text">
+          <h3>Incidentes específicos</h3>
+          <span>Lo que viviste</span>
+        </div>
+      </div>
+      <div class="prog-body">
+        <p>Un evento cargado emocionalmente puede instalar una creencia de por vida. Una humillación, una pérdida, una escasez severa — el cerebro aprende rápido cuando hay dolor.</p>
+        <div class="prog-example">Ver a tus padres discutir por dinero → "El dinero destruye relaciones" · Ver a alguien rico ser rechazado → "Si soy rico, me quedaré solo"</div>
+      </div>
+      <div class="prog-deep">
+        <strong>🔬 MÁS PROFUNDO</strong>
+        Este es el más difícil de identificar porque suele estar fuera de la conciencia. No recuerdas el momento — solo sientes la resistencia. Preguntas útiles: ¿Cuándo fue la primera vez que recuerdas sentir vergüenza o miedo alrededor del dinero?
+      </div>
+    </div>
+  </div>
+
+  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.8rem 2rem;margin-top:1rem;">
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--gold);margin-bottom:.8rem;">🔎 Tu ejercicio de diagnóstico — Más allá del libro</h3>
+    <p style="font-size:.85rem;color:var(--ink2);margin-bottom:.8rem;">Eker sugiere recordar frases de tu infancia. Aquí va más lejos:</p>
+    <ol style="list-style:none;display:flex;flex-direction:column;gap:.6rem;">
+      <li style="display:flex;gap:.7rem;font-size:.83rem;color:var(--ink2);align-items:flex-start;"><span style="min-width:22px;height:22px;background:rgba(200,146,42,.12);border:1px solid rgba(200,146,42,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;color:var(--gold);flex-shrink:0;margin-top:.1rem;">1</span>Escribe: ¿Qué significa para ti el dinero en una sola palabra? (Seguridad, poder, libertad, problema, estrés…) Esa palabra revela tu archivo más profundo.</li>
+      <li style="display:flex;gap:.7rem;font-size:.83rem;color:var(--ink2);align-items:flex-start;"><span style="min-width:22px;height:22px;background:rgba(200,146,42,.12);border:1px solid rgba(200,146,42,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;color:var(--gold);flex-shrink:0;margin-top:.1rem;">2</span>Completa: "Las personas ricas son ___________." Lo primero que aparezca sin filtrar es tu archivo de riqueza actual.</li>
+      <li style="display:flex;gap:.7rem;font-size:.83rem;color:var(--ink2);align-items:flex-start;"><span style="min-width:22px;height:22px;background:rgba(200,146,42,.12);border:1px solid rgba(200,146,42,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;color:var(--gold);flex-shrink:0;margin-top:.1rem;">3</span>Pregunta: ¿Mereces ser rico? ¿Realmente? ¿O parte de ti cree que no? La respuesta honesta a esto define tu techo invisible.</li>
+      <li style="display:flex;gap:.7rem;font-size:.83rem;color:var(--ink2);align-items:flex-start;"><span style="min-width:22px;height:22px;background:rgba(200,146,42,.12);border:1px solid rgba(200,146,42,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;color:var(--gold);flex-shrink:0;margin-top:.1rem;">4</span>Observa: ¿Qué pasa en tu cuerpo cuando ves a alguien muy rico? ¿Admiración o incomodidad? El cuerpo no miente sobre el archivo.</li>
+    </ol>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ── LOS 17 ARCHIVOS ── -->
+<section id="archivos" class="reveal">
+  <span class="sec-tag">// Parte 2 · El corazón del libro</span>
+  <h2>Los 17 <em>Archivos de Riqueza</em></h2>
+  <p class="sec-intro">Eker presenta los 17 archivos con claridad pero brevedad. Aquí están expandidos con la psicología detrás, lo que el libro no desarrolla, la declaración, y cómo aplica directamente a tu situación como freelancer construyendo su primer activo.</p>
+
+  <div class="wf-list">
+
+    <!-- #1 -->
+    <div class="wf-item" id="wf1">
+      <div class="wf-header" onclick="tw('wf1')">
+        <div class="wf-num">01</div>
+        <div class="wf-texts">
+          <span class="wf-rich">Los ricos crean su vida</span>
+          <span class="wf-poor">Los pobres creen que la vida les pasa a ellos</span>
+        </div>
+        <span class="wf-badge b-gold">MENTALIDAD</span>
+        <span class="wf-chev">▾</span>
+      </div>
+      <div class="wf-body">
+        <p>Este es el archivo más fundamental. Todo lo demás depende de él. Si crees que eres víctima de las circunstancias, nunca tomarás la responsabilidad total de tu situación financiera — y sin responsabilidad total, no hay cambio real.</p>
+        <div class="wf-cols">
+          <div class="wf-rich-box"><h5>ARCHIVO RICO</h5><p>Soy el arquitecto de mis resultados. Todo lo que tengo —y lo que no tengo— es consecuencia de mis decisiones y creencias. Eso me da poder para cambiarlo.</p></div>
+          <div class="wf-poor-box"><h5>ARCHIVO POBRE</h5><p>Culpa al gobierno, la economía, los padres, los clientes, la mala suerte. Justifica por qué no puede. Se queja de lo que no cambia.</p></div>
+        </div>
+        <div class="wf-deeper">
+          <h5>🔬 MÁS PROFUNDO QUE EL LIBRO</h5>
+          <p>Eker menciona el triángulo BQJ (Blame-Justify-Complain = Culpa-Justifica-Se queja). Lo que no desarrolla: estos tres patrones son mecanismos de protección del ego. La mente prefiere creer que es víctima de algo externo a aceptar que ella misma co-creó sus resultados — porque lo segundo implica dolor y responsabilidad. La solución no es fuerza de voluntad sino reconocer el patrón en el momento exacto en que aparece.</p>
+        </div>
+        <div class="decl-box">
+          <span class="decl-label">// DECLARACIÓN</span>
+          <p>"Yo creo el nivel exacto de mi éxito financiero. Soy responsable de mis resultados."</p>
+        </div>
+        <h4>Acciones profundas</h4>
+        <ul class="action-list">
+          <li><span class="al-dot">→</span>Durante 7 días: cada vez que culpes, justifiques o te quejes sobre dinero, anótalo. Solo identificarlo ya debilita el patrón.</li>
+          <li><span class="al-dot">→</span>Pregunta de poder: "¿Qué decisión MÍA contribuyó a este resultado?" No para flagelarte — para encontrar el punto de palanca.</li>
+        </ul>
+        <div class="for-you-wf">
+          <strong>🎯 Para ti</strong>
+          Si el dinero ajusta como freelancer, la pregunta no es "¿por qué el mercado está difícil?" sino "¿qué creencias o decisiones mías han mantenido mis ingresos en este nivel?"
+        </div>
+      </div>
+    </div>
+
+    <!-- #2 -->
+    <div class="wf-item" id="wf2">
+      <div class="wf-header" onclick="tw('wf2')">
+        <div class="wf-num">02</div>
+        <div class="wf-texts">
+          <span class="wf-rich">Los ricos juegan para ganar</span>
+          <span class="wf-poor">Los pobres juegan para no perder</span>
+        </div>
+        <span class="wf-badge b-red">INTENCIÓN</span>
+        <span class="wf-chev">▾</span>
+      </div>
+      <div class="wf-body">
+        <p>La mentalidad "para no perder" es defensiva por naturaleza. Optimiza para la seguridad, no para el crecimiento. Sus decisiones financieras están motivadas por el miedo a quedarse sin nada — no por el deseo de construir algo.</p>
+        <div class="wf-cols">
+          <div class="wf-rich-box"><h5>ARCHIVO RICO</h5><p>"Quiero ganar, quiero crecer, quiero construir. El riesgo calculado es parte del juego." El objetivo es abundancia enorme — no simplemente sobrevivir.</p></div>
+          <div class="wf-poor-box"><h5>ARCHIVO POBRE</h5><p>"Solo quiero alcanzar a pagar las cuentas." "Con que no me falte nada." Metas mínimas = resultados mínimos.</p></div>
+        </div>
+        <div class="wf-deeper">
+          <h5>🔬 MÁS PROFUNDO QUE EL LIBRO</h5>
+          <p>Eker dice esto pero no explica el mecanismo: la intención define el tamaño del mapa mental que usas. Si tu objetivo es "pagar las cuentas", tu cerebro literalmente deja de percibir oportunidades más grandes — no porque no existan, sino porque no están en tu radar de relevancia. La mente filtra según el objetivo. Subir el objetivo no es arrogancia — es ampliar el campo de visión.</p>
+        </div>
+        <div class="decl-box">
+          <span class="decl-label">// DECLARACIÓN</span>
+          <p>"Mi objetivo es ser extraordinariamente rico y crear valor masivo. Juego para ganar."</p>
+        </div>
+        <h4>Acciones profundas</h4>
+        <ul class="action-list">
+          <li><span class="al-dot">→</span>Reescribe tu meta financiera. En vez de "ganar suficiente para vivir bien", escribe un número específico de patrimonio neto a 10 años. Ponlo visible.</li>
+          <li><span class="al-dot">→</span>Identifica una decisión que has estado evitando por miedo a perder. ¿Qué haría alguien que juega para ganar?</li>
+        </ul>
+        <div class="for-you-wf">
+          <strong>🎯 Para ti</strong>
+          ¿Estás construyendo tu primer activo porque quieres libertad financiera real, o solo para "no depender tanto de un cliente"? La segunda intención produce resultados mínimos. La primera produce transformación.
+        </div>
+      </div>
+    </div>
+
+    <!-- #3 -->
+    <div class="wf-item" id="wf3">
+      <div class="wf-header" onclick="tw('wf3')">
+        <div class="wf-num">03</div>
+        <div class="wf-texts">
+          <span class="wf-rich">Los ricos están comprometidos con ser ricos</span>
+          <span class="wf-poor">Los pobres quieren ser ricos</span>
+        </div>
+        <span class="wf-badge b-gold">COMPROMISO</span>
+        <span class="wf-chev">▾</span>
+      </div>
+      <div class="wf-body">
+        <p>Querer es pasivo. Comprometerse es activo, no-negociable y tiene un costo. El compromiso real implica que estás dispuesto a hacer cosas incómodas de forma consistente, incluso cuando no tienes ganas, incluso cuando no ves resultados aún.</p>
+        <div class="wf-deeper">
+          <h5>🔬 MÁS PROFUNDO QUE EL LIBRO</h5>
+          <p>Eker no profundiza en por qué la mayoría no logra comprometerse realmente: porque el compromiso total con la riqueza implica dejar de pertenecer a ciertos grupos sociales. Si en tu entorno el dinero se asocia con corrupción o con "no ser de los nuestros", comprometerte con la riqueza activa un miedo primitivo de exclusión social. Tu cerebro boicotea el compromiso para proteger tu pertenencia al grupo. Esto es subconsciente y muy real.</p>
+        </div>
+        <div class="decl-box">
+          <span class="decl-label">// DECLARACIÓN</span>
+          <p>"Estoy comprometido a ser rico. Haré lo que sea necesario, el tiempo que sea necesario."</p>
+        </div>
+        <h4>La pregunta que Eker hace en su seminario</h4>
+        <ul class="action-list">
+          <li><span class="al-dot">→</span>"¿Estás dispuesto a ser incómodo durante el tiempo que tome construir tu riqueza?" Si la respuesta honesta es no, el trabajo es primero en las creencias sobre comodidad.</li>
+          <li><span class="al-dot">→</span>Escribe una declaración de compromiso en papel, con fecha y firma. No digital — físico. El acto ritual importa psicológicamente.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- #4 -->
+    <div class="wf-item" id="wf4">
+      <div class="wf-header" onclick="tw('wf4')">
+        <div class="wf-num">04</div>
+        <div class="wf-texts">
+          <span class="wf-rich">Los ricos piensan en grande</span>
+          <span class="wf-poor">Los pobres piensan en pequeño</span>
+        </div>
+        <span class="wf-badge b-blue">VISIÓN</span>
+        <span class="wf-chev">▾</span>
+      </div>
+      <div class="wf-body">
+        <p>Eker introduce la Ley del Ingreso: serás pagado en proporción directa al valor que entregas al mercado. Cuanto más grande sea el problema que resuelves, y cuántas más personas lo sufran, mayor es el ingreso posible.</p>
+        <div class="wf-deeper">
+          <h5>🔬 MÁS PROFUNDO QUE EL LIBRO</h5>
+          <p>El pensamiento pequeño no es humildad — es miedo disfrazado. Pensar pequeño protege del riesgo de intentar algo grande y fallar públicamente. Pero también garantiza resultados pequeños. Eker dice que debemos servir al mayor número de personas posible. Lo que no dice: ampliar tu visión también requiere ampliar tu identidad. Si te ves como "un freelancer que trabaja por proyectos", esa identidad tiene un techo natural. Si te ves como "alguien que resuelve un problema para miles de personas", el techo desaparece.</p>
+        </div>
+        <div class="decl-box">
+          <span class="decl-label">// DECLARACIÓN</span>
+          <p>"Pienso en grande. Me comprometo a servir a miles y a ser pagado en consecuencia."</p>
+        </div>
+        <div class="for-you-wf">
+          <strong>🎯 Para ti</strong>
+          ¿Tu habilidad freelance puede escalar? Si hoy sirves a 3 clientes, ¿podría un producto digital o un sistema servir a 300 o 3,000? Ese es el salto de pensar en grande.
+        </div>
+      </div>
+    </div>
+
+    <!-- #5 -->
+    <div class="wf-item" id="wf5">
+      <div class="wf-header" onclick="tw('wf5')">
+        <div class="wf-num">05</div>
+        <div class="wf-texts">
+          <span class="wf-rich">Los ricos se enfocan en oportunidades</span>
+          <span class="wf-poor">Los pobres se enfocan en obstáculos</span>
+        </div>
+        <span class="wf-badge b-teal">ENFOQUE</span>
+        <span class="wf-chev">▾</span>
+      </div>
+      <div class="wf-body">
+        <p>Los ricos calculan riesgos, pero principalmente piensan: "¿Cómo puedo hacer que esto funcione?" Los pobres y la clase media ven primero todo lo que puede salir mal — y esa lista siempre es suficiente para no actuar.</p>
+        <div class="wf-deeper">
+          <h5>🔬 MÁS PROFUNDO QUE EL LIBRO</h5>
+          <p>Esto es neurocientíficamente real: lo que enfocas repetidamente se vuelve más visible para tu cerebro (sistema reticular activador). Si te enfocas en obstáculos, tu cerebro encuentra más obstáculos. Si te enfocas en oportunidades, tu cerebro empieza a ver conexiones y posibilidades que antes ignoraba. No es magia — es cómo funciona la atención. El enfoque no cambia la realidad, cambia lo que percibes de la realidad — y eso cambia las acciones que tomas.</p>
+        </div>
+        <div class="decl-box">
+          <span class="decl-label">// DECLARACIÓN</span>
+          <p>"Me enfoco en las oportunidades, no en los obstáculos. Mi mente encuentra lo que busca."</p>
+        </div>
+        <h4>Práctica diaria</h4>
+        <ul class="action-list">
+          <li><span class="al-dot">→</span>Cada mañana escribe 1 oportunidad que no habías visto antes. Entrena al cerebro a buscarlas.</li>
+          <li><span class="al-dot">→</span>Cuando el miedo presente un obstáculo, pregunta: "¿Y si esto SÍ funciona? ¿Cómo podría funcionar?"</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- #6 -->
+    <div class="wf-item" id="wf6">
+      <div class="wf-header" onclick="tw('wf6')">
+        <div class="wf-num">06</div>
+        <div class="wf-texts">
+          <span class="wf-rich">Los ricos admiran a otros ricos y exitosos</span>
+          <span class="wf-poor">Los pobres sienten resentimiento hacia los ricos</span>
+        </div>
+        <span class="wf-badge b-purple">ENERGÍA</span>
+        <span class="wf-chev">▾</span>
+      </div>
+      <div class="wf-body">
+        <p>Este archivo tiene una lógica simple pero poderosa: no puedes atraer lo que rechazas. Si internamente sientes envidia, resentimiento o juicio hacia las personas ricas, tu subconsciente evitará que te conviertas en una de ellas — porque inconscientemente no quieres ser el blanco de ese mismo juicio.</p>
+        <div class="wf-deeper">
+          <h5>🔬 MÁS PROFUNDO QUE EL LIBRO</h5>
+          <p>El resentimiento hacia los ricos suele venir de la programación verbal y del modelado. Si de niño escuchaste "los ricos son corruptos" o "a los ricos no les importa la gente", esa creencia está activa. Y mientras esté activa, parte de ti no querrá ser rico — para no ser "de los malos". La solución de Eker (admirar) es el antídoto directo: cada vez que ves a alguien rico y exitoso y puedes decir sinceramente "¡qué bien por él/ella!", debilitas el archivo de resentimiento y abres la posibilidad de que esa riqueza también sea para ti.</p>
+        </div>
+        <div class="decl-box">
+          <span class="decl-label">// DECLARACIÓN</span>
+          <p>"Admiro a las personas ricas y exitosas. Su riqueza es prueba de que es posible. Eso también es para mí."</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- #7 -->
+    <div class="wf-item" id="wf7">
+      <div class="wf-header" onclick="tw('wf7')">
+        <div class="wf-num">07</div>
+        <div class="wf-texts">
+          <span class="wf-rich">Los ricos se asocian con personas positivas y exitosas</span>
+          <span class="wf-poor">Los pobres se asocian con personas negativas o sin éxito</span>
+        </div>
+        <span class="wf-badge b-blue">ENTORNO</span>
+        <span class="wf-chev">▾</span>
+      </div>
+      <div class="wf-body">
+        <p>Eker cita la famosa idea de que eres el promedio de las 5 personas con las que más tiempo pasas. Pero va más allá: tu entorno no solo afecta tu mentalidad — afecta lo que crees que es posible, normal y aceptable para alguien como tú.</p>
+        <div class="wf-deeper">
+          <h5>🔬 MÁS PROFUNDO QUE EL LIBRO</h5>
+          <p>El entorno funciona como un termostato social: si todos en tu círculo cercano ganan un nivel similar, subir mucho más genera fricción — tanto interna (te sientes diferente) como externa (ellos se sienten incómodos con tu éxito). Esto no significa abandonar a las personas que quieres. Significa conscientemente añadir nuevas influencias: mentores, libros, podcasts, comunidades de personas que ya están donde quieres estar. Contamínate con su forma de pensar.</p>
+        </div>
+        <div class="decl-box">
+          <span class="decl-label">// DECLARACIÓN</span>
+          <p>"Me rodeo de personas que me elevan. Busco activamente mentores y comunidades de crecimiento."</p>
+        </div>
+        <div class="for-you-wf">
+          <strong>🎯 Para ti</strong>
+          ¿Tienes al menos una persona en tu vida que ya haya construido el tipo de ingresos o activos que quieres? Si no, buscarla activamente es una acción de alto impacto.
+        </div>
+      </div>
+    </div>
+
+    <!-- #8 -->
+    <div class="wf-item" id="wf8">
+      <div class="wf-header" onclick="tw('wf8')">
+        <div class="wf-num">08</div>
+        <div class="wf-texts">
+          <span class="wf-rich">Los ricos están dispuestos a promover su valor</span>
+          <span class="wf-poor">Los pobres ven las ventas y el marketing negativamente</span>
+        </div>
+        <span class="wf-badge b-gold">ACCIÓN</span>
+        <span class="wf-chev">▾</span>
+      </div>
+      <div class="wf-body">
+        <p>Si crees que vender es manipular, que el marketing es engañoso, o que "el buen trabajo se vende solo" — tienes un archivo que limita tu ingreso drásticamente. Los ricos entienden que promover valor es un servicio, no un acto de ego.</p>
+        <div class="wf-deeper">
+          <h5>🔬 MÁS PROFUNDO QUE EL LIBRO</h5>
+          <p>La incomodidad con las ventas suele tener raíces en la programación: "no seas presumido", "no molestes a los demás", "si eres bueno la gente vendrá sola". Estas creencias sabotean el crecimiento de cualquier freelancer o emprendedor. La reencuadración de Eker es poderosa: si tu producto o servicio genuinamente ayuda, no promocionarlo es un acto egoísta — privas a la gente de algo que les serviría. El vendedor que cree en lo que vende no manipula — informa y sirve.</p>
+        </div>
+        <div class="decl-box">
+          <span class="decl-label">// DECLARACIÓN</span>
+          <p>"Soy un excelente comunicador de mi valor. Promover mis servicios es servir a quienes me necesitan."</p>
+        </div>
+        <div class="for-you-wf">
+          <strong>🎯 Para ti como freelancer</strong>
+          ¿Cuándo fue la última vez que proactivamente compartiste tu trabajo, pediste un referido o promocionaste lo que haces? Si la respuesta es "rara vez o nunca", este archivo está activo y frenando tus ingresos.
+        </div>
+      </div>
+    </div>
+
+    <!-- #9 -->
+    <div class="wf-item" id="wf9">
+      <div class="wf-header" onclick="tw('wf9')">
+        <div class="wf-num">09</div>
+        <div class="wf-texts">
+          <span class="wf-rich">Los ricos son más grandes que sus problemas</span>
+          <span class="wf-poor">Los pobres son más pequeños que sus problemas</span>
+        </div>
+        <span class="wf-badge b-red">RESILIENCIA</span>
+        <span class="wf-chev">▾</span>
+      </div>
+      <div class="wf-body">
+        <p>El camino hacia la riqueza está lleno de problemas. Siempre. La diferencia no es quién tiene menos problemas — es quién tiene la capacidad de resolverlos más rápido. Hacerse más grande que los problemas es una habilidad que se entrena.</p>
+        <div class="wf-deeper">
+          <h5>🔬 MÁS PROFUNDO QUE EL LIBRO</h5>
+          <p>Eker dice que al crecer en riqueza, los problemas no desaparecen — solo son más grandes. Esto asusta a mucha gente. Lo que no dice: la razón por la que los problemas actuales se sienten aplastantes es que tu capacidad de resolución está subdesarrollada. Cada vez que enfrentas un problema y lo superas, tu "músculo de resolución" crece. Evitar los problemas no te protege — te mantiene pequeño. La protección real viene de hacerte más grande, no de que los problemas se hagan más pequeños.</p>
+        </div>
+        <div class="decl-box">
+          <span class="decl-label">// DECLARACIÓN</span>
+          <p>"Soy más grande que cualquier problema que enfrento. Tengo la capacidad de encontrar soluciones."</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- #10 -->
+    <div class="wf-item" id="wf10">
+      <div class="wf-header" onclick="tw('wf10')">
+        <div class="wf-num">10</div>
+        <div class="wf-texts">
+          <span class="wf-rich">Los ricos son excelentes receptores</span>
+          <span class="wf-poor">Los pobres son malos receptores</span>
+        </div>
+        <span class="wf-badge b-purple">RECEPCIÓN</span>
+        <span class="wf-chev">▾</span>
+      </div>
+      <div class="wf-body">
+        <p>Este es uno de los archivos más subestimados del libro. Ser mal receptor significa rechazar dinero, cumplidos, ayuda, oportunidades — a menudo sin darse cuenta. Si sientes incomodidad cuando alguien te paga bien, cuando te elogian, o cuando alguien te ofrece ayuda — tienes este archivo activo.</p>
+        <div class="wf-deeper">
+          <h5>🔬 MÁS PROFUNDO QUE EL LIBRO</h5>
+          <p>La mala recepción tiene raíces en la autoestima y la merecencia. En el fondo del archivo está la creencia: "No merezco tanto." Esta creencia hace que inconscientemente bloquees ingresos por encima de cierto nivel. Las señales son sutiles: poner precios bajos por miedo a que "sea demasiado", rechazar elogios con frases como "fue nada", sentirte culpable cuando ganas bien. Eker dice: practicar recibir es un acto espiritual de honrar el flujo de abundancia.</p>
+        </div>
+        <div class="decl-box">
+          <span class="decl-label">// DECLARACIÓN</span>
+          <p>"Soy un excelente receptor. Estoy abierto y merezco recibir grandes cantidades de dinero."</p>
+        </div>
+        <h4>Práctica</h4>
+        <ul class="action-list">
+          <li><span class="al-dot">→</span>Cuando alguien te pague o elogie, en vez de minimizarlo, di: "Gracias. Lo recibo." Y siéntelo un momento.</li>
+          <li><span class="al-dot">→</span>Si tus precios están bajos, evalúa si es por el mercado o por una creencia de no-merecimiento.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- #11 -->
+    <div class="wf-item" id="wf11">
+      <div class="wf-header" onclick="tw('wf11')">
+        <div class="wf-num">11</div>
+        <div class="wf-texts">
+          <span class="wf-rich">Los ricos eligen ser pagados por resultados</span>
+          <span class="wf-poor">Los pobres eligen ser pagados por tiempo</span>
+        </div>
+        <span class="wf-badge b-gold">MODELO</span>
+        <span class="wf-chev">▾</span>
+      </div>
+      <div class="wf-body">
+        <p>El ingreso basado en tiempo tiene un techo biológico: solo hay 24 horas. El ingreso basado en resultados, en valor entregado o en sistemas, puede escalar sin límite de tiempo.</p>
+        <div class="wf-deeper">
+          <h5>🔬 MÁS PROFUNDO QUE EL LIBRO</h5>
+          <p>El ingreso por tiempo da seguridad falsa — y esa seguridad es exactamente la trampa. Como freelancer ya tomaste el primer paso al salir del empleo por tiempo fijo. El siguiente nivel es cobrar por proyecto, por resultado o por valor entregado — no por horas. Y el nivel después es crear sistemas (productos, licencias, suscripciones) que generen ingreso sin tu presencia directa. Esto conecta directamente con el cuadrante de Kiyosaki: de S hacia B e I.</p>
+        </div>
+        <div class="decl-box">
+          <span class="decl-label">// DECLARACIÓN</span>
+          <p>"Elijo ser pagado por el valor que entrego, no por el tiempo que gasto."</p>
+        </div>
+        <div class="for-you-wf">
+          <strong>🎯 Para ti</strong>
+          ¿Cobras por hora o por proyecto/resultado? Cambiar el modelo de cobro es uno de los saltos de ingresos más inmediatos disponibles para un freelancer.
+        </div>
+      </div>
+    </div>
+
+    <!-- #12 -->
+    <div class="wf-item" id="wf12">
+      <div class="wf-header" onclick="tw('wf12')">
+        <div class="wf-num">12</div>
+        <div class="wf-texts">
+          <span class="wf-rich">Los ricos piensan "ambos/y"</span>
+          <span class="wf-poor">Los pobres piensan "o uno o el otro"</span>
+        </div>
+        <span class="wf-badge b-teal">EXPANSIÓN</span>
+        <span class="wf-chev">▾</span>
+      </div>
+      <div class="wf-body">
+        <p>El pensamiento "o/o" crea falsas dicotomías: "¿dinero o felicidad?", "¿éxito o familia?", "¿trabajo o vida?". El pensamiento "y" disuelve esas dicotomías y abre posibilidades que el pensamiento binario hace invisibles.</p>
+        <div class="wf-deeper">
+          <h5>🔬 MÁS PROFUNDO QUE EL LIBRO</h5>
+          <p>Las dicotomías falsas son mecanismos de protección: si "no puedes tener ambas cosas", entonces nunca tienes que arriesgarte a perseguir una. Pero casi todas las dicotomías financieras son falsas. Puedes tener dinero Y propósito. Puedes tener ingresos altos Y tiempo libre (con el modelo correcto). Puedes ser exitoso Y buena persona. Cada vez que atrapas un pensamiento "o/o" sobre el dinero, pregunta: "¿Qué tendría que ser verdad para poder tener ambas cosas?"</p>
+        </div>
+        <div class="decl-box">
+          <span class="decl-label">// DECLARACIÓN</span>
+          <p>"Siempre busco la forma de tener ambas cosas. No acepto las falsas dicotomías."</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- #13 -->
+    <div class="wf-item" id="wf13">
+      <div class="wf-header" onclick="tw('wf13')">
+        <div class="wf-num">13</div>
+        <div class="wf-texts">
+          <span class="wf-rich">Los ricos se enfocan en su patrimonio neto</span>
+          <span class="wf-poor">Los pobres se enfocan en su ingreso de trabajo</span>
+        </div>
+        <span class="wf-badge b-gold">MÉTRICA</span>
+        <span class="wf-chev">▾</span>
+      </div>
+      <div class="wf-body">
+        <p>El patrimonio neto (net worth) es la métrica real de la riqueza. Es la suma de todo lo que tienes menos todo lo que debes. El ingreso de trabajo es solo una de cuatro formas en que el patrimonio crece.</p>
+        <div class="wf-deeper">
+          <h5>🔬 MÁS PROFUNDO QUE EL LIBRO</h5>
+          <p>Eker menciona las 4 formas de crecer el patrimonio sin profundizar: (1) Ingresar más, (2) Ahorrar más, (3) Hacer rendir tus inversiones, (4) Simplificar tu estilo de vida. La clave que el libro no desarrolla suficiente: puedes ganar muy bien y tener un patrimonio neto de cero si todo lo que entra sale en gastos y pasivos. El ingreso alto sin activos no es riqueza — es flujo de caja con fecha de vencimiento.</p>
+        </div>
+        <div class="decl-box">
+          <span class="decl-label">// DECLARACIÓN</span>
+          <p>"Me enfoco en construir mi patrimonio neto cada mes. Esa es mi medida real de progreso."</p>
+        </div>
+
+        <h4>Tu métrica mensual</h4>
+        <table class="nw-table">
+          <tr><th>Componente</th><th>Lo que es</th><th>Tu acción</th></tr>
+          <tr><td>Activos</td><td class="nw-pos">Todo lo que tienes (dinero, inversiones, activos)</td><td>Aumentarlos cada mes con tu % "págarte primero"</td></tr>
+          <tr><td>Pasivos</td><td class="nw-neg">Todo lo que debes (deudas, créditos)</td><td>Reducirlos activamente</td></tr>
+          <tr><td>Patrimonio neto</td><td>Activos − Pasivos</td><td>Medir y registrar mensualmente</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- #14 -->
+    <div class="wf-item" id="wf14">
+      <div class="wf-header" onclick="tw('wf14')">
+        <div class="wf-num">14</div>
+        <div class="wf-texts">
+          <span class="wf-rich">Los ricos manejan bien su dinero</span>
+          <span class="wf-poor">Los pobres manejan mal su dinero</span>
+        </div>
+        <span class="wf-badge b-teal">GESTIÓN</span>
+        <span class="wf-chev">▾</span>
+      </div>
+      <div class="wf-body">
+        <p>Este es el archivo que Eker convierte en el Sistema de los 6 Frascos — la parte más práctica y accionable del libro. La premisa: manejar bien el dinero no es resultado de ser rico. Es causa de volverse rico.</p>
+        <div class="wf-deeper">
+          <h5>🔬 MÁS PROFUNDO QUE EL LIBRO</h5>
+          <p>Mucha gente dice: "Cuando tenga más dinero, lo administraré mejor." Eker invierte esta lógica: si no puedes manejar bien $100, el universo no te confiará $10,000. El manejo del dinero envía una señal sobre tu relación con él. La persona que destina un pequeño porcentaje a invertir desde hoy —aunque sea $5— está desarrollando el hábito y la identidad del inversor. Eso es lo que importa, no el monto.</p>
+        </div>
+        <div class="decl-box">
+          <span class="decl-label">// DECLARACIÓN</span>
+          <p>"Soy un excelente administrador de mi dinero. Lo gestiono con intención y claridad."</p>
+        </div>
+        <p style="font-size:.82rem;color:var(--ink2);margin-top:.5rem;">→ Ver sección completa del Sistema de 6 Frascos más abajo.</p>
+      </div>
+    </div>
+
+    <!-- #15 -->
+    <div class="wf-item" id="wf15">
+      <div class="wf-header" onclick="tw('wf15')">
+        <div class="wf-num">15</div>
+        <div class="wf-texts">
+          <span class="wf-rich">Los ricos hacen que su dinero trabaje para ellos</span>
+          <span class="wf-poor">Los pobres trabajan duro por su dinero</span>
+        </div>
+        <span class="wf-badge b-gold">PALANCA</span>
+        <span class="wf-chev">▾</span>
+      </div>
+      <div class="wf-body">
+        <p>Conecta directamente con Kiyosaki: el objetivo final no es trabajar más — es construir activos que trabajen mientras tú duermes, descansas o haces algo que amas.</p>
+        <div class="wf-deeper">
+          <h5>🔬 MÁS PROFUNDO QUE EL LIBRO</h5>
+          <p>Eker y Kiyosaki coinciden en el principio pero Eker añade la dimensión psicológica: mucha gente inconscientemente cree que recibir dinero sin trabajar físicamente por él es inmoral, inmerecido o imposible. Esta creencia los lleva a sabotear los ingresos pasivos cuando empiezan a llegar — "esto no puede durar", "algo debo hacer". El trabajo profundo es aceptar que el dinero puede crecer sin tu presencia directa, y que eso es legítimo y sostenible.</p>
+        </div>
+        <div class="decl-box">
+          <span class="decl-label">// DECLARACIÓN</span>
+          <p>"Mi dinero trabaja duro para mí mientras yo vivo mi vida con plenitud."</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- #16 -->
+    <div class="wf-item" id="wf16">
+      <div class="wf-header" onclick="tw('wf16')">
+        <div class="wf-num">16</div>
+        <div class="wf-texts">
+          <span class="wf-rich">Los ricos actúan a pesar del miedo</span>
+          <span class="wf-poor">Los pobres dejan que el miedo los detenga</span>
+        </div>
+        <span class="wf-badge b-red">VALENTÍA</span>
+        <span class="wf-chev">▾</span>
+      </div>
+      <div class="wf-body">
+        <p>Este archivo es la bisagra entre todos los demás. Puedes saber todo lo anterior y no actuar por miedo. Eker dice algo radical: el miedo nunca desaparece. Los ricos simplemente actúan aunque esté ahí.</p>
+        <div class="wf-deeper">
+          <h5>🔬 MÁS PROFUNDO QUE EL LIBRO</h5>
+          <p>El error más común: esperar sentirse seguro o listo para actuar. Eso nunca llega. La seguridad no precede a la acción — la sigue. Cada vez que actúas a pesar del miedo, la seguridad crece un poco. Cada vez que evitas la acción por miedo, la inseguridad se consolida. Esto conecta con Stutz y el Reverso del Deseo: el malestar previo a la acción no es señal de peligro — es señal de que estás en el límite de tu zona de confort, que es exactamente donde crece el músculo.</p>
+        </div>
+        <div class="decl-box">
+          <span class="decl-label">// DECLARACIÓN</span>
+          <p>"Actúo a pesar del miedo. La valentía no es ausencia de miedo — es acción a pesar de él."</p>
+        </div>
+        <div class="for-you-wf">
+          <strong>🎯 Conexión con Stutz</strong>
+          El Reverso del Deseo de Stutz + este archivo de Eker son la misma verdad desde dos ángulos. Combínalos: usa la visualización de Stutz (correr hacia la nube) antes de cada acción financiera que te da miedo.
+        </div>
+      </div>
+    </div>
+
+    <!-- #17 -->
+    <div class="wf-item" id="wf17">
+      <div class="wf-header" onclick="tw('wf17')">
+        <div class="wf-num">17</div>
+        <div class="wf-texts">
+          <span class="wf-rich">Los ricos aprenden y crecen constantemente</span>
+          <span class="wf-poor">Los pobres creen que ya saben</span>
+        </div>
+        <span class="wf-badge b-blue">CRECIMIENTO</span>
+        <span class="wf-chev">▾</span>
+      </div>
+      <div class="wf-body">
+        <p>El último archivo cierra el círculo. La riqueza requiere un set de habilidades que la mayoría nunca desarrolló porque nadie se las enseñó. El conocimiento financiero no es innato — se aprende. Y quien deja de aprender, deja de crecer.</p>
+        <div class="wf-deeper">
+          <h5>🔬 MÁS PROFUNDO QUE EL LIBRO</h5>
+          <p>Hay dos tipos de "ya sé": el que detiene el aprendizaje por comodidad, y el que lo detiene por miedo. El primero dice "ya sé cómo funciona el dinero" sin haber aplicado nada. El segundo dice "ya intenté eso" después de un fracaso — y usa ese fracaso como razón para no volver a intentar. Ambos tienen el mismo resultado. La mentalidad de crecimiento (Dweck) dice que las habilidades se desarrollan. La mentalidad fija dice que son innatas. Eker está hablando de mentalidad de crecimiento aplicada al dinero.</p>
+        </div>
+        <div class="decl-box">
+          <span class="decl-label">// DECLARACIÓN</span>
+          <p>"Soy un estudiante de la vida y del dinero. Cada día aprendo algo que me hace más rico."</p>
+        </div>
+        <h4>Tu plan de educación financiera (30 min/día)</h4>
+        <ul class="action-list">
+          <li><span class="al-dot">→</span><strong>Mes 1–2:</strong> Releer este libro con los ejercicios de escritura (no solo leer)</li>
+          <li><span class="al-dot">→</span><strong>Mes 3–4:</strong> Padre Rico Padre Pobre — Kiyosaki (ya tienes tu plan)</li>
+          <li><span class="al-dot">→</span><strong>Mes 5–6:</strong> The Psychology of Money — Morgan Housel (la profundidad emocional que Eker no da)</li>
+          <li><span class="al-dot">→</span><strong>Ongoing:</strong> Un mentor real o una comunidad de personas que ya tienen lo que quieres construir</li>
+        </ul>
+      </div>
+    </div>
+
+  </div><!-- end wf-list -->
+</section>
+
+<hr class="divider">
+
+<!-- ── 6 FRASCOS ── -->
+<section id="frascos" class="reveal">
+  <span class="sec-tag">// Archivo #14 expandido</span>
+  <h2>El Sistema de los <em>6 Frascos</em></h2>
+  <p class="sec-intro">Este es el sistema de gestión de dinero más práctico del libro, y el menos aplicado. Eker dice que incluso con montos pequeños, aplicar este sistema entrena tu cerebro a relacionarse con el dinero de forma radicalmente diferente. El monto es secundario — el hábito es lo que importa.</p>
+
+  <div class="jars-grid">
+    <div class="jar-card">
+      <span class="jar-icon">💼</span>
+      <span class="jar-name">Libertad Financiera</span>
+      <span class="jar-pct">10%</span>
+      <div class="jar-desc">Solo para inversiones. Nunca se gasta. Es la gallina que pone los huevos de oro — jamás la matas.</div>
+    </div>
+    <div class="jar-card">
+      <span class="jar-icon">🌱</span>
+      <span class="jar-name">Educación</span>
+      <span class="jar-pct">10%</span>
+      <div class="jar-desc">Cursos, libros, mentores. Tu mayor activo eres tú mismo. Invierte en tu cerebro primero.</div>
+    </div>
+    <div class="jar-card">
+      <span class="jar-icon">🏠</span>
+      <span class="jar-name">Necesidades</span>
+      <span class="jar-pct">55%</span>
+      <div class="jar-desc">Gastos esenciales de vida. Si supera el 55%, necesitas reducir gastos o aumentar ingresos.</div>
+    </div>
+    <div class="jar-card">
+      <span class="jar-icon">🎉</span>
+      <span class="jar-name">Juego</span>
+      <span class="jar-pct">10%</span>
+      <div class="jar-desc">Gastos de placer sin culpa. Gastarlo todo mensualmente es obligatorio. Entrena al cerebro a que la riqueza es para disfrutar.</div>
+    </div>
+    <div class="jar-card">
+      <span class="jar-icon">🤝</span>
+      <span class="jar-name">Dar</span>
+      <span class="jar-pct">5%</span>
+      <div class="jar-desc">Donaciones, regalos, generosidad. La generosidad activa el flujo de abundancia — el dinero circula.</div>
+    </div>
+    <div class="jar-card">
+      <span class="jar-icon">🎯</span>
+      <span class="jar-name">Ahorro</span>
+      <span class="jar-pct">10%</span>
+      <div class="jar-desc">Para metas grandes: fondo de emergencia, viaje, equipo. Se gasta cuando la meta se cumple.</div>
+    </div>
+  </div>
+
+  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.8rem 2rem;">
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--gold);margin-bottom:.8rem;">Lo que Eker no dice sobre los 6 frascos — Profundizado</h3>
+    <p style="font-size:.84rem;color:var(--ink2);line-height:1.8;">El porcentaje exacto importa menos que el <em>hábito</em> y la <em>separación visual</em>. Tener cuentas bancarias separadas (o sobres físicos) para cada categoría hace que el dinero se vuelva consciente. El Frasco de Juego es contraintuitivo pero esencial: si nunca te permites disfrutar el dinero, tu subconsciente lo asocia con privación y sabotea tu crecimiento. El Frasco de Dar activa una mentalidad de abundancia — quien da desde la escasez refuerza la escasez; quien da desde la abundancia refuerza la abundancia.</p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ── SISTEMA DE REPROGRAMACIÓN ── -->
+<section id="reprogramar" class="reveal">
+  <span class="sec-tag">// Práctica diaria</span>
+  <h2>Tu sistema de <em>reprogramación</em></h2>
+  <p class="sec-intro">Las declaraciones son el mecanismo central de Eker para reescribir el blueprint. Lo que el libro no dice: la efectividad de las declaraciones no viene de repetirlas mecánicamente — viene de hacerlas con carga emocional real. Tu sistema nervioso aprende con emoción, no con repetición neutral.</p>
+
+  <div class="reprogram-grid">
+    <div class="reprogram-card">
+      <span class="rp-time">MAÑANA · 5 MIN</span>
+      <h3>Declaraciones en voz alta</h3>
+      <p>Frente a un espejo, con convicción. No neutral — con la emoción de alguien que ya lo cree. El cuerpo y la voz amplifican el mensaje al sistema nervioso.</p>
+    </div>
+    <div class="reprogram-card">
+      <span class="rp-time">DURANTE EL DÍA · INSTANTÁNEO</span>
+      <h3>Atrapar y reemplazar</h3>
+      <p>Cuando aparezca un "archivo de pobreza" (queja, resentimiento, miedo), nómbralo: "Eso es un archivo viejo." Luego activa conscientemente el archivo rico correspondiente.</p>
+    </div>
+    <div class="reprogram-card">
+      <span class="rp-time">NOCHE · 5 MIN</span>
+      <h3>Escritura de reprogramación</h3>
+      <p>Escribe 3 evidencias del día donde actuaste desde un archivo rico. Refuerza la nueva identidad con evidencia real — el cerebro necesita pruebas.</p>
+    </div>
+    <div class="reprogram-card">
+      <span class="rp-time">SEMANAL · 30 MIN</span>
+      <h3>Revisión del blueprint</h3>
+      <p>Revisa qué archivos han estado más activos esta semana. Escoge uno para trabajar con intensidad la semana siguiente.</p>
+    </div>
+  </div>
+
+  <div class="big-quote" style="margin-top:0;">
+    <p>"Las declaraciones no son afirmaciones vacías. Son instrucciones directas al subconsciente — especialmente cuando van acompañadas de emoción y acción."</p>
+    <cite>— T. Harv Eker</cite>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ── HÁBITOS ── -->
+<section id="habitos" class="reveal">
+  <span class="sec-tag">// Lo que haces cada día</span>
+  <h2>Hábitos <em>diarios</em> de la mente millonaria</h2>
+  <p class="sec-intro">Eker repite una idea a lo largo del libro: la lectura sola no cambia nada. Solo la acción integrada cambia el blueprint. Estos hábitos son la integración diaria de los 17 archivos.</p>
+
+  <div class="check-list" id="habitList">
+    <div class="check-item" onclick="tc(this)">
+      <div class="cbox"></div>
+      <div class="ctext">
+        <strong>📣 Declaraciones matutinas (5 min frente al espejo)</strong>
+        <span>Elige 3–5 archivos de riqueza y decláralos en voz alta, con emoción y convicción real.</span>
+      </div>
+    </div>
+    <div class="check-item" onclick="tc(this)">
+      <div class="cbox"></div>
+      <div class="ctext">
+        <strong>🫙 Asignar dinero a los 6 frascos cuando entre cualquier ingreso</strong>
+        <span>Antes de gastar un solo peso: separar los porcentajes. Siempre. Sin excepción.</span>
+      </div>
+    </div>
+    <div class="check-item" onclick="tc(this)">
+      <div class="cbox"></div>
+      <div class="ctext">
+        <strong>🔎 Identificar y nombrar un archivo de pobreza activo hoy</strong>
+        <span>¿Hoy te quejaste de dinero? ¿Resentiste a alguien exitoso? ¿Evitaste una acción por miedo? Nombrarlo es el primer paso.</span>
+      </div>
+    </div>
+    <div class="check-item" onclick="tc(this)">
+      <div class="cbox"></div>
+      <div class="ctext">
+        <strong>📚 30 min de educación financiera o de negocios</strong>
+        <span>Archivo #17 en acción. Crecer constantemente. No "cuando tenga tiempo" — hoy.</span>
+      </div>
+    </div>
+    <div class="check-item" onclick="tc(this)">
+      <div class="cbox"></div>
+      <div class="ctext">
+        <strong>💰 Una acción orientada a construir mi activo</strong>
+        <span>Un paso en el producto digital, una inversión, un contacto para el negocio. La cadena de perlas de Stutz + el archivo #16 de Eker.</span>
+      </div>
+    </div>
+    <div class="check-item" onclick="tc(this)">
+      <div class="cbox"></div>
+      <div class="ctext">
+        <strong>🌟 Una acción de valor entregado a otros</strong>
+        <span>Archivo #4 y #11: pensar en grande y cobrar por valor. ¿Qué hiciste hoy que fue genuinamente valioso para alguien más?</span>
+      </div>
+    </div>
+    <div class="check-item" onclick="tc(this)">
+      <div class="cbox"></div>
+      <div class="ctext">
+        <strong>✍️ Escritura nocturna: 3 evidencias de mente millonaria</strong>
+        <span>Refuerza la nueva identidad con prueba real del día. El cerebro necesita evidencia, no solo aspiración.</span>
+      </div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:1rem;">
+    <button onclick="resetHabits()" style="background:transparent;border:1px solid var(--border);color:var(--ink3);padding:.4rem 1.2rem;border-radius:4px;font-size:.75rem;cursor:pointer;font-family:'Space Mono',sans-serif;letter-spacing:.06em;">REINICIAR DÍA</button>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ── INTEGRACIÓN ── -->
+<section id="integracion" class="reveal">
+  <span class="sec-tag">// Tus 3 planes unidos</span>
+  <h2>La <em>trinidad</em> de tu transformación</h2>
+  <p class="sec-intro">Los tres libros/planes que tienes no son redundantes — son complementarios. Cada uno opera en una capa diferente. Juntos forman un sistema completo de transformación financiera y personal.</p>
+
+  <div class="trinity">
+    <div class="trinity-col tc-stutz">
+      <span class="tc-label">// PSICOLOGÍA PROFUNDA</span>
+      <h3>Dr. Phil Stutz</h3>
+      <p>Trabaja el <strong>sistema nervioso</strong> y los bloqueos emocionales. Te enseña a actuar cuando el miedo te paraliza. Es la herramienta para el momento exacto del bloqueo — el instante antes de rendirte.</p>
+      <p style="margin-top:.6rem;font-size:.75rem;color:#c47a6a;">Reverso del Deseo → Actuar pese al miedo<br>La Sombra → Autoestima real<br>Life Force → Base de energía</p>
+    </div>
+    <div class="trinity-col tc-kiyosaki">
+      <span class="tc-label">// ESTRATEGIA FINANCIERA</span>
+      <h3>Robert Kiyosaki</h3>
+      <p>Trabaja los <strong>vehículos y estructuras</strong> del dinero. Te enseña qué hacer con el dinero una vez que tienes la mentalidad correcta. Activos, pasivos, cuadrantes, flujo de caja.</p>
+      <p style="margin-top:.6rem;font-size:.75rem;color:#4a9e5c;">Cuadrante S→B→I → Tu ruta<br>Activo vs pasivo → Decisiones diarias<br>Flujo de caja → La métrica real</p>
+    </div>
+    <div class="trinity-col tc-eker">
+      <span class="tc-label">// BLUEPRINT MENTAL</span>
+      <h3>T. Harv Eker</h3>
+      <p>Trabaja el <strong>subconsciente financiero</strong>. Te enseña a identificar y reescribir los archivos que sabotean silenciosamente todo lo demás. Sin este trabajo, la estrategia y la psicología fallan.</p>
+      <p style="margin-top:.6rem;font-size:.75rem;color:var(--gold);">17 Archivos → Reescribir el código<br>6 Frascos → Gestión correcta<br>Termostato → Subir el nivel</p>
+    </div>
+  </div>
+
+  <div style="background:var(--ink);border-radius:12px;padding:2rem;text-align:center;">
+    <p style="font-family:'Playfair Display',serif;font-size:1.1rem;color:#faf7f2;font-style:italic;line-height:1.6;">La mentalidad (Eker) determina lo que crees posible.<br>La psicología (Stutz) te permite actuar cuando tienes miedo.<br>La estrategia (Kiyosaki) convierte la acción en riqueza real.</p>
+    <p style="font-family:'Space Mono',monospace;font-size:.68rem;color:var(--gold2);margin-top:.8rem;letter-spacing:.1em;">SIN MENTALIDAD: la estrategia no funciona. SIN PSICOLOGÍA: la mentalidad no se activa. SIN ESTRATEGIA: la acción no acumula.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="reveal">
+  <p class="footer-quote">"Si tu subconsciente no está programado para el éxito, nada de lo que aprendas, sepas o hagas marcará una diferencia permanente."</p>
+  <p>Secretos de la Mente Millonaria · T. Harv Eker · Plan profundo personalizado</p>
+  <p style="margin-top:.3rem">Integra este plan con tu Plan Stutz y tu Plan Kiyosaki para el sistema completo.</p>
+</footer>
+
+<script>
+// Toggle wealth files
+function tw(id){
+  const el=document.getElementById(id);
+  el.classList.toggle('open');
+}
+
+// Habit checklist
+function tc(el){ el.classList.toggle('done'); }
+function resetHabits(){
+  document.querySelectorAll('#habitList .check-item').forEach(el=>el.classList.remove('done'));
+}
+
+// Open first 3 files by default
+['wf1','wf2'].forEach(id=>document.getElementById(id).classList.add('open'));
+
+// Reveal on scroll
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }
+  });
+},{threshold:.07});
+document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
+</script>
+</body>
+</html>

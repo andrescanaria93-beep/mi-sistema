@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tu Plan Stutz — Plan de Acción Personal</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #12100e;
+    --bg2: #1c1915;
+    --bg3: #252119;
+    --card: #1f1c18;
+    --border: #3a342c;
+    --cream: #f0e8d8;
+    --cream2: #c8bfaf;
+    --cream3: #8c8070;
+    --amber: #d4924a;
+    --amber2: #f0b46a;
+    --terra: #b85c3a;
+    --sage: #6e9478;
+    --muted-sage: #3d5a42;
+    --rose: #c47a6a;
+    --ink: #e8dfd0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ─── NOISE OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 9999; opacity: 0.4;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-glow {
+    position: absolute;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(212,146,74,0.12) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    animation: pulse 4s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%,100% { opacity: 0.6; transform: translate(-50%,-50%) scale(1); }
+    50% { opacity: 1; transform: translate(-50%,-50%) scale(1.1); }
+  }
+
+  .hero-eyebrow {
+    font-family: 'Caveat', cursive;
+    font-size: 1.1rem;
+    color: var(--amber);
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.2s;
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--cream);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.4s;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--amber2);
+  }
+
+  .hero-sub {
+    font-size: 1rem;
+    color: var(--cream2);
+    max-width: 520px;
+    margin: 0 auto 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.6s;
+  }
+
+  .hero-tags {
+    display: flex; gap: 0.6rem; flex-wrap: wrap; justify-content: center;
+    opacity: 0; animation: fadeUp 0.8s ease forwards 0.8s;
+    margin-bottom: 3rem;
+  }
+
+  .tag {
+    background: rgba(212,146,74,0.12);
+    border: 1px solid rgba(212,146,74,0.3);
+    color: var(--amber2);
+    padding: 0.35rem 0.9rem;
+    border-radius: 99px;
+    font-size: 0.82rem;
+    letter-spacing: 0.03em;
+  }
+
+  .scroll-hint {
+    position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+    color: var(--cream3); font-size: 0.78rem;
+    animation: fadeIn 1s ease forwards 1.5s; opacity: 0;
+  }
+
+  .scroll-hint-line {
+    width: 1px; height: 40px;
+    background: linear-gradient(to bottom, var(--amber), transparent);
+    animation: scrollLine 1.5s ease-in-out infinite;
+  }
+
+  @keyframes scrollLine {
+    0%,100% { opacity: 0.3; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(1.2); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; } to { opacity: 1; }
+  }
+
+  /* ─── NAV ─── */
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(18,16,14,0.9);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0.8rem 2rem;
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .nav::-webkit-scrollbar { display: none; }
+
+  .nav a {
+    color: var(--cream3);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    padding: 0.35rem 0.85rem;
+    border-radius: 99px;
+    white-space: nowrap;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+  }
+
+  .nav a:hover {
+    color: var(--amber2);
+    border-color: rgba(212,146,74,0.3);
+    background: rgba(212,146,74,0.07);
+  }
+
+  /* ─── SECTIONS ─── */
+  section {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+  }
+
+  .section-label {
+    font-family: 'Caveat', cursive;
+    font-size: 1rem;
+    color: var(--amber);
+    margin-bottom: 0.6rem;
+    display: block;
+  }
+
+  section h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 300;
+    line-height: 1.2;
+    color: var(--cream);
+    margin-bottom: 1.2rem;
+  }
+
+  section h2 em { font-style: italic; color: var(--amber2); }
+
+  .section-intro {
+    color: var(--cream2);
+    font-size: 0.95rem;
+    max-width: 640px;
+    margin-bottom: 3rem;
+    border-left: 2px solid var(--amber);
+    padding-left: 1.2rem;
+  }
+
+  /* ─── DIVIDER ─── */
+  .divider {
+    max-width: 820px; margin: 0 auto;
+    border: none;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ─── REALIDAD BOX ─── */
+  .reality-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem 2.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .reality-box h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    color: var(--amber2);
+    margin-bottom: 0.8rem;
+  }
+
+  .reality-items {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem; margin-top: 1.2rem;
+  }
+
+  .reality-item {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+    text-align: center;
+  }
+
+  .reality-item .emoji { font-size: 1.8rem; display: block; margin-bottom: 0.4rem; }
+  .reality-item strong { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--cream); display: block; }
+  .reality-item span { font-size: 0.8rem; color: var(--cream3); }
+
+  /* ─── TOOL CARDS ─── */
+  .tools-grid {
+    display: flex; flex-direction: column; gap: 1.5rem;
+  }
+
+  .tool-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+
+  .tool-card:hover { border-color: rgba(212,146,74,0.4); }
+
+  .tool-header {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1.4rem 1.8rem;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .tool-number {
+    width: 36px; height: 36px; min-width: 36px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Caveat', cursive;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--bg);
+  }
+
+  .tool-title-wrap { flex: 1; }
+
+  .tool-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--cream);
+    display: block;
+  }
+
+  .tool-subtitle {
+    font-size: 0.78rem;
+    color: var(--cream3);
+    letter-spacing: 0.04em;
+  }
+
+  .tool-badge {
+    padding: 0.25rem 0.7rem;
+    border-radius: 99px;
+    font-size: 0.72rem;
+    font-weight: 500;
+  }
+
+  .tool-chevron {
+    color: var(--cream3);
+    font-size: 1rem;
+    transition: transform 0.3s;
+  }
+
+  .tool-card.open .tool-chevron { transform: rotate(180deg); }
+
+  .tool-body {
+    display: none;
+    padding: 0 1.8rem 1.8rem;
+    border-top: 1px solid var(--border);
+    padding-top: 1.5rem;
+  }
+
+  .tool-card.open .tool-body { display: block; }
+
+  .tool-body p {
+    color: var(--cream2);
+    font-size: 0.92rem;
+    margin-bottom: 1rem;
+    line-height: 1.75;
+  }
+
+  .tool-body h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    color: var(--amber2);
+    margin: 1.4rem 0 0.6rem;
+  }
+
+  .practice-steps {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 0.6rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .practice-steps li {
+    display: flex; gap: 0.8rem; align-items: flex-start;
+    font-size: 0.88rem; color: var(--cream2);
+  }
+
+  .step-num {
+    min-width: 22px; height: 22px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 500;
+    margin-top: 0.1rem;
+    background: rgba(212,146,74,0.15);
+    color: var(--amber2);
+    border: 1px solid rgba(212,146,74,0.3);
+  }
+
+  .quote-block {
+    background: var(--bg3);
+    border-left: 3px solid var(--amber);
+    padding: 1rem 1.4rem;
+    border-radius: 0 8px 8px 0;
+    margin: 1rem 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--cream);
+  }
+
+  .quote-block cite {
+    display: block; margin-top: 0.4rem;
+    font-style: normal; font-size: 0.78rem; color: var(--cream3);
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .for-you-box {
+    background: rgba(110,148,120,0.08);
+    border: 1px solid rgba(110,148,120,0.25);
+    border-radius: 8px;
+    padding: 1rem 1.3rem;
+    margin-top: 1.2rem;
+    font-size: 0.88rem;
+    color: var(--sage);
+  }
+
+  .for-you-box strong {
+    display: block; margin-bottom: 0.3rem;
+    color: var(--sage); font-weight: 500;
+  }
+
+  /* ─── COLOR ACCENTS FOR EACH TOOL ─── */
+  .c-amber { background: var(--amber); }
+  .c-terra { background: var(--terra); }
+  .c-sage { background: var(--sage); }
+  .c-rose { background: var(--rose); }
+  .c-blue { background: #5a7a9e; }
+  .c-purple { background: #7a5a9e; }
+
+  .badge-amber { background: rgba(212,146,74,0.12); color: var(--amber2); border: 1px solid rgba(212,146,74,0.3); }
+  .badge-terra { background: rgba(184,92,58,0.12); color: #e0846a; border: 1px solid rgba(184,92,58,0.3); }
+  .badge-sage { background: rgba(110,148,120,0.12); color: #8ab898; border: 1px solid rgba(110,148,120,0.3); }
+  .badge-rose { background: rgba(196,122,106,0.12); color: #dea090; border: 1px solid rgba(196,122,106,0.3); }
+  .badge-blue { background: rgba(90,122,158,0.12); color: #84a8cc; border: 1px solid rgba(90,122,158,0.3); }
+  .badge-purple { background: rgba(122,90,158,0.12); color: #aa88cc; border: 1px solid rgba(122,90,158,0.3); }
+
+  /* ─── LIFE FORCE PYRAMID ─── */
+  .pyramid-wrap {
+    display: flex; flex-direction: column; gap: 0.6rem; align-items: center;
+    margin: 1.5rem 0;
+  }
+
+  .pyramid-level {
+    border-radius: 8px;
+    padding: 0.9rem 1.5rem;
+    text-align: center;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+
+  .pyramid-level .plabel {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem; color: var(--cream); font-weight: 500;
+  }
+
+  .pyramid-level .psub { font-size: 0.78rem; color: var(--cream3); }
+  .pl1 { width: 100%; background: rgba(110,148,120,0.15); border: 1px solid rgba(110,148,120,0.3); }
+  .pl2 { width: 75%; background: rgba(212,146,74,0.1); border: 1px solid rgba(212,146,74,0.25); }
+  .pl3 { width: 50%; background: rgba(184,92,58,0.1); border: 1px solid rgba(184,92,58,0.25); }
+
+  /* ─── PLAN SEMANAL ─── */
+  .week-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 0.8rem;
+  }
+
+  .day-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .day-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem; color: var(--amber2); margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .day-focus {
+    font-size: 0.75rem; color: var(--cream2); line-height: 1.5;
+  }
+
+  /* ─── PROGRESS ─── */
+  .checklist {
+    display: flex; flex-direction: column; gap: 0.7rem;
+  }
+
+  .check-item {
+    display: flex; align-items: flex-start; gap: 0.9rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.3rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+  }
+
+  .check-item:hover { border-color: rgba(212,146,74,0.3); }
+  .check-item.done { opacity: 0.5; }
+  .check-item.done .check-box { background: var(--sage); border-color: var(--sage); }
+  .check-item.done .check-box::after { content: '✓'; }
+
+  .check-box {
+    width: 20px; height: 20px; min-width: 20px;
+    border: 1.5px solid var(--border);
+    border-radius: 4px;
+    margin-top: 0.15rem;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; color: var(--bg);
+    transition: all 0.2s;
+  }
+
+  .check-text strong {
+    display: block; font-size: 0.9rem; color: var(--cream); font-weight: 400;
+    margin-bottom: 0.2rem;
+  }
+
+  .check-text span { font-size: 0.8rem; color: var(--cream3); }
+
+  /* ─── DIARIO ─── */
+  .journal-prompts {
+    display: flex; flex-direction: column; gap: 1rem;
+  }
+
+  .prompt-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.3rem 1.6rem;
+  }
+
+  .prompt-card .prompt-q {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--amber2);
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .prompt-card p { font-size: 0.83rem; color: var(--cream3); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 3rem 2rem;
+    text-align: center;
+    color: var(--cream3);
+    font-size: 0.82rem;
+  }
+
+  footer strong { color: var(--amber2); }
+
+  .footer-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.2rem;
+    color: var(--cream);
+    margin: 1.5rem auto;
+    max-width: 480px;
+    line-height: 1.6;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 600px) {
+    .tool-header { padding: 1.1rem 1.2rem; }
+    .tool-body { padding: 0 1.2rem 1.4rem; padding-top: 1.2rem; }
+    section { padding: 3.5rem 1.2rem; }
+  }
+
+  /* ─── FADE-IN ON SCROLL ─── */
+  .reveal {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-glow"></div>
+  <p class="hero-eyebrow">Basado en el Dr. Phil Stutz · Personalizado para ti</p>
+  <h1>Tu plan de <em>acción</em><br>Stutz</h1>
+  <p class="hero-sub">Diseñado para trabajar el propósito, la ansiedad y la autoestima — empezando desde donde estás hoy.</p>
+  <div class="hero-tags">
+    <span class="tag">🧭 Propósito & dirección</span>
+    <span class="tag">🌊 Ansiedad & estrés</span>
+    <span class="tag">🪞 Autoestima</span>
+    <span class="tag">⚡ Salir del bloqueo</span>
+  </div>
+  <div class="scroll-hint">
+    <span>explorar</span>
+    <div class="scroll-hint-line"></div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="#fundamentos">Fundamentos</a>
+  <a href="#herramientas">Las Herramientas</a>
+  <a href="#plan">Plan Semanal</a>
+  <a href="#habitos">Hábitos</a>
+  <a href="#diario">Diario</a>
+</nav>
+
+<!-- FUNDAMENTOS -->
+<section id="fundamentos" class="reveal">
+  <span class="section-label">Antes de empezar</span>
+  <h2>Lo que Stutz quiere que <em>aceptes</em></h2>
+  <p class="section-intro">El Dr. Stutz parte de una premisa radical: no hay forma de escapar de tres realidades de la vida. Cuanto antes las aceptes, más libre serás.</p>
+
+  <div class="reality-box">
+    <h3>Los 3 Aspectos de la Realidad</h3>
+    <p style="color:var(--cream3);font-size:0.88rem;">Stutz los llama PUH — Pain, Uncertainty, Constant Work. No son un castigo. Son la textura de toda vida real.</p>
+    <div class="reality-items">
+      <div class="reality-item">
+        <span class="emoji">💢</span>
+        <strong>Dolor</strong>
+        <span>Siempre existirá. La clave es no huir de él.</span>
+      </div>
+      <div class="reality-item">
+        <span class="emoji">🌫️</span>
+        <strong>Incertidumbre</strong>
+        <span>Nunca tendrás certeza total. Y eso está bien.</span>
+      </div>
+      <div class="reality-item">
+        <span class="emoji">⚙️</span>
+        <strong>Trabajo constante</strong>
+        <span>El crecimiento no tiene punto de llegada final.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="quote-block">
+    "La vida no te va a dar lo que quieres de forma fácil. Pero eso no significa que estés en el lugar equivocado."
+    <cite>— Dr. Phil Stutz</cite>
+  </div>
+
+  <p style="color:var(--cream2);font-size:0.92rem;line-height:1.8;">El hecho de que te bloquees cuando algo es difícil no es un defecto de carácter: es la respuesta natural de una mente que busca certeza donde no la hay. Las herramientas de Stutz están diseñadas exactamente para ese momento — <strong style="color:var(--cream);font-weight:400;">el instante antes de rendirte</strong>.</p>
+</section>
+
+<hr class="divider">
+
+<!-- HERRAMIENTAS -->
+<section id="herramientas" class="reveal">
+  <span class="section-label">El núcleo del método</span>
+  <h2>Las <em>herramientas</em> para ti</h2>
+  <p class="section-intro">De todas las herramientas del Dr. Stutz, estas son las que responden directamente a tus tres áreas de dificultad. Haz clic en cada una para explorarla en profundidad.</p>
+
+  <div class="tools-grid">
+
+    <!-- TOOL 1: LIFE FORCE -->
+    <div class="tool-card" id="tc1">
+      <div class="tool-header" onclick="toggleTool('tc1')">
+        <div class="tool-number c-amber">1</div>
+        <div class="tool-title-wrap">
+          <span class="tool-name">La Fuerza de Vida</span>
+          <span class="tool-subtitle">EMPIEZA AQUÍ · El fundamento de todo</span>
+        </div>
+        <span class="tool-badge badge-amber">Esencial</span>
+        <span class="tool-chevron">▾</span>
+      </div>
+      <div class="tool-body">
+        <p>Stutz visualiza la Fuerza de Vida como una pirámide de tres niveles. Cuando te sientes perdido, bloqueado o con ansiedad, esta pirámide es tu punto de retorno inmediato. Antes de cualquier otra herramienta, trabaja tu Life Force.</p>
+
+        <div class="pyramid-wrap">
+          <div class="pyramid-level pl3">
+            <div>
+              <div class="plabel">✍️ Tú mismo</div>
+              <div class="psub">Escritura · Subconsciente · Reflexión</div>
+            </div>
+          </div>
+          <div class="pyramid-level pl2">
+            <div>
+              <div class="plabel">👥 Tus personas</div>
+              <div class="psub">Comunidad · Conexión · Relaciones reales</div>
+            </div>
+          </div>
+          <div class="pyramid-level pl1">
+            <div>
+              <div class="plabel">🏃 Tu cuerpo</div>
+              <div class="psub">Sueño · Alimentación · Movimiento físico</div>
+            </div>
+          </div>
+        </div>
+
+        <h4>¿Cómo usarla?</h4>
+        <ul class="practice-steps">
+          <li><span class="step-num">1</span>Cuando sientas ansiedad, bloqueo o falta de dirección, identifica en cuál nivel de la pirámide estás fallando esta semana.</li>
+          <li><span class="step-num">2</span>Elige UNA acción concreta en ese nivel. No tres. Una. (Ej: "hoy camino 20 minutos")</li>
+          <li><span class="step-num">3</span>Hazla sin esperar resultados inmediatos. El movimiento en sí es el resultado.</li>
+        </ul>
+
+        <div class="for-you-box">
+          <strong>🎯 Por qué es clave para ti</strong>
+          Si te bloqueas y no sabes qué hacer, casi siempre hay algo roto en uno de estos tres niveles — especialmente el cuerpo (poco sueño o ejercicio) o las personas (aislamiento). Empieza aquí antes que nada.
+        </div>
+      </div>
+    </div>
+
+    <!-- TOOL 2: REVERSAL OF DESIRE -->
+    <div class="tool-card" id="tc2">
+      <div class="tool-header" onclick="toggleTool('tc2')">
+        <div class="tool-number c-terra">2</div>
+        <div class="tool-title-wrap">
+          <span class="tool-name">El Reverso del Deseo</span>
+          <span class="tool-subtitle">BLOQUEO · Para cuando te paralizas</span>
+        </div>
+        <span class="tool-badge badge-terra">Desbloqueo</span>
+        <span class="tool-chevron">▾</span>
+      </div>
+      <div class="tool-body">
+        <p>Esta es la herramienta central para el bloqueo. La mayoría de las personas desean evitar el dolor, la incomodidad y el esfuerzo. El Reverso del Deseo invierte ese impulso: en vez de huir del malestar, te lanzas hacia él intencionalmente.</p>
+
+        <div class="quote-block">
+          "Si vas directo hacia el dolor, desarrollas superpoderes. El dolor te libera."
+          <cite>— Dr. Phil Stutz</cite>
+        </div>
+
+        <h4>La visualización (3–5 segundos)</h4>
+        <ul class="practice-steps">
+          <li><span class="step-num">1</span>Identifica la cosa que estás evitando hacer (la tarea, la conversación, la decisión).</li>
+          <li><span class="step-num">2</span>Cierra los ojos e imagina ese malestar como una nube oscura frente a ti.</li>
+          <li><span class="step-num">3</span>Visualízate corriendo <em>hacia</em> esa nube — no huyendo. Di mentalmente: <em>"¡Amo el dolor!"</em></li>
+          <li><span class="step-num">4</span>Siente cómo la nube te envuelve y la atraviesas. Del otro lado hay luz y energía.</li>
+          <li><span class="step-num">5</span>Actúa inmediatamente después de la visualización. No esperes a sentirte listo.</li>
+        </ul>
+
+        <h4>Cuándo usarla</h4>
+        <p>En el momento exacto en que sientes la resistencia — cuando piensas en algo en lugar de hacerlo, cuando pospostergás, cuando tu mente busca una salida. Úsala antes de empezar cualquier tarea que genere evitación.</p>
+
+        <div class="for-you-box">
+          <strong>🎯 Por qué es clave para ti</strong>
+          Tu patrón de bloqueo ("me bloqueo y no sé qué hacer") es exactamente el escenario para esta herramienta. El bloqueo no es falta de capacidad — es resistencia al malestar previo a la acción. Esta herramienta corta ese ciclo en segundos.
+        </div>
+      </div>
+    </div>
+
+    <!-- TOOL 3: PART X -->
+    <div class="tool-card" id="tc3">
+      <div class="tool-header" onclick="toggleTool('tc3')">
+        <div class="tool-number c-rose">3</div>
+        <div class="tool-title-wrap">
+          <span class="tool-name">La Parte X</span>
+          <span class="tool-subtitle">ANSIEDAD · El enemigo interno</span>
+        </div>
+        <span class="tool-badge badge-rose">Consciencia</span>
+        <span class="tool-chevron">▾</span>
+      </div>
+      <div class="tool-body">
+        <p>La Parte X es la voz dentro de ti que genera dudas, miedos y sabotaje. No es tu identidad — es una fuerza que existe en todos, y que se alimenta de la pasividad y la parálisis. Stutz dice que la Parte X <em>odia</em> el movimiento y la acción.</p>
+
+        <p>La Parte X quiere que creas que hay una vida perfecta esperándote si solo encuentras la respuesta correcta — y usa esa promesa para mantenerte inmóvil. Su herramienta favorita es la ansiedad sobre el futuro.</p>
+
+        <h4>Cómo reconocerla</h4>
+        <ul class="practice-steps">
+          <li><span class="step-num">▸</span>"No sé qué hacer con mi vida" (cuando en realidad hay opciones, pero ninguna parece perfecta)</li>
+          <li><span class="step-num">▸</span>Compararte constantemente con otros y salir perdiendo</li>
+          <li><span class="step-num">▸</span>Pensar que primero debes sentirte mejor para poder actuar</li>
+          <li><span class="step-num">▸</span>Postergar esperando el momento "correcto"</li>
+        </ul>
+
+        <h4>Cómo responder a la Parte X</h4>
+        <ul class="practice-steps">
+          <li><span class="step-num">1</span>Nómbrala. Literalmente di: <em>"Eso es la Parte X hablando."</em></li>
+          <li><span class="step-num">2</span>No la combatas directamente — eso le da más poder. En su lugar, actúa de todos modos.</li>
+          <li><span class="step-num">3</span>Recuerda: ganas la batalla contra la Parte X con cada pequeña acción que tomas a pesar de ella.</li>
+        </ul>
+
+        <div class="for-you-box">
+          <strong>🎯 Por qué es clave para ti</strong>
+          La ansiedad y la falta de propósito son los terrenos favoritos de la Parte X. Identificarla como una entidad separada de ti — no como "la verdad" — te da una distancia psicológica que reduce enormemente su poder.
+        </div>
+      </div>
+    </div>
+
+    <!-- TOOL 4: LA SOMBRA -->
+    <div class="tool-card" id="tc4">
+      <div class="tool-header" onclick="toggleTool('tc4')">
+        <div class="tool-number c-purple">4</div>
+        <div class="tool-title-wrap">
+          <span class="tool-name">La Sombra</span>
+          <span class="tool-subtitle">AUTOESTIMA · La parte que escondes</span>
+        </div>
+        <span class="tool-badge badge-purple">Autoestima</span>
+        <span class="tool-chevron">▾</span>
+      </div>
+      <div class="tool-body">
+        <p>La Sombra es la parte de ti de la que te avergüenzas — la versión más débil, más torpe, más insegura de ti mismo. La que escondes de los demás. Stutz (basándose en Carl Jung) dice que no puedes deshacerte de ella — solo puedes aprender a relacionarte con ella.</p>
+
+        <div class="quote-block">
+          "La vulnerabilidad y la debilidad son lo que nos conecta con el mundo. Es nuestra señal de que nos necesitamos mutuamente."
+          <cite>— Dr. Phil Stutz</cite>
+        </div>
+
+        <p>Cuando rechazas tu Sombra, la alimentas. Cuando la aceptas, pierde poder sobre ti. La autoestima real no viene de eliminar tus inseguridades — viene de ya no tenerles miedo.</p>
+
+        <h4>La práctica de la Sombra</h4>
+        <ul class="practice-steps">
+          <li><span class="step-num">1</span>Cierra los ojos. Visualiza a tu Sombra frente a ti — deja que tome una forma (una versión más joven de ti, una figura, lo que surja).</li>
+          <li><span class="step-num">2</span>Pregúntale: <em>"¿Cómo te sientes? ¿Qué necesitas de mí?"</em> No la juzgues.</li>
+          <li><span class="step-num">3</span>Reconoce que esa parte también es tú. Que tiene derecho a existir.</li>
+          <li><span class="step-num">4</span>Di mentalmente: <em>"Te veo. Estás a salvo."</em></li>
+        </ul>
+
+        <h4>La Autoridad Interior</h4>
+        <p>Stutz tiene una herramienta complementaria para la autoestima: la Autoridad Interior. Antes de una situación donde sientes presión o miedo a ser juzgado, visualiza a tu Sombra a tu lado — no escondida, sino presente. Esa es tu fortaleza real: no actuar como si fueras perfecto, sino aparecer siendo humano.</p>
+
+        <div class="for-you-box">
+          <strong>🎯 Por qué es clave para ti</strong>
+          La baja autoestima casi siempre es energía invertida en esconder la Sombra. Mientras más la rechaces, más espacio ocupa. Esta práctica de 5 minutos, hecha regularmente, cambia esa relación desde adentro.
+        </div>
+      </div>
+    </div>
+
+    <!-- TOOL 5: EL SNAPSHOT -->
+    <div class="tool-card" id="tc5">
+      <div class="tool-header" onclick="toggleTool('tc5')">
+        <div class="tool-number c-blue">5</div>
+        <div class="tool-title-wrap">
+          <span class="tool-name">El Snapshot & El Laberinto</span>
+          <span class="tool-subtitle">PROPÓSITO · Salir de la ilusión</span>
+        </div>
+        <span class="tool-badge badge-blue">Propósito</span>
+        <span class="tool-chevron">▾</span>
+      </div>
+      <div class="tool-body">
+        <p>El Snapshot (o "Realm of Illusion") es la imagen mental de la vida perfecta que crees que deberías tener — la versión de ti que ya lo tiene todo resuelto, que sabe exactamente qué hacer, que no siente dudas. Esa imagen no existe.</p>
+
+        <p>Stutz dice que perseguir ese snapshot es una trampa de la Parte X. Una "foto perfecta" no tiene movimiento, ni profundidad, ni vida real. Y mientras la buscas, tu vida real pasa de largo.</p>
+
+        <h4>El Laberinto (The Maze)</h4>
+        <p>Cuando tu mente queda atrapada en "por qué no tengo dirección todavía", "qué hice mal", o "cuándo voy a saber qué quiero" — estás en el Laberinto. Ahí el tiempo se consume en preguntas sin respuesta en lugar de acciones pequeñas.</p>
+
+        <h4>Cómo salir del Snapshot y del Laberinto</h4>
+        <ul class="practice-steps">
+          <li><span class="step-num">1</span>Reconoce que estás buscando una certeza perfecta que no existe.</li>
+          <li><span class="step-num">2</span>Pregúntate: <em>"¿Qué es UNA cosa pequeña que puedo hacer HOY en dirección a lo que me importa?"</em> No el plan perfecto. Solo la próxima perla.</li>
+          <li><span class="step-num">3</span>Recuerda: el propósito no se descubre pensando más — se construye actuando.</li>
+        </ul>
+
+        <div class="quote-block">
+          "La felicidad no es un logro. La felicidad es un proceso."
+          <cite>— Dr. Phil Stutz</cite>
+        </div>
+
+        <div class="for-you-box">
+          <strong>🎯 Por qué es clave para ti</strong>
+          La falta de dirección muy frecuentemente no es ausencia de propósito — es parálisis por búsqueda del propósito perfecto. Soltar el Snapshot y tomar una acción imperfecta HOY es exactamente cómo se construye la dirección.
+        </div>
+      </div>
+    </div>
+
+    <!-- TOOL 6: STRING OF PEARLS -->
+    <div class="tool-card" id="tc6">
+      <div class="tool-header" onclick="toggleTool('tc6')">
+        <div class="tool-number c-sage">6</div>
+        <div class="tool-title-wrap">
+          <span class="tool-name">La Cadena de Perlas</span>
+          <span class="tool-subtitle">ACCIÓN · Tu identidad está en el movimiento</span>
+        </div>
+        <span class="tool-badge badge-sage">Progreso</span>
+        <span class="tool-chevron">▾</span>
+      </div>
+      <div class="tool-body">
+        <p>Cada acción que tomas — grande o pequeña, perfecta o imperfecta — es una perla en la cadena de tu vida. Cepillarte los dientes y tomar una decisión importante tienen el mismo valor: las dos son perlas. Las dos avanzan la cadena.</p>
+
+        <p>Dentro de cada perla hay un punto oscuro — Stutz lo llama el "turd" (la imperfección inevitable). No importa. La perla igual cuenta. No existe la acción perfecta.</p>
+
+        <div class="quote-block">
+          "Soy la persona que pone la próxima perla en la cadena. Eso es todo."
+          <cite>— Dr. Phil Stutz</cite>
+        </div>
+
+        <h4>El principio clave</h4>
+        <p>Tu identidad no es lo que piensas de ti mismo — es la suma de los hábitos con los que actúas. Si actúas como alguien que avanza a pesar del miedo, eso es lo que eres. El fracaso no te detiene; lo que te detiene es dejar de poner perlas.</p>
+
+        <h4>La práctica</h4>
+        <ul class="practice-steps">
+          <li><span class="step-num">1</span>Cada noche, identifica las perlas que pusiste en la cadena hoy (no importa el tamaño).</li>
+          <li><span class="step-num">2</span>Si el día fue difícil, busca al menos UNA. Una ducha tomada, un mensaje enviado, este plan abierto.</li>
+          <li><span class="step-num">3</span>Mañana, pon la próxima. Solo eso.</li>
+        </ul>
+
+        <div class="for-you-box">
+          <strong>🎯 Por qué es clave para ti</strong>
+          El bloqueo se rompe con perlas pequeñas, no con claridad total. No necesitas saber todo el camino para dar el primer paso. Esta herramienta es tu antídoto a la parálisis por perfección.
+        </div>
+      </div>
+    </div>
+
+    <!-- TOOL 7: GRATEFUL FLOW -->
+    <div class="tool-card" id="tc7">
+      <div class="tool-header" onclick="toggleTool('tc7')">
+        <div class="tool-number c-amber">7</div>
+        <div class="tool-title-wrap">
+          <span class="tool-name">El Flujo de Gratitud</span>
+          <span class="tool-subtitle">ANSIEDAD · Romper la nube oscura</span>
+        </div>
+        <span class="tool-badge badge-amber">Ansiedad</span>
+        <span class="tool-chevron">▾</span>
+      </div>
+      <div class="tool-body">
+        <p>Stutz visualiza la ansiedad y el pensamiento negativo como una nube oscura que bloquea el sol. El pensamiento positivo no funciona para combatirla — porque los pensamientos negativos siempre son más fuertes. La gratitud específica sí funciona.</p>
+
+        <p>El Flujo de Gratitud no es decir "tengo mucho por lo que estar agradecido" en abstracto. Es nombrar cosas muy concretas, hasta que sientas el estado de gratitud realmente en el cuerpo.</p>
+
+        <h4>La práctica (2–3 minutos)</h4>
+        <ul class="practice-steps">
+          <li><span class="step-num">1</span>Cierra los ojos. Imagina la nube oscura de tu ansiedad sobre tu cabeza.</li>
+          <li><span class="step-num">2</span>Empieza a nombrar cosas específicas por las que estás agradecido — tan pequeñas como sean. <em>"El café esta mañana. Que puedo leer esto. Que tengo aire."</em></li>
+          <li><span class="step-num">3</span>No busques sentirte agradecido. Solo sigue nombrando. El estado llega solo después del proceso.</li>
+          <li><span class="step-num">4</span>Visualiza esos hilos de gratitud rompiéndose paso a paso a través de la nube hasta que el sol aparece.</li>
+          <li><span class="step-num">5</span>Quédate en ese estado unos segundos. Siente la energía de eso.</li>
+        </ul>
+
+        <div class="for-you-box">
+          <strong>🎯 Por qué es clave para ti</strong>
+          La ansiedad vive en el futuro — en los "¿y si...?". El Flujo de Gratitud te devuelve al presente con evidencia concreta de que el ahora tiene valor. Es la herramienta más rápida para interrumpir un espiral de estrés.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- PLAN SEMANAL -->
+<section id="plan" class="reveal">
+  <span class="section-label">Semana a semana</span>
+  <h2>Tu <em>plan semanal</em></h2>
+  <p class="section-intro">No intentes usar todas las herramientas al mismo tiempo. Este plan distribuye las prácticas para que sean sostenibles y con enfoque claro cada día.</p>
+
+  <div class="week-grid">
+    <div class="day-card">
+      <span class="day-name">Lunes</span>
+      <div class="day-focus">
+        <strong style="color:var(--amber2);display:block;font-size:0.8rem;margin-bottom:0.3rem;">Fuerza de Vida</strong>
+        Revisa los 3 niveles de tu pirámide. ¿Qué nivel necesita atención esta semana? Define UNA acción.
+      </div>
+    </div>
+    <div class="day-card">
+      <span class="day-name">Martes</span>
+      <div class="day-focus">
+        <strong style="color:#e0846a;display:block;font-size:0.8rem;margin-bottom:0.3rem;">Reverso del Deseo</strong>
+        Identifica algo que estás evitando. Haz la visualización y luego actúa en los próximos 5 minutos.
+      </div>
+    </div>
+    <div class="day-card">
+      <span class="day-name">Miércoles</span>
+      <div class="day-focus">
+        <strong style="color:#aa88cc;display:block;font-size:0.8rem;margin-bottom:0.3rem;">La Sombra</strong>
+        5 minutos de escritura: ¿Qué parte de ti estás escondiendo esta semana? Escríbele sin juzgarla.
+      </div>
+    </div>
+    <div class="day-card">
+      <span class="day-name">Jueves</span>
+      <div class="day-focus">
+        <strong style="color:var(--amber2);display:block;font-size:0.8rem;margin-bottom:0.3rem;">Flujo de Gratitud</strong>
+        Al despertar o antes de dormir: 2 minutos nombrando cosas concretas. Rompe la nube oscura.
+      </div>
+    </div>
+    <div class="day-card">
+      <span class="day-name">Viernes</span>
+      <div class="day-focus">
+        <strong style="color:#84a8cc;display:block;font-size:0.8rem;margin-bottom:0.3rem;">Snapshot</strong>
+        ¿Estoy buscando certeza perfecta esta semana? ¿Qué acción imperfecta puedo tomar HOY?
+      </div>
+    </div>
+    <div class="day-card">
+      <span class="day-name">Sábado</span>
+      <div class="day-focus">
+        <strong style="color:#8ab898;display:block;font-size:0.8rem;margin-bottom:0.3rem;">Cadena de Perlas</strong>
+        Anota 5 perlas que pusiste esta semana. Incluye las pequeñas. Celebra el movimiento.
+      </div>
+    </div>
+    <div class="day-card">
+      <span class="day-name">Domingo</span>
+      <div class="day-focus">
+        <strong style="color:var(--cream2);display:block;font-size:0.8rem;margin-bottom:0.3rem;">Reflexión libre</strong>
+        Sin estructura. Descanso, cuerpo, personas. Recarga la Fuerza de Vida.
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- HÁBITOS DIARIOS -->
+<section id="habitos" class="reveal">
+  <span class="section-label">Cada día sin falta</span>
+  <h2>Hábitos <em>mínimos</em> vitales</h2>
+  <p class="section-intro">Stutz insiste en que los hábitos diarios pequeños son más poderosos que las grandes transformaciones ocasionales. Estos son tus tres pilares diarios — marca los que vayas completando.</p>
+
+  <div class="checklist" id="checklist">
+
+    <div class="check-item" onclick="toggleCheck(this)">
+      <div class="check-box"></div>
+      <div class="check-text">
+        <strong>🏃 Movimiento físico (mínimo 20 min)</strong>
+        <span>La base de la pirámide. Sin esto, todo lo demás se vuelve más difícil. Caminar cuenta.</span>
+      </div>
+    </div>
+
+    <div class="check-item" onclick="toggleCheck(this)">
+      <div class="check-box"></div>
+      <div class="check-text">
+        <strong>✍️ Escritura de 5 minutos (subconsciente)</strong>
+        <span>Escribe sin filtro lo que está en tu cabeza. No lo analices. Solo sácalo. Activa el subconsciente.</span>
+      </div>
+    </div>
+
+    <div class="check-item" onclick="toggleCheck(this)">
+      <div class="check-box"></div>
+      <div class="check-text">
+        <strong>💬 Una conexión real con otra persona</strong>
+        <span>Un mensaje, una llamada, un momento de presencia. La soledad alimenta la Parte X.</span>
+      </div>
+    </div>
+
+    <div class="check-item" onclick="toggleCheck(this)">
+      <div class="check-box"></div>
+      <div class="check-text">
+        <strong>⚡ Una perla intencional</strong>
+        <span>Identifica UNA tarea que hayas estado evitando. Haz el Reverso del Deseo. Hazla.</span>
+      </div>
+    </div>
+
+    <div class="check-item" onclick="toggleCheck(this)">
+      <div class="check-box"></div>
+      <div class="check-text">
+        <strong>🌙 Revisión nocturna (2 min)</strong>
+        <span>Antes de dormir: ¿Qué perlas puse hoy? ¿En qué apareció la Parte X? Sin juicio.</span>
+      </div>
+    </div>
+
+  </div>
+
+  <p style="font-size:0.8rem;color:var(--cream3);margin-top:1.2rem;text-align:center;">Los checks se guardan en esta sesión. Reinícialo cada día.</p>
+  <div style="text-align:center;margin-top:0.8rem;">
+    <button onclick="resetChecks()" style="background:transparent;border:1px solid var(--border);color:var(--cream3);padding:0.4rem 1rem;border-radius:99px;font-size:0.78rem;cursor:pointer;font-family:'DM Sans',sans-serif;">Reiniciar día →</button>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- DIARIO DE REFLEXIÓN -->
+<section id="diario" class="reveal">
+  <span class="section-label">Para ir más profundo</span>
+  <h2>Preguntas de <em>diario</em> Stutz</h2>
+  <p class="section-intro">Stutz dice que la escritura activa el subconsciente — esa parte de ti que tiene respuestas que la mente consciente no puede generar. Usa estas preguntas cuando sientas bloqueo, ansiedad o confusión.</p>
+
+  <div class="journal-prompts">
+
+    <div class="prompt-card">
+      <span class="prompt-q">¿Qué es lo que más estoy evitando ahora mismo, y qué dice eso sobre lo que realmente me importa?</span>
+      <p>Para el bloqueo y el propósito. Lo que más evitas suele estar muy cerca de lo que más te importa.</p>
+    </div>
+
+    <div class="prompt-card">
+      <span class="prompt-q">¿Qué versión de mí mismo estoy escondiendo esta semana? ¿Qué necesitaría esa parte de mí?</span>
+      <p>Para la autoestima. Conecta con tu Sombra desde la escritura, sin necesidad de visualización.</p>
+    </div>
+
+    <div class="prompt-card">
+      <span class="prompt-q">¿Estoy buscando una certeza perfecta antes de actuar? ¿Qué acción imperfecta podría tomar hoy?</span>
+      <p>Para el propósito y la dirección. Rompe el ciclo del Snapshot con acción concreta.</p>
+    </div>
+
+    <div class="prompt-card">
+      <span class="prompt-q">¿Qué diría la Parte X sobre por qué no puedo avanzar hoy? ¿Qué le respondería si no fuera mi voz, sino un enemigo externo?</span>
+      <p>Para la ansiedad y el bloqueo. Externalizar la Parte X te da perspectiva y distancia emocional.</p>
+    </div>
+
+    <div class="prompt-card">
+      <span class="prompt-q">Si este momento de dificultad fuera una perla en mi cadena, ¿qué le dirías a alguien que está atravesando lo mismo?</span>
+      <p>Para cultivar compasión hacia ti mismo y reconocer el valor del proceso, no solo del resultado.</p>
+    </div>
+
+    <div class="prompt-card">
+      <span class="prompt-q">¿En cuál de los 3 niveles de mi Fuerza de Vida estoy más descuidado? ¿Qué pasaría si lo atendiera esta semana?</span>
+      <p>Diagnóstico semanal de la pirámide. Identifica la raíz antes de trabajar la superficie.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-quote">
+    "La vida siempre va a tener dolor, incertidumbre y trabajo constante.<br>
+    La pregunta no es cómo evitarlos — es quién quieres ser mientras los atraviesas."
+  </div>
+  <p>Plan creado con las herramientas del <strong>Dr. Phil Stutz</strong> · Documental <em>Stutz</em> (Netflix, 2022)</p>
+  <p style="margin-top:0.5rem;color:var(--cream3);">Hecho a tu medida · Propósito · Ansiedad · Autoestima</p>
+</footer>
+
+<script>
+  // Toggle tool cards
+  function toggleTool(id) {
+    const card = document.getElementById(id);
+    card.classList.toggle('open');
+  }
+
+  // Checklist
+  function toggleCheck(el) {
+    el.classList.toggle('done');
+  }
+
+  function resetChecks() {
+    document.querySelectorAll('.check-item').forEach(el => el.classList.remove('done'));
+  }
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  reveals.forEach(r => observer.observe(r));
+
+  // Open first tool by default
+  document.getElementById('tc1').classList.add('open');
+</script>
+</body>
+</html>

@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cómo Ganar Amigos e Influir Sobre las Personas — Plan Profundo</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:     #faf7f2;
+  --bg2:    #f2ede4;
+  --bg3:    #e8e0d4;
+  --card:   #ffffff;
+  --border: #ddd5c8;
+  --border2:#c8bdb0;
+  --ink:    #1a1410;
+  --ink2:   #5a4a3a;
+  --ink3:   #9a8878;
+  --red:    #c04030;
+  --red2:   #e05040;
+  --amber:  #c07820;
+  --amber2: #e09830;
+  --green:  #3a7050;
+  --green2: #4a9060;
+  --blue:   #2a5080;
+  --blue2:  #3a70a0;
+  --warm:   #d4956a;
+  --warm2:  #e8b08a;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'Inter',sans-serif;
+  font-weight:400;
+  line-height:1.7;
+  overflow-x:hidden;
+}
+
+/* TEXTURE */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:0;
+}
+
+/* ── HERO ── */
+.hero{
+  background:var(--ink);
+  color:#f5f0e8;
+  padding:6rem 2rem 5rem;
+  position:relative;overflow:hidden;
+  text-align:center;
+}
+
+.hero-bg-lines{
+  position:absolute;inset:0;
+  background-image:
+    repeating-linear-gradient(
+      -30deg,
+      transparent 0px, transparent 80px,
+      rgba(255,255,255,.015) 80px, rgba(255,255,255,.015) 81px
+    );
+}
+
+.hero-badge{
+  display:inline-block;
+  border:1px solid rgba(255,255,255,.15);
+  background:rgba(255,255,255,.05);
+  border-radius:2px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;
+  color:rgba(255,255,255,.5);padding:.35rem 1rem;
+  margin-bottom:2rem;
+  opacity:0;animation:rUp .8s ease forwards .2s;
+}
+
+.hero h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.8rem,8vw,6rem);
+  font-weight:900;line-height:.95;
+  letter-spacing:-.02em;
+  margin-bottom:.6rem;
+  opacity:0;animation:rUp .8s ease forwards .4s;
+}
+
+.hero h1 em{
+  font-style:italic;
+  background:linear-gradient(135deg,var(--warm2),var(--amber2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+
+.hero-author{
+  font-family:'JetBrains Mono',monospace;font-size:.72rem;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(255,255,255,.35);
+  margin:.8rem 0 2rem;
+  opacity:0;animation:rUp .8s ease forwards .6s;
+}
+
+.hero-context{
+  font-size:1rem;color:rgba(255,255,255,.55);
+  max-width:520px;margin:0 auto 2.5rem;line-height:1.8;
+  font-style:italic;
+  opacity:0;animation:rUp .8s ease forwards .8s;
+}
+
+.hero-stats{
+  display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;
+  opacity:0;animation:rUp .8s ease forwards 1s;
+}
+
+.hero-stat{text-align:center;}
+.hs-num{
+  font-family:'Playfair Display',serif;font-size:2.2rem;
+  font-weight:700;color:var(--warm2);line-height:1;display:block;
+}
+.hs-label{
+  font-family:'JetBrains Mono',monospace;font-size:.6rem;
+  letter-spacing:.15em;text-transform:uppercase;
+  color:rgba(255,255,255,.3);
+}
+
+.hero-scroll{
+  position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:.5rem;
+  color:rgba(255,255,255,.2);font-family:'JetBrains Mono',monospace;
+  font-size:.55rem;letter-spacing:.2em;
+  opacity:0;animation:fadeIn 1s ease forwards 1.5s;
+}
+.hs-bar{width:1px;height:36px;background:linear-gradient(to bottom,rgba(255,255,255,.3),transparent);}
+
+@keyframes rUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+/* ── NAV ── */
+.nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(250,247,242,.95);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:.65rem 2rem;
+  display:flex;gap:.3rem;overflow-x:auto;scrollbar-width:none;
+}
+.nav::-webkit-scrollbar{display:none;}
+.nav a{
+  font-family:'JetBrains Mono',monospace;font-size:.62rem;
+  letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink3);text-decoration:none;
+  padding:.3rem .85rem;border-radius:2px;
+  white-space:nowrap;border:1px solid transparent;
+  transition:all .2s;
+}
+.nav a:hover{color:var(--red);border-color:rgba(192,64,48,.2);background:rgba(192,64,48,.04);}
+
+/* ── LAYOUT ── */
+section{max-width:860px;margin:0 auto;padding:5rem 2rem;}
+
+.sec-label{
+  font-family:'JetBrains Mono',monospace;font-size:.62rem;
+  letter-spacing:.25em;text-transform:uppercase;
+  color:var(--warm);display:block;margin-bottom:.6rem;
+}
+
+section h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2rem,5vw,3.2rem);
+  font-weight:900;letter-spacing:-.02em;line-height:1.05;
+  color:var(--ink);margin-bottom:1.2rem;
+}
+section h2 em{font-style:italic;color:var(--red);}
+
+.sec-intro{
+  font-size:.95rem;color:var(--ink2);
+  max-width:640px;margin-bottom:3rem;
+  line-height:1.9;border-left:3px solid var(--warm);
+  padding-left:1.2rem;
+}
+
+.divider{
+  max-width:860px;margin:0 auto;
+  border:none;border-top:1px solid var(--border);
+}
+
+/* ── THE TRUTH BOX ── */
+.truth-box{
+  background:var(--ink);color:#f5f0e8;
+  border-radius:8px;padding:2.2rem;
+  margin-bottom:2rem;position:relative;overflow:hidden;
+}
+.truth-box::before{
+  content:'';position:absolute;top:0;left:0;
+  width:100%;height:3px;
+  background:linear-gradient(to right,var(--red),var(--warm2),var(--amber2));
+}
+.truth-box h3{
+  font-family:'Playfair Display',serif;
+  font-size:1.5rem;font-weight:700;
+  color:var(--warm2);margin-bottom:1rem;
+}
+.truth-box p{font-size:.9rem;color:rgba(245,240,232,.7);line-height:1.9;margin-bottom:.8rem;}
+.truth-box p:last-child{margin-bottom:0;}
+.truth-box strong{color:#f5f0e8;}
+
+/* ── PULL QUOTE ── */
+.pq{
+  background:var(--bg2);border:none;
+  border-left:4px solid var(--red);
+  padding:1.8rem 2rem;margin:2rem 0;
+  border-radius:0 8px 8px 0;
+}
+.pq p{
+  font-family:'Playfair Display',serif;
+  font-style:italic;font-size:1.15rem;
+  color:var(--ink);line-height:1.7;margin-bottom:.6rem;
+}
+.pq cite{
+  font-family:'JetBrains Mono',monospace;font-size:.63rem;
+  letter-spacing:.12em;color:var(--ink3);text-transform:uppercase;
+}
+
+/* ── PARTS TABS ── */
+.parts-wrap{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:1px;background:var(--border);
+  border:1px solid var(--border);border-radius:8px;overflow:hidden;
+  margin-bottom:2rem;
+}
+.part-tab{
+  background:var(--card);padding:1.4rem;
+  cursor:pointer;transition:background .2s;
+}
+.part-tab:hover{background:var(--bg2);}
+.pt-num{
+  font-family:'Playfair Display',serif;font-size:2.5rem;
+  font-weight:900;color:var(--border2);line-height:1;
+  margin-bottom:.3rem;
+}
+.pt-title{
+  font-family:'JetBrains Mono',monospace;font-size:.65rem;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:var(--red);margin-bottom:.4rem;
+}
+.pt-desc{font-size:.78rem;color:var(--ink3);line-height:1.6;}
+
+/* ── PRINCIPLES ── */
+.prin-list{display:flex;flex-direction:column;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+
+.prin-item{background:var(--card);}
+.prin-header{
+  display:flex;align-items:center;gap:1rem;
+  padding:1.2rem 1.5rem;cursor:pointer;
+  transition:background .15s;user-select:none;
+}
+.prin-header:hover{background:var(--bg2);}
+.prin-item.open .prin-header{background:var(--bg2);}
+
+.pn{
+  font-family:'Playfair Display',serif;font-size:2rem;
+  font-weight:900;color:var(--border2);min-width:38px;
+  line-height:1;transition:color .3s;flex-shrink:0;
+}
+.prin-item.open .pn{color:var(--red);}
+
+.pt{flex:1;}
+.pt .p-name{
+  font-family:'Playfair Display',serif;
+  font-size:1.15rem;font-weight:700;
+  color:var(--ink);display:block;line-height:1.2;
+}
+.pt .p-sub{font-size:.75rem;color:var(--ink3);margin-top:.1rem;}
+
+.p-tag{
+  font-family:'JetBrains Mono',monospace;font-size:.58rem;
+  letter-spacing:.08em;text-transform:uppercase;
+  padding:.22rem .65rem;border-radius:2px;white-space:nowrap;
+}
+.tag-r{background:rgba(192,64,48,.08);border:1px solid rgba(192,64,48,.2);color:var(--red);}
+.tag-a{background:rgba(192,120,32,.08);border:1px solid rgba(192,120,32,.2);color:var(--amber);}
+.tag-g{background:rgba(58,112,80,.08);border:1px solid rgba(58,112,80,.2);color:var(--green);}
+.tag-b{background:rgba(42,80,128,.08);border:1px solid rgba(42,80,128,.2);color:var(--blue);}
+
+.pchev{color:var(--ink3);font-size:.8rem;transition:transform .3s;}
+.prin-item.open .pchev{transform:rotate(180deg);}
+
+.prin-body{
+  display:none;padding:0 1.5rem 2rem 4.2rem;
+  border-top:1px solid var(--border);padding-top:1.5rem;
+}
+.prin-item.open .prin-body{display:block;}
+
+.prin-body p{font-size:.88rem;color:var(--ink2);margin-bottom:.9rem;line-height:1.9;}
+.prin-body strong{color:var(--ink);}
+
+.prin-body h4{
+  font-family:'JetBrains Mono',monospace;font-size:.65rem;
+  letter-spacing:.15em;text-transform:uppercase;
+  color:var(--red);margin:1.3rem 0 .6rem;
+}
+
+.deeper{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:6px;padding:1.1rem 1.3rem;margin:.8rem 0 1rem;
+}
+.deeper .dl{
+  font-family:'JetBrains Mono',monospace;font-size:.6rem;
+  letter-spacing:.15em;text-transform:uppercase;
+  color:var(--amber);margin-bottom:.4rem;display:block;
+}
+.deeper p{font-size:.82rem;color:var(--ink2);margin:0;line-height:1.85;}
+
+.story{
+  background:rgba(192,64,48,.04);
+  border:1px solid rgba(192,64,48,.12);
+  border-radius:6px;padding:1.1rem 1.3rem;margin:.8rem 0;
+  display:flex;gap:.8rem;
+}
+.story-icon{font-size:1.2rem;flex-shrink:0;margin-top:.1rem;}
+.story p{font-size:.82rem;color:var(--ink2);margin:0;line-height:1.85;font-style:italic;}
+
+.action-list{list-style:none;display:flex;flex-direction:column;gap:.45rem;margin:.8rem 0 1rem;}
+.action-list li{
+  display:flex;gap:.7rem;font-size:.84rem;color:var(--ink2);align-items:flex-start;
+}
+.al-dot{
+  min-width:18px;height:18px;
+  background:rgba(192,64,48,.07);border:1px solid rgba(192,64,48,.2);
+  border-radius:2px;display:flex;align-items:center;justify-content:center;
+  font-size:.58rem;color:var(--red);margin-top:.15rem;flex-shrink:0;
+  font-family:'JetBrains Mono',monospace;
+}
+
+.for-you{
+  background:rgba(58,112,80,.05);
+  border:1px solid rgba(58,112,80,.18);
+  border-radius:6px;padding:1rem 1.2rem;margin-top:.8rem;
+  font-size:.82rem;color:var(--green);
+}
+.for-you strong{display:block;font-size:.68rem;font-family:'JetBrains Mono',monospace;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.25rem;}
+
+.cols2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin:.8rem 0;}
+@media(max-width:520px){.cols2{grid-template-columns:1fr}}
+.col-card{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:1rem;}
+.col-card h5{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem;}
+.col-card p{font-size:.78rem;color:var(--ink2);margin:0;line-height:1.7;}
+
+/* ── PRINCIPLES OF AGREEMENT ── */
+.agree-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:1rem;margin-bottom:2rem;
+}
+.agree-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:8px;padding:1.4rem;
+  border-top:3px solid;
+}
+.agree-card.ac-r{border-top-color:var(--red);}
+.agree-card.ac-a{border-top-color:var(--amber);}
+.agree-card.ac-g{border-top-color:var(--green);}
+.agree-card.ac-b{border-top-color:var(--blue);}
+.agree-card h3{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin-bottom:.4rem;}
+.agree-card .ac-count{font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--ink3);margin-bottom:.5rem;display:block;}
+.agree-card p{font-size:.78rem;color:var(--ink2);line-height:1.65;}
+
+/* ── COMPARISON TABLE ── */
+.comp-table{
+  width:100%;border-collapse:collapse;
+  margin-bottom:2rem;font-size:.82rem;
+}
+.comp-table th{
+  font-family:'JetBrains Mono',monospace;font-size:.62rem;
+  letter-spacing:.1em;text-transform:uppercase;
+  text-align:left;padding:.8rem 1rem;
+  background:var(--bg2);color:var(--ink3);
+  border-bottom:2px solid var(--border);
+}
+.comp-table td{
+  padding:.75rem 1rem;border-bottom:1px solid var(--border);
+  vertical-align:top;line-height:1.6;
+}
+.comp-table tr:last-child td{border-bottom:none;}
+.comp-table .bad{color:var(--red);font-weight:500;}
+.comp-table .good{color:var(--green);font-weight:500;}
+
+/* ── WEEKLY PLAN ── */
+.week-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));
+  gap:.8rem;margin-bottom:2rem;
+}
+.week-cell{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:8px;padding:1rem;
+}
+.wc-day{
+  font-family:'Playfair Display',serif;font-size:.9rem;
+  font-weight:700;color:var(--red);display:block;margin-bottom:.4rem;
+}
+.wc-focus{font-size:.75rem;color:var(--ink2);line-height:1.6;}
+
+/* ── HABITS CHECKLIST ── */
+.check-list{display:flex;flex-direction:column;gap:.5rem;}
+.check-item{
+  display:flex;align-items:flex-start;gap:.9rem;
+  background:var(--card);border:1px solid var(--border);
+  border-radius:7px;padding:.85rem 1rem;
+  cursor:pointer;transition:all .15s;user-select:none;
+}
+.check-item:hover{border-color:rgba(192,64,48,.25);}
+.check-item.done{opacity:.4;}
+.check-item.done .cbox{background:var(--green);border-color:var(--green);}
+.check-item.done .cbox::after{content:'✓';font-size:.65rem;color:white;}
+.cbox{
+  width:18px;height:18px;min-width:18px;
+  border:1.5px solid var(--border2);border-radius:3px;
+  display:flex;align-items:center;justify-content:center;
+  margin-top:.15rem;transition:all .2s;
+}
+.ct strong{display:block;font-size:.85rem;font-weight:600;color:var(--ink);margin-bottom:.1rem;}
+.ct span{font-size:.74rem;color:var(--ink3);}
+
+/* ── 5 BOOKS ── */
+.five-books{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:1px;
+  background:var(--border);border:1px solid var(--border);
+  border-radius:8px;overflow:hidden;margin-bottom:2rem;
+}
+@media(max-width:700px){.five-books{grid-template-columns:1fr 1fr}}
+.bk-col{background:var(--card);padding:1.2rem 1rem;}
+.bk-col h3{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;margin-bottom:.2rem;}
+.bk-col .bk-tag{font-family:'JetBrains Mono',monospace;font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:.5rem;}
+.bk-col p{font-size:.75rem;color:var(--ink2);line-height:1.6;}
+
+/* PEOPLE SKILLS MATRIX */
+.matrix{display:flex;flex-direction:column;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:2rem;}
+.mx-row{display:grid;grid-template-columns:160px 1fr 1fr;background:var(--card);}
+.mx-row.header{background:var(--bg2);}
+.mx-cell{padding:.85rem 1rem;border-right:1px solid var(--border);font-size:.8rem;line-height:1.5;}
+.mx-cell:last-child{border-right:none;}
+.mx-row.header .mx-cell{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);font-weight:600;}
+.mx-cell strong{color:var(--ink);font-weight:600;display:block;margin-bottom:.2rem;}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .65s ease,transform .65s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* FOOTER */
+footer{
+  background:var(--ink);color:rgba(245,240,232,.6);
+  padding:4rem 2rem;text-align:center;
+}
+.footer-inner{max-width:860px;margin:0 auto;}
+.footer-quote{
+  font-family:'Playfair Display',serif;font-style:italic;
+  font-size:clamp(1.1rem,3vw,1.5rem);color:#f5f0e8;
+  margin-bottom:1.2rem;line-height:1.6;max-width:500px;
+  margin-left:auto;margin-right:auto;
+}
+footer p{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.3rem;}
+
+@media(max-width:600px){
+  section{padding:3.5rem 1.2rem;}
+  .prin-header{padding:1rem;}
+  .prin-body{padding:0 1rem 1.5rem;padding-top:1.2rem;}
+  .pn{font-size:1.5rem;min-width:28px;}
+  .five-books{grid-template-columns:1fr}
+  .mx-row{grid-template-columns:1fr}
+  .comp-table{font-size:.75rem;}
+  .comp-table th,.comp-table td{padding:.6rem .7rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg-lines"></div>
+  <div style="position:relative;z-index:1;max-width:760px;margin:0 auto;">
+    <span class="hero-badge">// Dale Carnegie · 1936 · Plan profundo personalizado</span>
+    <h1>Cómo <em>ganar amigos</em><br>e influir sobre<br>las personas</h1>
+    <p class="hero-author">Dale Carnegie · El libro de relaciones humanas más vendido en la historia</p>
+    <p class="hero-context">Publicado en 1936. 30+ millones de copias. Traducido a 36 idiomas. Leído por Churchill, Roosevelt, Warren Buffett. Lo que la mayoría no entiende: no es manipulación — es la psicología de por qué las personas responden a otras personas.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="hs-num">30</span><span class="hs-label">Principios</span></div>
+      <div class="hero-stat"><span class="hs-num">4</span><span class="hs-label">Partes</span></div>
+      <div class="hero-stat"><span class="hs-num">1936</span><span class="hs-label">Publicado</span></div>
+      <div class="hero-stat"><span class="hs-num">90</span><span class="hs-label">Años vigente</span></div>
+    </div>
+  </div>
+  <div class="hero-scroll"><span>SCROLL</span><div class="hs-bar"></div></div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="#base">La Base</a>
+  <a href="#gustar">Caer Bien</a>
+  <a href="#influir">Influir</a>
+  <a href="#liderar">Liderar</a>
+  <a href="#critica">Sin Ofender</a>
+  <a href="#plan">Plan</a>
+  <a href="#integracion">Integración</a>
+</nav>
+
+<!-- ── LA BASE ── -->
+<section id="base" class="reveal">
+  <span class="sec-label">// 00 · La verdad que nadie quiere oír</span>
+  <h2>El principio que<br>Carnegie nunca dice<br><em>tan directamente</em></h2>
+  <p class="sec-intro">El libro tiene 30 principios. Pero todos son expresiones de una sola verdad que Carnegie descubrió después de 35 años estudiando el comportamiento humano. Si entiendes esa verdad, los 30 principios se vuelven obvios. Si no la entiendes, los 30 principios parecen trucos de ventas.</p>
+
+  <div class="truth-box">
+    <h3>La verdad central</h3>
+    <p>Cada ser humano tiene una necesidad fundamental e irresistible: <strong>sentirse importante, apreciado y comprendido.</strong> No es una preferencia — es una necesidad tan básica como el alimento. Freud la llamó "el deseo de ser grande." Dewey la llamó "el deseo de ser importante."</p>
+    <p>Toda la filosofía de Carnegie es una sola pregunta aplicada a cada interacción: <strong>¿Cómo hago que esta persona se sienta genuinamente importante y comprendida?</strong> Las 30 técnicas son respuestas específicas a esa pregunta en contextos distintos.</p>
+    <p>Lo que el libro no dice suficientemente fuerte: <strong>esto solo funciona cuando es genuino.</strong> Carnegie es explícito en que la adulación falsa y la manipulación producen el efecto contrario. El objetivo no es parecer interesado — es convertirse en alguien genuinamente interesado en los demás.</p>
+  </div>
+
+  <div class="pq">
+    <p>"Puedes hacer más amigos en dos meses interesándote en los demás que en dos años tratando de que los demás se interesen en ti."</p>
+    <cite>— Dale Carnegie, 1936</cite>
+  </div>
+
+  <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;margin-bottom:1rem;color:var(--ink);">Por qué la mayoría falla al aplicar este libro</h3>
+
+  <table class="comp-table">
+    <tr>
+      <th>Lo que hacen</th>
+      <th>Lo que Carnegie dice</th>
+    </tr>
+    <tr>
+      <td><span class="bad">Usan las técnicas como scripts mecánicos</span></td>
+      <td><span class="good">Las técnicas deben surgir de interés genuino</span></td>
+    </tr>
+    <tr>
+      <td><span class="bad">Buscan gustar para obtener algo</span></td>
+      <td><span class="good">Buscan genuinamente el bienestar del otro</span></td>
+    </tr>
+    <tr>
+      <td><span class="bad">Aplican 2-3 principios y esperan resultados</span></td>
+      <td><span class="good">Es un estilo de vida completo, no una táctica</span></td>
+    </tr>
+    <tr>
+      <td><span class="bad">Lo leen para manipular personas difíciles</span></td>
+      <td><span class="good">Es para convertirse en una mejor versión de uno mismo</span></td>
+    </tr>
+    <tr>
+      <td><span class="bad">Esperan que funcione de inmediato</span></td>
+      <td><span class="good">Las relaciones se construyen con consistencia de meses</span></td>
+    </tr>
+  </table>
+
+  <div class="agree-grid">
+    <div class="agree-card ac-r">
+      <h3>Parte I</h3>
+      <span class="ac-count">3 principios · Fundamentos</span>
+      <p>Técnicas fundamentales para tratar con personas. La base de todo lo demás.</p>
+    </div>
+    <div class="agree-card ac-a">
+      <h3>Parte II</h3>
+      <span class="ac-count">6 principios · Caer bien</span>
+      <p>Cómo hacer que las personas te aprecien genuinamente.</p>
+    </div>
+    <div class="agree-card ac-g">
+      <h3>Parte III</h3>
+      <span class="ac-count">12 principios · Persuadir</span>
+      <p>Cómo ganar gente a tu manera de pensar sin crear resistencia.</p>
+    </div>
+    <div class="agree-card ac-b">
+      <h3>Parte IV</h3>
+      <span class="ac-count">9 principios · Liderar</span>
+      <p>Cómo cambiar el comportamiento de personas sin ofender ni resentir.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ── PARTE I: TÉCNICAS FUNDAMENTALES ── -->
+<section id="gustar" class="reveal">
+  <span class="sec-label">// 01 · Parte I y II</span>
+  <h2>Los fundamentos y<br>cómo <em>caer bien</em></h2>
+  <p class="sec-intro">Los primeros 9 principios son los más poderosos y los más ignorados. La mayoría salta a las técnicas de persuasión sin haber construido la base de por qué alguien querría escucharte.</p>
+
+  <div class="prin-list">
+
+    <!-- P1 -->
+    <div class="prin-item" id="pp1">
+      <div class="prin-header" onclick="tp('pp1')">
+        <div class="pn">01</div>
+        <div class="pt"><span class="p-name">No critiques, no condenes, no te quejes</span><span class="p-sub">Parte I · El principio más difícil de los 30</span></div>
+        <span class="p-tag tag-r">Fundamento</span>
+        <span class="pchev">▾</span>
+      </div>
+      <div class="prin-body">
+        <p>Carnegie dice que la crítica es inútil porque pone a la persona a la defensiva y generalmente la hace justificarse. La crítica es peligrosa porque hiere el orgullo, lesiona el sentido de importancia y despierta resentimiento.</p>
+        <p>El principio no es "nunca des retroalimentación negativa." Es que la crítica directa casi nunca cambia el comportamiento — solo genera resistencia. Las personas no cambian porque las critiques. Cambian cuando quieren cambiar.</p>
+
+        <div class="deeper">
+          <span class="dl">🔬 Más profundo que el libro</span>
+          <p>Carnegie cita a Lincoln, quien aprendió este principio de la forma difícil después de que un duelo casi costó su vida por una carta pública que escribió criticando a un político. Lincoln nunca más criticó a nadie públicamente. La neurociencia confirma por qué: la crítica activa la respuesta de amenaza en el cerebro (amígdala), que bloquea la capacidad de escuchar y aprender. El cerebro bajo amenaza no puede recibir información nueva — solo puede defenderse. Para que alguien cambie, primero debe sentirse seguro.</p>
+        </div>
+
+        <div class="story">
+          <span class="story-icon">📖</span>
+          <p>El ejemplo de Carnegie: un médico le dijo a un fumador que si seguía fumando moriría. El hombre siguió fumando. Una semana después, el mismo médico le dijo: "Admiro tu fuerza de voluntad — sé lo difícil que es dejar de fumar." El hombre dejó de fumar ese mes. Mismo objetivo, distinto enfoque — sin crítica.</p>
+        </div>
+
+        <div class="for-you">
+          <strong>🎯 Para ti como freelancer</strong>
+          Cuando un cliente te da retroalimentación que te parece injusta, o un contacto no cumple lo prometido — en lugar de quejarte (aunque sea mentalmente), pregúntate: "¿Qué necesita esta persona para actuar diferente?" Eso cambia la conversación.
+        </div>
+      </div>
+    </div>
+
+    <!-- P2 -->
+    <div class="prin-item" id="pp2">
+      <div class="prin-header" onclick="tp('pp2')">
+        <div class="pn">02</div>
+        <div class="pt"><span class="p-name">Da apreciación honesta y sincera</span><span class="p-sub">Parte I · La diferencia entre halago y apreciación</span></div>
+        <span class="p-tag tag-r">Fundamento</span>
+        <span class="pchev">▾</span>
+      </div>
+      <div class="prin-body">
+        <p>Carnegie hace una distinción crucial que casi nadie capta: la diferencia entre <strong>adulación</strong> (falsa, interesada, vacía) y <strong>apreciación genuina</strong> (específica, honesta, desde el corazón).</p>
+        <p>La adulación es barata y se detecta instantáneamente. La apreciación genuina — notar algo específico y real que alguien hizo bien — es escasa y poderosa.</p>
+
+        <div class="deeper">
+          <span class="dl">🔬 Más profundo que el libro</span>
+          <p>Carnegie cita a Charles Schwab, quien ganó un millón de dólares al año (equivalente a 15 millones hoy) no por su conocimiento del acero, sino por su capacidad de apreciar a las personas. Schwab decía: "Considero que mi habilidad de despertar entusiasmo en los hombres es el mayor activo que poseo." La apreciación genuina activa el sistema de recompensa dopaminérgico en el cerebro — y el cerebro asocia ese estado de bienestar con la persona que lo produjo. No es manipulación — es la química de por qué queremos volver a estar cerca de ciertas personas.</p>
+        </div>
+
+        <h4>La fórmula de la apreciación específica</h4>
+        <ul class="action-list">
+          <li><span class="al-dot">→</span>No: "Buen trabajo." Sí: "La forma en que manejaste esa objeción del cliente fue exactamente lo correcto — mantuviste la calma y redirigiste sin crear tensión."</li>
+          <li><span class="al-dot">→</span>No: "Eres muy inteligente." Sí: "La solución que propusiste al problema de distribución me sorprendió — no había pensado en ese ángulo."</li>
+          <li><span class="al-dot">→</span>La apreciación específica demuestra que prestaste atención real — lo cual en sí mismo hace sentir importante a la persona.</li>
+        </ul>
+
+        <div class="for-you">
+          <strong>🎯 Para ti</strong>
+          Como freelancer, la apreciación genuina a clientes es un activo de negocio. Un cliente que se siente genuinamente apreciado te refiere. Un cliente que siente adulación interesada se aleja.
+        </div>
+      </div>
+    </div>
+
+    <!-- P3 -->
+    <div class="prin-item" id="pp3">
+      <div class="prin-header" onclick="tp('pp3')">
+        <div class="pn">03</div>
+        <div class="pt"><span class="p-name">Despierta en los demás un deseo vehemente</span><span class="p-sub">Parte I · El secreto de toda influencia real</span></div>
+        <span class="p-tag tag-r">Fundamento</span>
+        <span class="pchev">▾</span>
+      </div>
+      <div class="prin-body">
+        <p>Este es el principio más poderoso y menos aplicado del libro. Carnegie dice: la única forma de influir en alguien es hablar de lo que ellos quieren y mostrarles cómo conseguirlo.</p>
+        <p>La mayoría de personas habla de lo que <em>ellas</em> quieren. Carnegie dice que eso es irrelevante. La pregunta que debes hacerte antes de cada conversación importante es: <strong>¿Qué quiere esta persona? ¿Cómo mi propuesta satisface lo que ellos quieren?</strong></p>
+
+        <div class="deeper">
+          <span class="dl">🔬 Más profundo que el libro</span>
+          <p>Carnegie usa la metáfora de la pesca: cuando vas a pescar no pones en el anzuelo lo que a ti te gusta comer — pones lo que le gusta al pez. Esto suena obvio y sin embargo es lo que la mayoría nunca hace. Cuando un freelancer le dice a un cliente "yo puedo hacer X, Y y Z", está poniendo su propia carnada. El cliente eficiente dice: "Entiendo que tu problema es A, y lo que propongo resuelve A mejor que cualquier alternativa, aquí está por qué." Mismos servicios, distinto resultado. Carnegie llamó a esto el secreto de la influencia — Henry Ford lo describió como la única habilidad de liderazgo que importa.</p>
+        </div>
+
+        <div class="cols2">
+          <div class="col-card">
+            <h5 style="color:var(--red);">Enfoque en ti</h5>
+            <p>"Necesito que me pagues más rápido porque tengo gastos." / "Deberías contratar mis servicios porque tengo experiencia."</p>
+          </div>
+          <div class="col-card">
+            <h5 style="color:var(--green);">Enfoque en ellos</h5>
+            <p>"Pagar en 15 días en lugar de 30 significa que puedo priorizar tu proyecto cuando más lo necesitas." / "Los negocios como el tuyo pierden X cuando no resuelven este problema."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- P4 -->
+    <div class="prin-item" id="pp4">
+      <div class="prin-header" onclick="tp('pp4')">
+        <div class="pn">04</div>
+        <div class="pt"><span class="p-name">Interésate genuinamente en los demás</span><span class="p-sub">Parte II · La base de toda simpatía real</span></div>
+        <span class="p-tag tag-a">Caer bien</span>
+        <span class="pchev">▾</span>
+      </div>
+      <div class="prin-body">
+        <p>Carnegie dice que puedes hacer más amigos en dos meses interesándote en los demás que en dos años intentando que los demás se interesen en ti. Es el principio más contraintuitivo para personas que quieren "causar una buena impresión."</p>
+
+        <div class="deeper">
+          <span class="dl">🔬 Más profundo que el libro</span>
+          <p>La razón neurológica por la que funciona: cuando alguien te hace preguntas genuinas sobre tu vida, tus proyectos, tus opiniones — y escucha de verdad — se activa el mismo circuito de recompensa que cuando recibes dinero o comida. Las personas literalmente sienten placer cuando hablan de sí mismas a alguien que les presta atención genuina. Un estudio de Harvard mostró que hablar de uno mismo activa las mismas regiones del cerebro que la comida y el sexo. Carnegie lo descubrió empíricamente; la neurociencia lo confirmó 80 años después. La diferencia entre interés genuino e interés fingido: el fingido se detecta en microsegundos a través de señales no verbales que el cerebro procesa inconscientemente.</p>
+        </div>
+
+        <h4>Práctica concreta</h4>
+        <ul class="action-list">
+          <li><span class="al-dot">→</span>Antes de una reunión importante: investiga a la persona. ¿Qué proyectos tiene? ¿Qué logros recientes? Llega con preguntas genuinas, no con tu presentación.</li>
+          <li><span class="al-dot">→</span>Recuerda y menciona detalles de conversaciones anteriores. "¿Cómo resultó el proyecto del que me hablaste la última vez?" es más poderoso que cualquier halago.</li>
+          <li><span class="al-dot">→</span>El interés genuino se desarrolla como hábito: practica estar genuinamente curioso sobre la siguiente persona que encuentres hoy.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- P5 -->
+    <div class="prin-item" id="pp5">
+      <div class="prin-header" onclick="tp('pp5')">
+        <div class="pn">05</div>
+        <div class="pt"><span class="p-name">Sonríe</span><span class="p-sub">Parte II · El principio más subestimado del libro</span></div>
+        <span class="p-tag tag-a">Caer bien</span>
+        <span class="pchev">▾</span>
+      </div>
+      <div class="prin-body">
+        <p>Carnegie dedica un capítulo entero a la sonrisa porque sus datos mostraban que es el factor más subestimado en las relaciones humanas. No habla de una sonrisa mecánica o de ventas — habla de una sonrisa genuina que refleja un estado mental real.</p>
+
+        <div class="deeper">
+          <span class="dl">🔬 Más profundo que el libro</span>
+          <p>Las neuronas espejo son el mecanismo detrás de este principio. Cuando ves a alguien sonreír genuinamente, tu cerebro activa automáticamente los mismos circuitos que cuando sonríes tú — produces serotonina y dopamina como si fueras tú el que sonríe. Es involuntario. La sonrisa genuina (llamada sonrisa de Duchenne — que involucra los ojos, no solo la boca) se procesa inconscientemente en 33 milisegundos. Carnegie dice algo más profundo aún: actúa como si ya fueras feliz y te volveras más feliz. La psicología moderna llama a esto "embodied cognition" — el estado físico afecta el estado mental tanto como al revés.</p>
+        </div>
+
+        <div class="story">
+          <span class="story-icon">📖</span>
+          <p>Carnegie cita a William James: "La acción parece seguir al sentimiento, pero realmente acción y sentimiento van juntos." No esperes sentirte bien para sonreír — sonríe primero. El estado emocional sigue a la acción física con sorprendente consistencia.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- P6 -->
+    <div class="prin-item" id="pp6">
+      <div class="prin-header" onclick="tp('pp6')">
+        <div class="pn">06</div>
+        <div class="pt"><span class="p-name">Recuerda que el nombre de una persona es el sonido más dulce</span><span class="p-sub">Parte II · El detalle que separa a los buenos de los extraordinarios</span></div>
+        <span class="p-tag tag-a">Caer bien</span>
+        <span class="pchev">▾</span>
+      </div>
+      <div class="prin-body">
+        <p>Carnegie observó que los líderes más efectivos que estudió tenían una capacidad extraordinaria para recordar nombres. Lo explica así: el nombre es la identidad de la persona. Usarlo dice "tú importas lo suficiente para que yo recuerde quién eres."</p>
+
+        <div class="deeper">
+          <span class="dl">🔬 Más profundo que el libro</span>
+          <p>Un estudio de neuroimagen mostró que escuchar tu propio nombre activa la corteza prefrontal medial — la región asociada con el sentido de identidad y autoconciencia — de forma diferente a cualquier otra palabra. Literalmente, tu nombre activa una región del cerebro que pocas otras cosas activan. Carnegie estudió a Jim Farley, quien conocía 50,000 personas por su nombre — y atribuía su éxito político directamente a eso. El sistema de Farley: cuando conocía a alguien, descubría su nombre completo, detalles de su familia y negocio, y en el próximo encuentro los usaba todos. No era memoria extraordinaria — era atención extraordinaria.</p>
+        </div>
+
+        <h4>El sistema de Carnegie para recordar nombres</h4>
+        <ul class="action-list">
+          <li><span class="al-dot">1</span>Repite el nombre inmediatamente: "Mucho gusto, [Nombre]."</li>
+          <li><span class="al-dot">2</span>Úsalo durante la conversación con naturalidad: no en exceso, pero 2-3 veces.</li>
+          <li><span class="al-dot">3</span>Escríbelo después. La escritura consolida la memoria.</li>
+          <li><span class="al-dot">4</span>Asócialo con algo visual o una característica de la persona.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- P7 -->
+    <div class="prin-item" id="pp7">
+      <div class="prin-header" onclick="tp('pp7')">
+        <div class="pn">07</div>
+        <div class="pt"><span class="p-name">Sé un buen oyente. Anima a los demás a hablar de sí mismos</span><span class="p-sub">Parte II · La habilidad más escasa del mundo</span></div>
+        <span class="p-tag tag-a">Caer bien</span>
+        <span class="pchev">▾</span>
+      </div>
+      <div class="prin-body">
+        <p>Carnegie dice que muchas personas que fracasan en las conversaciones no lo hacen por ser aburridas — sino por hablar demasiado de sí mismas y no escuchar lo suficiente. La escucha genuina es tan escasa que quien la practica se vuelve inmediatamente memorable.</p>
+
+        <div class="deeper">
+          <span class="dl">🔬 Más profundo que el libro</span>
+          <p>La diferencia entre escucha activa y escucha pasiva: la pasiva espera su turno para hablar. La activa está completamente presente — hace preguntas de seguimiento, recuerda detalles, conecta lo que la persona dice con lo que dijo antes. Carnegie dice que para ser un buen conversador, primero sé un buen oyente. Luego da la clave: haz preguntas que la persona disfrute responder. Esto requiere un trabajo previo — pensar qué le apasiona, qué le preocupa, qué logro reciente tiene. La escucha genuina es una forma de respeto que casi nadie práctica consistentemente.</p>
+        </div>
+
+        <div class="for-you">
+          <strong>🎯 Para ti</strong>
+          En reuniones con clientes potenciales, el freelancer que escucha 70% del tiempo y habla 30% cierra más que el que hace la presentación perfecta. El cliente que habló más se fue sintiendo comprendido — y quiere trabajar con quien lo comprende.
+        </div>
+      </div>
+    </div>
+
+    <!-- P8 -->
+    <div class="prin-item" id="pp8">
+      <div class="prin-header" onclick="tp('pp8')">
+        <div class="pn">08</div>
+        <div class="pt"><span class="p-name">Habla en términos de los intereses del otro</span><span class="p-sub">Parte II · El camino más corto al corazón de alguien</span></div>
+        <span class="p-tag tag-a">Caer bien</span>
+        <span class="pchev">▾</span>
+      </div>
+      <div class="prin-body">
+        <p>Theodore Roosevelt se preparaba la noche anterior a cada reunión leyendo sobre el tema que más le interesaba a su visitante. Porque sabía que el camino hacia el corazón de una persona pasa por hablar de las cosas que más aprecia.</p>
+
+        <div class="story">
+          <span class="story-icon">📖</span>
+          <p>Carnegie describe a un hombre que pasó el fin de semana investigando sobre la historia de los sellos de correo para impresionar al hijo de un banquero que los coleccionaba. La conversación sobre sellos abrió una amistad que resultó en un préstamo millonario. No fue manipulación — fue interés genuino que se cultivó deliberadamente.</p>
+        </div>
+
+        <div class="for-you">
+          <strong>🎯 Para ti como freelancer</strong>
+          Antes de una propuesta o reunión clave: ¿qué sé del negocio del cliente? ¿Cuáles son sus mayores problemas actuales? ¿Qué resultados le importan más? Llega a hablar de su mundo, no del tuyo.
+        </div>
+      </div>
+    </div>
+
+    <!-- P9 -->
+    <div class="prin-item" id="pp9">
+      <div class="prin-header" onclick="tp('pp9')">
+        <div class="pn">09</div>
+        <div class="pt"><span class="p-name">Haz que el otro se sienta importante — y hazlo sinceramente</span><span class="p-sub">Parte II · La regla de oro de Carnegie</span></div>
+        <span class="p-tag tag-a">Caer bien</span>
+        <span class="pchev">▾</span>
+      </div>
+      <div class="prin-body">
+        <p>Este es el principio culminante de la Parte II. Carnegie lo llama "la regla de oro de las relaciones humanas": trata a cada persona como si fuera la más importante del mundo — porque para ella, lo es.</p>
+
+        <div class="deeper">
+          <span class="dl">🔬 Más profundo que el libro</span>
+          <p>Carnegie cita a Emerson: "Cada hombre que encuentro es superior a mí en alguna cosa. En eso aprendo de él." Este es el cambio de mentalidad más profundo del libro: en lugar de evaluar jerárquicamente a las personas (este es más importante que yo, este menos), Carnegie propone ver genuinamente el valor único de cada persona. Cuando esto es real — no actuado — se transmite en microsegundos a través del lenguaje corporal, el tono y la atención. La persona lo siente antes de que digas una palabra. Es el fundamento de todo lo demás.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ── PARTE III: INFLUIR ── -->
+<section id="influir" class="reveal">
+  <span class="sec-label">// 02 · Parte III</span>
+  <h2>Cómo ganar personas<br>a tu manera de<br><em>pensar</em></h2>
+  <p class="sec-intro">Los 12 principios de persuasión de Carnegie son radicalmente distintos a lo que la mayoría entiende por "persuasión." No son técnicas de presión — son la eliminación sistemática de la resistencia.</p>
+
+  <div class="prin-list">
+
+    <!-- P10 -->
+    <div class="prin-item" id="pp10">
+      <div class="prin-header" onclick="tp('pp10')">
+        <div class="pn">10</div>
+        <div class="pt"><span class="p-name">La única forma de ganar una discusión: evítala</span><span class="p-sub">Parte III · Por qué ganar un argumento es perder</span></div>
+        <span class="p-tag tag-g">Persuadir</span>
+        <span class="pchev">▾</span>
+      </div>
+      <div class="prin-body">
+        <p>Carnegie dice algo que parece paradójico: en una discusión, aunque ganes, pierdes. Si ganas la discusión, hiriste el orgullo de la otra persona — y ahora tiene resentimiento hacia ti. Si pierdes, aprendiste algo pero el otro ganó a costa de tu orgullo. En ningún caso ganas realmente.</p>
+
+        <div class="deeper">
+          <span class="dl">🔬 Más profundo que el libro</span>
+          <p>Carnegie observó en años de investigación que nadie cambia de opinión porque lo derrotaron en un argumento. Las personas cambian de opinión cuando se sienten respetadas y cuando ellas mismas llegan a la conclusión — no cuando alguien les demuestra que están equivocadas. El ego es un guardián poderoso: cuando el cerebro siente que su identidad está siendo atacada (y la mayoría de argumentos se perciben así), activa la misma respuesta de amenaza que ante un peligro físico. Bajo esa respuesta, es imposible procesar nueva información. Toda la persuasión real pasa por desactivar ese estado de amenaza.</p>
+        </div>
+
+        <div class="cols2">
+          <div class="col-card">
+            <h5 style="color:var(--red);">Discusión</h5>
+            <p>Defiendes tu posición. La otra persona defiende la suya. Nadie escucha. Alguien "gana". El perdedor guarda resentimiento.</p>
+          </div>
+          <div class="col-card">
+            <h5 style="color:var(--green);">Carnegie</h5>
+            <p>Escuchas su posición completamente. Encuentras lo válido en ella. Presentas tu perspectiva como complementaria, no opuesta.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- P11 -->
+    <div class="prin-item" id="pp11">
+      <div class="prin-header" onclick="tp('pp11')">
+        <div class="pn">11</div>
+        <div class="pt"><span class="p-name">Muestra respeto por las opiniones ajenas. Nunca digas "estás equivocado"</span><span class="p-sub">Parte III · El principio más violado en redes sociales</span></div>
+        <span class="p-tag tag-g">Persuadir</span>
+        <span class="pchev">▾</span>
+      </div>
+      <div class="prin-body">
+        <p>Decirle a alguien directamente que está equivocado es un golpe a su inteligencia, su juicio y su orgullo. Genera resentimiento inmediato sin producir ningún cambio. Carnegie dice: nunca comiences una conversación diciéndole a alguien que está equivocado — incluso si lo está.</p>
+
+        <div class="deeper">
+          <span class="dl">🔬 Más profundo que el libro</span>
+          <p>El principio de Carnegie tiene un nombre en la psicología moderna: "reactancia." Cuando alguien siente que su autonomía de pensar está siendo amenazada (es decir, cuando alguien le dice que está equivocado), la reacción automática es resistir y aferrarse más fuerte a la posición original — aunque sea incorrecta. Decirle a alguien que está equivocado literalmente refuerza su creencia errónea. La alternativa de Carnegie: "Puede que tenga razón. Examinemos los hechos juntos." Esto elimina la amenaza al ego y abre la posibilidad de cambio genuino.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- P12 -->
+    <div class="prin-item" id="pp12">
+      <div class="prin-header" onclick="tp('pp12')">
+        <div class="pn">12</div>
+        <div class="pt"><span class="p-name">Si estás equivocado, admítelo rápida y enfáticamente</span><span class="p-sub">Parte III · La paradoja del error</span></div>
+        <span class="p-tag tag-g">Persuadir</span>
+        <span class="pchev">▾</span>
+      </div>
+      <div class="prin-body">
+        <p>Cuando sepas que estás equivocado, di "me equivoqué completamente y lo lamento" antes de que nadie pueda decírtelo. Esto desarma al crítico inmediatamente — la mayoría no sabe qué hacer cuando la persona que esperaban defender su error lo admite antes.</p>
+
+        <div class="deeper">
+          <span class="dl">🔬 Más profundo que el libro</span>
+          <p>Carnegie dice: si te criticas a ti mismo, nadie más puede hacerlo. Y tiene razón — cuando alguien admite un error de forma genuina y enfática, el crítico siente empatía en lugar de irritación. Hay un efecto adicional: la humildad real genera confianza. Una persona que admite sus errores es percibida como más confiable que una que los justifica. En relaciones de negocio, admitir un error rápidamente convierte una crisis en un momento de construcción de confianza — si va acompañado de una solución.</p>
+        </div>
+
+        <div class="for-you">
+          <strong>🎯 Para ti</strong>
+          Como freelancer, cuando cometes un error con un cliente — admítelo inmediatamente, con total claridad, y llega ya con la solución. La velocidad y la honestidad de la admisión determinan si el cliente se queda o se va.
+        </div>
+      </div>
+    </div>
+
+    <!-- P13 -->
+    <div class="prin-item" id="pp13">
+      <div class="prin-header" onclick="tp('pp13')">
+        <div class="pn">13</div>
+        <div class="pt"><span class="p-name">Empieza de forma amigable</span><span class="p-sub">Parte III · La ley de la primera impresión sostenida</span></div>
+        <span class="p-tag tag-g">Persuadir</span>
+        <span class="pchev">▾</span>
+      </div>
+      <div class="prin-body">
+        <p>Carnegie cita a Lincoln: "Una gota de miel caza más moscas que un galón de hiel." Si quieres convencer a alguien de algo, primero debes demostrar que eres su amigo. Comenzar con crítica o queja cierra la mente del otro antes de que hayas dicho lo importante.</p>
+        <p>Esto se aplica especialmente en situaciones difíciles: negociaciones, pedidos que podrían ser rechazados, conversaciones sobre problemas. Lo primero siempre es establecer un tono de amistad y respeto genuino.</p>
+      </div>
+    </div>
+
+    <!-- P14 -->
+    <div class="prin-item" id="pp14">
+      <div class="prin-header" onclick="tp('pp14')">
+        <div class="pn">14</div>
+        <div class="pt"><span class="p-name">Consigue que el otro diga "sí, sí" inmediatamente</span><span class="p-sub">Parte III · El método socrático moderno</span></div>
+        <span class="p-tag tag-g">Persuadir</span>
+        <span class="pchev">▾</span>
+      </div>
+      <div class="prin-body">
+        <p>Sócrates usaba este método hace 2400 años: comenzar con preguntas sobre las que el otro no puede decir que no. Cada "sí" pequeño crea un estado mental de apertura y acuerdo. Comenzar con un punto de desacuerdo pone al otro en modo defensivo desde el inicio.</p>
+
+        <div class="deeper">
+          <span class="dl">🔬 Más profundo que el libro</span>
+          <p>La neurociencia del "sí" consistente: cada vez que decimos "sí" a algo, el cerebro produce una pequeña dosis de dopamina — lo opuesto de la respuesta de amenaza que produce el "no". Una secuencia de síes crea momentum psicológico hacia el acuerdo. El método: antes de presentar tu propuesta principal, construye una serie de 3-5 preguntas sobre las que el otro solo puede responder "sí" — y que llevan lógicamente hacia tu propuesta. No es manipulación cuando las preguntas son genuinas y el acuerdo final beneficia a ambas partes.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- P15 -->
+    <div class="prin-item" id="pp15">
+      <div class="prin-header" onclick="tp('pp15')">
+        <div class="pn">15</div>
+        <div class="pt"><span class="p-name">Deja que el otro hable mucho</span><span class="p-sub">Parte III · El secreto de las ventas que nadie enseña</span></div>
+        <span class="p-tag tag-g">Persuadir</span>
+        <span class="pchev">▾</span>
+      </div>
+      <div class="prin-body">
+        <p>Carnegie dice que la mayoría de personas que quiere vender o persuadir habla demasiado. El secreto: deja que la otra persona hable. Hace preguntas. Escucha. En las ventas, el cliente que habló más compra más frecuentemente — porque en el proceso de hablar se convenció a sí mismo.</p>
+
+        <div class="for-you">
+          <strong>🎯 Para ti como freelancer</strong>
+          En una reunión con cliente potencial: haz preguntas, escucha, toma notas. El cliente que habló 70% del tiempo se fue convencido de que tú lo entiendes mejor que nadie. Eso es más poderoso que cualquier portafolio.
+        </div>
+      </div>
+    </div>
+
+    <!-- P16 -->
+    <div class="prin-item" id="pp16">
+      <div class="prin-header" onclick="tp('pp16')">
+        <div class="pn">16</div>
+        <div class="pt"><span class="p-name">Deja que el otro sienta que la idea es suya</span><span class="p-sub">Parte III · La técnica de los grandes líderes</span></div>
+        <span class="p-tag tag-g">Persuadir</span>
+        <span class="pchev">▾</span>
+      </div>
+      <div class="prin-body">
+        <p>Las personas creen más firmemente en las ideas que creen haber concebido ellas mismas. Carnegie dice: en lugar de presentar tu idea, presenta los ingredientes de la idea y deja que el otro la sintetice. La idea que "son ellos" quienes tuvieron será defendida con mucho más vigor que una idea que les impusiste.</p>
+
+        <div class="deeper">
+          <span class="dl">🔬 Más profundo que el libro</span>
+          <p>Esto es lo que los mejores maestros hacen con sus alumnos y los mejores líderes con sus equipos. En lugar de dar la respuesta, hacer las preguntas que llevan al otro a encontrar la respuesta. El aprendizaje y la convicción generados por el descubrimiento propio son exponencialmente más duraderos que los producidos por la imposición. Carnegie lo descubrió en ventas y liderazgo; la psicología educativa lo confirmó décadas después.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ── PARTE IV: LIDERAZGO ── -->
+<section id="liderar" class="reveal">
+  <span class="sec-label">// 03 · Parte IV</span>
+  <h2>Cómo <em>liderar</em><br>sin imponer</h2>
+  <p class="sec-intro">La Parte IV es la más poderosa para el contexto de freelancer y constructor de relaciones de negocio. Son los principios de cómo cambiar el comportamiento de las personas sin crear resentimiento.</p>
+
+  <div class="prin-list">
+
+    <!-- P17 -->
+    <div class="prin-item" id="pp17">
+      <div class="prin-header" onclick="tp('pp17')">
+        <div class="pn">17</div>
+        <div class="pt"><span class="p-name">Empieza con elogio y apreciación honesta</span><span class="p-sub">Parte IV · La cirugía con anestesia</span></div>
+        <span class="p-tag tag-b">Liderar</span>
+        <span class="pchev">▾</span>
+      </div>
+      <div class="prin-body">
+        <p>Carnegie usa una metáfora poderosa: siempre es más fácil escuchar cosas desagradables después de haber escuchado cosas agradables. El elogio honesto primero no es adulación — es crear el estado emocional en el que el otro puede escuchar la retroalimentación difícil sin activar defensas.</p>
+        <div class="story">
+          <span class="story-icon">📖</span>
+          <p>McKinley necesitaba que un político cambiara un discurso que causaría problemas. En lugar de decírselo directamente, primero le dijo que el discurso era extraordinario — uno de los mejores que había escuchado — y luego preguntó si creía que sería apropiado para la audiencia específica. El político reescribió el discurso creyendo que era su propia decisión.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- P18 -->
+    <div class="prin-item" id="pp18">
+      <div class="prin-header" onclick="tp('pp18')">
+        <div class="pn">18</div>
+        <div class="pt"><span class="p-name">Señala los errores de forma indirecta</span><span class="p-sub">Parte IV · La diferencia entre "pero" y "y"</span></div>
+        <span class="p-tag tag-b">Liderar</span>
+        <span class="pchev">▾</span>
+      </div>
+      <div class="prin-body">
+        <p>Carnegie da un ejemplo preciso: en lugar de "Este trabajo es bueno, <em>pero</em> tiene estos errores", usa "Este trabajo es bueno, <em>y</em> si haces X, Y y Z quedará aún mejor."</p>
+        <p>El "pero" cancela todo lo dicho antes. El "y" construye sobre lo positivo. Es una distinción de una sola palabra que cambia completamente cómo se recibe la retroalimentación.</p>
+
+        <div class="deeper">
+          <span class="dl">🔬 Más profundo que el libro</span>
+          <p>El cerebro procesa el "pero" como una señal de cancelación — lo anterior no cuenta, lo que importa es lo que viene después. Es por esto que "eres inteligente, pero..." activa la misma respuesta de amenaza que una crítica directa. El "y" es aditivo: reconoce lo anterior como válido y agrega información nueva. Esta distinción, que Carnegie describió intuitivamente en 1936, fue confirmada por investigaciones en psicología del lenguaje en los años 90.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- P19 -->
+    <div class="prin-item" id="pp19">
+      <div class="prin-header" onclick="tp('pp19')">
+        <div class="pn">19</div>
+        <div class="pt"><span class="p-name">Habla de tus propios errores antes de criticar los ajenos</span><span class="p-sub">Parte IV · La humildad como herramienta de liderazgo</span></div>
+        <span class="p-tag tag-b">Liderar</span>
+        <span class="pchev">▾</span>
+      </div>
+      <div class="prin-body">
+        <p>Carnegie dice: es mucho más fácil escuchar una lista de tus defectos si la persona que te la da comienza admitiendo sus propios errores primero. La humildad del líder desactiva la defensividad del otro.</p>
+        <p>El efecto adicional: cuando señalas tus propios errores primero, demuestras que la conversación es sobre mejorar — no sobre atacar. El contexto cambia de "te voy a criticar" a "estamos trabajando en crecer juntos."</p>
+      </div>
+    </div>
+
+    <!-- P20 -->
+    <div class="prin-item" id="pp20">
+      <div class="prin-header" onclick="tp('pp20')">
+        <div class="pn">20</div>
+        <div class="pt"><span class="p-name">Haz preguntas en lugar de dar órdenes directas</span><span class="p-sub">Parte IV · El liderazgo que preserva la dignidad</span></div>
+        <span class="p-tag tag-b">Liderar</span>
+        <span class="pchev">▾</span>
+      </div>
+      <div class="prin-body">
+        <p>"¿Crees que haría bien si hacemos X?" produce más cooperación que "Haz X." La pregunta da a la persona la sensación de autonomía — que la decisión es parcialmente suya — lo cual aumenta su compromiso con el resultado.</p>
+
+        <div class="for-you">
+          <strong>🎯 Para ti con clientes</strong>
+          "¿Qué opinas si abordamos el proyecto de esta manera?" genera más buy-in que "El proyecto se hará de esta manera." El cliente que sintió que la decisión fue conjunta defiende el resultado como si fuera suyo.
+        </div>
+      </div>
+    </div>
+
+    <!-- P21 -->
+    <div class="prin-item" id="pp21">
+      <div class="prin-header" onclick="tp('pp21')">
+        <div class="pn">21</div>
+        <div class="pt"><span class="p-name">Deja que el otro salve su dignidad</span><span class="p-sub">Parte IV · El principio que separa líderes de jefes</span></div>
+        <span class="p-tag tag-b">Liderar</span>
+        <span class="pchev">▾</span>
+      </div>
+      <div class="prin-body">
+        <p>Carnegie dice que muy pocas personas piensan en el efecto que tiene sobre el ego de otro señalar un error delante de otros, o hacerlo de manera brusca. Esto se llama "hacer quedar mal a alguien" — y genera un resentimiento profundo y duradero.</p>
+        <p>La alternativa: siempre da retroalimentación negativa en privado. Nunca corrijas a alguien delante de otros. Si alguien cometió un error que necesita corrección, encuentra la forma de hacerlo que preserve su dignidad — incluso si la corrección es inevitable.</p>
+
+        <div class="deeper">
+          <span class="dl">🔬 Más profundo que el libro</span>
+          <p>El filósofo Antoine de Saint-Exupéry escribió: "No tengo derecho a decir o hacer nada que disminuya a un hombre a sus propios ojos. Lo que importa no es lo que pienso de él, sino lo que él piensa de sí mismo. Herir la dignidad de un hombre es un crimen." Carnegie llegó a la misma conclusión desde la práctica. La dignidad es tan fundamental para la psicología humana como la seguridad física — y una amenaza a la dignidad activa las mismas respuestas de defensa que una amenaza física.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- P22 -->
+    <div class="prin-item" id="pp22">
+      <div class="prin-header" onclick="tp('pp22')">
+        <div class="pn">22</div>
+        <div class="pt"><span class="p-name">Elogia el más pequeño progreso. Sé efusivo en tu aprobación</span><span class="p-sub">Parte IV · Cómo produce cambio permanente el elogio</span></div>
+        <span class="p-tag tag-b">Liderar</span>
+        <span class="pchev">▾</span>
+      </div>
+      <div class="prin-body">
+        <p>Carnegie dice que las personas no cambian su comportamiento cuando las criticas por el comportamiento malo — cambian cuando las elogias por el comportamiento bueno. El elogio genuino del progreso más pequeño crea el deseo de más progreso.</p>
+
+        <div class="deeper">
+          <span class="dl">🔬 Más profundo que el libro</span>
+          <p>Esto es psicología del refuerzo positivo — que B.F. Skinner formalizaría en los años 50, décadas después de Carnegie. Cada elogio genuino libera dopamina, que el cerebro asocia con el comportamiento que lo produjo, creando el deseo de repetirlo. Carnegie lo descubrió observando a los mejores entrenadores y líderes de su época. Lo que añade Carnegie sobre Skinner: el elogio debe ser específico y genuino. El elogio vago ("bien hecho") produce mucho menos efecto que el elogio específico ("la forma en que manejaste esa parte del proceso fue exactamente lo que necesitábamos").</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- P23 -->
+    <div class="prin-item" id="pp23">
+      <div class="prin-header" onclick="tp('pp23')">
+        <div class="pn">23</div>
+        <div class="pt"><span class="p-name">Dale a la otra persona una buena reputación que mantener</span><span class="p-sub">Parte IV · El principio más subestimado del libro completo</span></div>
+        <span class="p-tag tag-b">Liderar</span>
+        <span class="pchev">▾</span>
+      </div>
+      <div class="prin-body">
+        <p>Carnegie dice: si quieres cambiar el comportamiento de alguien, actúa como si ya tuviera la cualidad que quieres desarrollar en él. Si quieres que alguien sea más puntual, dile que has notado que siempre cumple su palabra. Ahora tiene una reputación que mantener.</p>
+
+        <div class="deeper">
+          <span class="dl">🔬 Más profundo que el libro</span>
+          <p>Este principio activa lo que los psicólogos llaman "consistencia cognitiva" — el cerebro tiene una necesidad fundamental de actuar de forma consistente con su identidad y reputación. Si alguien cree que eres el tipo de persona que hace X, hacer lo contrario de X produce una disonancia cognitiva que el cerebro trata activamente de resolver — cambiando el comportamiento para que sea consistente con la identidad. Carnegie estaba describiendo empíricamente en 1936 lo que la psicología cognitiva formalizaría en los años 70.</p>
+        </div>
+
+        <div class="story">
+          <span class="story-icon">📖</span>
+          <p>"El Sr. Jones siempre ha sido tan generoso con su tiempo para ayudar a otros" — dicho ante una petición de ayuda. Jones ahora tiene una identidad de generosidad que defender. Es más probable que ayude que si simplemente le pides el favor.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ── CÓMO CRITICAR SIN OFENDER ── -->
+<section id="critica" class="reveal">
+  <span class="sec-label">// 04 · El tema más práctico</span>
+  <h2>Dar retroalimentación<br>sin crear<br><em>resentimiento</em></h2>
+  <p class="sec-intro">Esta es la aplicación más práctica del libro para la vida diaria — con clientes, colaboradores, familia y cualquier relación donde necesites cambiar el comportamiento de alguien sin dañar la relación.</p>
+
+  <div class="matrix">
+    <div class="mx-row header">
+      <div class="mx-cell">Situación</div>
+      <div class="mx-cell">Lo que hace la mayoría</div>
+      <div class="mx-cell">El método Carnegie</div>
+    </div>
+    <div class="mx-row">
+      <div class="mx-cell"><strong>Cliente que no paga a tiempo</strong></div>
+      <div class="mx-cell" style="color:var(--red);">Enviar email de cobro directo / quejarse</div>
+      <div class="mx-cell" style="color:var(--green);">Expresar comprensión de su situación + mostrar cómo el pago oportuno le beneficia a él directamente</div>
+    </div>
+    <div class="mx-row">
+      <div class="mx-cell"><strong>Colaborador que entrega tarde</strong></div>
+      <div class="mx-cell" style="color:var(--red);">Señalar el retraso con frustración</div>
+      <div class="mx-cell" style="color:var(--green);">Elogiar el trabajo entregado + hacer una pregunta ("¿Qué necesitarías para que el siguiente sea más fluido?")</div>
+    </div>
+    <div class="mx-row">
+      <div class="mx-cell"><strong>Propuesta rechazada</strong></div>
+      <div class="mx-cell" style="color:var(--red);">Defender la propuesta o abandonar</div>
+      <div class="mx-cell" style="color:var(--green);">Preguntar qué específicamente no funcionó + usar esa información para rediseñar desde sus intereses</div>
+    </div>
+    <div class="mx-row">
+      <div class="mx-cell"><strong>Solicitar aumento de tarifa</strong></div>
+      <div class="mx-cell" style="color:var(--red);">"Necesito cobrar más porque..."</div>
+      <div class="mx-cell" style="color:var(--green);">"El valor que hemos creado juntos es X. Para seguir produciendo ese valor, necesito que ajustemos..."</div>
+    </div>
+    <div class="mx-row">
+      <div class="mx-cell"><strong>Conflicto con un contacto</strong></div>
+      <div class="mx-cell" style="color:var(--red);">Defender tu posición / atacar la suya</div>
+      <div class="mx-cell" style="color:var(--green);">Admitir rápidamente tu parte del error + escuchar completamente su perspectiva antes de responder</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ── PLAN SEMANAL ── -->
+<section id="plan" class="reveal">
+  <span class="sec-label">// 05 · La práctica</span>
+  <h2>Tu plan <em>semanal</em><br>Carnegie</h2>
+  <p class="sec-intro">Carnegie dice explícitamente que leer el libro no es suficiente — necesitas revisar los principios continuamente y practicarlos en cada interacción. Este es el plan de práctica construido desde sus principios.</p>
+
+  <div class="week-grid">
+    <div class="week-cell">
+      <span class="wc-day">Lunes</span>
+      <div class="wc-focus"><strong style="color:var(--red);display:block;font-size:.72rem;margin-bottom:.2rem;">No criticar</strong>Identifica 1 situación donde evitaste criticar. ¿Qué dijiste en cambio?</div>
+    </div>
+    <div class="week-cell">
+      <span class="wc-day">Martes</span>
+      <div class="wc-focus"><strong style="color:var(--red);display:block;font-size:.72rem;margin-bottom:.2rem;">Apreciación específica</strong>Da 1 elogio genuino y específico a alguien. Observa su reacción.</div>
+    </div>
+    <div class="week-cell">
+      <span class="wc-day">Miércoles</span>
+      <div class="wc-focus"><strong style="color:var(--red);display:block;font-size:.72rem;margin-bottom:.2rem;">Nombres</strong>En cada conversación usa el nombre de la persona. Anota cuántas veces.</div>
+    </div>
+    <div class="week-cell">
+      <span class="wc-day">Jueves</span>
+      <div class="wc-focus"><strong style="color:var(--red);display:block;font-size:.72rem;margin-bottom:.2rem;">Escucha activa</strong>En 1 conversación habla menos del 30%. Solo pregunta y escucha.</div>
+    </div>
+    <div class="week-cell">
+      <span class="wc-day">Viernes</span>
+      <div class="wc-focus"><strong style="color:var(--red);display:block;font-size:.72rem;margin-bottom:.2rem;">Intereses del otro</strong>Habla sobre algo que le importa a la persona con quien hablas, no sobre ti.</div>
+    </div>
+    <div class="week-cell">
+      <span class="wc-day">Sábado</span>
+      <div class="wc-focus"><strong style="color:var(--red);display:block;font-size:.72rem;margin-bottom:.2rem;">Revisión</strong>¿En qué momento de la semana fallaste? ¿Criticaste? ¿Hablaste demasiado? ¿Qué harías diferente?</div>
+    </div>
+    <div class="week-cell">
+      <span class="wc-day">Domingo</span>
+      <div class="wc-focus"><strong style="color:var(--red);display:block;font-size:.72rem;margin-bottom:.2rem;">Relación clave</strong>Identifica la relación más importante de tu semana. ¿Qué puedes hacer esta semana para profundizarla?</div>
+    </div>
+  </div>
+
+  <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;margin-bottom:1rem;">Hábitos Diarios Carnegie</h3>
+
+  <div class="check-list" id="carnegieCheck">
+    <div class="check-item" onclick="hc(this)">
+      <div class="cbox"></div>
+      <div class="ct"><strong>😊 Sonreír genuinamente en cada interacción</strong><span>No mecánicamente — desde el estado mental real. Si no lo sientes, cámbialo primero.</span></div>
+    </div>
+    <div class="check-item" onclick="hc(this)">
+      <div class="cbox"></div>
+      <div class="ct"><strong>🎯 Un elogio específico y genuino hoy</strong><span>No genérico. Algo que realmente notaste. Con el nombre de la persona.</span></div>
+    </div>
+    <div class="check-item" onclick="hc(this)">
+      <div class="cbox"></div>
+      <div class="ct"><strong>👂 Una conversación donde escuché más del 60%</strong><span>Pregunté, escuché, recordé. No interrumpí. No esperé mi turno — genuinamente escuché.</span></div>
+    </div>
+    <div class="check-item" onclick="hc(this)">
+      <div class="cbox"></div>
+      <div class="ct"><strong>🚫 No critiqué, no me quejé, no condené</strong><span>Si apareció el impulso: lo identifiqué, lo traduje en pregunta o apreciación.</span></div>
+    </div>
+    <div class="check-item" onclick="hc(this)">
+      <div class="cbox"></div>
+      <div class="ct"><strong>💡 Hablé en términos de los intereses del otro</strong><span>En al menos una conversación relevante: ¿qué quiere él/ella? ¿Cómo lo que yo digo satisface eso?</span></div>
+    </div>
+    <div class="check-item" onclick="hc(this)">
+      <div class="cbox"></div>
+      <div class="ct"><strong>📝 Reflexión nocturna: ¿qué relación construí hoy?</strong><span>Nombra una relación que avanzó hoy. ¿Por qué avanzó? ¿Qué hiciste distinto?</span></div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:.8rem;">
+    <button onclick="resetCarnegie()" style="background:transparent;border:1px solid var(--border2);color:var(--ink3);padding:.4rem 1.1rem;border-radius:3px;font-size:.68rem;cursor:pointer;font-family:'JetBrains Mono',monospace;letter-spacing:.1em;">REINICIAR DÍA</button>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ── INTEGRACIÓN ── -->
+<section id="integracion" class="reveal">
+  <span class="sec-label">// 06 · El sistema completo</span>
+  <h2>Los 5 libros:<br><em>el sistema</em><br>completo</h2>
+  <p class="sec-intro">Con Carnegie tienes el quinto pilar. Ahora el sistema cubre desde las capas más profundas del subconsciente hasta la maestría en cada interacción humana.</p>
+
+  <div class="five-books">
+    <div class="bk-col" style="border-top:3px solid #c8a060;">
+      <span class="bk-tag" style="color:#c8a060;">Programación Profunda</span>
+      <h3 style="color:#c8a060;">Hill</h3>
+      <p>Deseo ardiente + Fe + Subconsciente. El motor interno que activa todo.</p>
+    </div>
+    <div class="bk-col" style="border-top:3px solid #c8912a;">
+      <span class="bk-tag" style="color:#c8912a;">Blueprint Mental</span>
+      <h3 style="color:#c8912a;">Eker</h3>
+      <p>Eliminar archivos de pobreza. Reprogramar el termostato financiero interno.</p>
+    </div>
+    <div class="bk-col" style="border-top:3px solid #4a9e5c;">
+      <span class="bk-tag" style="color:#4a9e5c;">Estrategia Financiera</span>
+      <h3 style="color:#4a9e5c;">Kiyosaki</h3>
+      <p>Activos, cuadrantes, flujo pasivo. Los vehículos donde la mentalidad se vuelve dinero.</p>
+    </div>
+    <div class="bk-col" style="border-top:3px solid #c47a6a;">
+      <span class="bk-tag" style="color:#c47a6a;">Psicología de Acción</span>
+      <h3 style="color:#c47a6a;">Stutz</h3>
+      <p>El protocolo para el momento exacto del bloqueo. Actuar cuando el miedo paraliza.</p>
+    </div>
+    <div class="bk-col" style="border-top:3px solid var(--red);">
+      <span class="bk-tag" style="color:var(--red);">Relaciones Humanas</span>
+      <h3 style="color:var(--red);">Carnegie</h3>
+      <p>La capa que todos los demás libros necesitan. Sin relaciones, el resto funciona en aislamiento.</p>
+    </div>
+  </div>
+
+  <div class="truth-box">
+    <h3>Por qué Carnegie era el eslabón que faltaba</h3>
+    <p>Hill te da el motor. Eker elimina los frenos internos. Kiyosaki señala el destino. Stutz te mueve cuando te bloqueas. <strong>Pero ninguno de los cuatro funciona en aislamiento de otras personas.</strong></p>
+    <p>Tu primer activo requiere que alguien te compre. Tu red de Mastermind requiere que las personas quieran estar en ella. Tu reputación como freelancer es una función directa de cómo haces sentir a las personas con quienes trabajas. Tu acceso a oportunidades depende de cuántas personas quieren que tengas éxito.</p>
+    <p><strong>Carnegie es la capa de relaciones humanas que convierte todos los demás sistemas en resultados del mundo real.</strong> Sin ella, tienes convicción, mentalidad y estrategia — pero sin las personas que te permitan ejecutarlos.</p>
+  </div>
+
+  <div class="pq">
+    <p>"El éxito en el trato con las personas depende de la simpatía que seamos capaces de sentir hacia el punto de vista de los demás."</p>
+    <cite>— Dale Carnegie, 1936</cite>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div style="width:40px;height:1px;background:rgba(255,255,255,.2);margin:0 auto 1.5rem;"></div>
+    <p class="footer-quote">"Cuando tratamos con personas, recordemos que no estamos tratando con criaturas lógicas, sino con criaturas emocionales."</p>
+    <p>Cómo Ganar Amigos e Influir Sobre las Personas · Dale Carnegie · 1936</p>
+    <p style="margin-top:.3rem;">Plan profundo · Los 5 sistemas integrados · Transformación completa</p>
+  </div>
+</footer>
+
+<script>
+function tp(id){
+  document.getElementById(id).classList.toggle('open');
+}
+
+function hc(el){ el.classList.toggle('done'); }
+function resetCarnegie(){
+  document.querySelectorAll('#carnegieCheck .check-item').forEach(e=>e.classList.remove('done'));
+}
+
+// Open first two by default
+['pp1','pp2'].forEach(id=>document.getElementById(id).classList.add('open'));
+
+// Scroll reveal
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }
+  });
+}, { threshold: .07 });
+document.querySelectorAll('.reveal').forEach(r => obs.observe(r));
+</script>
+</body>
+</html>

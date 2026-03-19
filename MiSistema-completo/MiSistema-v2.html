@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Mi Sistema">
+<meta name="theme-color" content="#0d0d0d">
+<title>Mi Sistema — Los 6 Libros</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{
+  --bg:#0d0d0f;--bg2:#141417;--bg3:#1c1c21;--bg4:#242428;
+  --border:#2a2a30;--border2:#353540;
+  --ink:#f0f0f5;--ink2:#a0a0b0;--ink3:#606070;
+  --hill:#d4a520;--hill2:#f0c030;--hill-bg:rgba(212,165,32,.1);
+  --eker:#e07020;--eker2:#f09040;--eker-bg:rgba(224,112,32,.1);
+  --kiyo:#20a050;--kiyo2:#40c070;--kiyo-bg:rgba(32,160,80,.1);
+  --stutz:#c04040;--stutz2:#e06060;--stutz-bg:rgba(192,64,64,.1);
+  --carn:#a06830;--carn2:#c08850;--carn-bg:rgba(160,104,48,.1);
+  --buff:#8b3a3a;--buff2:#b05050;--buff-bg:rgba(139,58,58,.1);
+  --nav-h:72px;--top-h:56px;--safe-top:env(safe-area-inset-top,0px);--safe-bot:env(safe-area-inset-bottom,0px);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;overflow:hidden;background:var(--bg);}
+body{font-family:'DM Sans',sans-serif;color:var(--ink);overscroll-behavior:none;}
+
+/* ── SPLASH ── */
+#splash{
+  position:fixed;inset:0;background:var(--bg);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  z-index:9999;transition:opacity .5s ease;
+}
+#splash.hide{opacity:0;pointer-events:none;}
+.sp-rings{position:relative;width:100px;height:100px;margin-bottom:2rem;}
+.sp-ring{
+  position:absolute;border-radius:50%;border:2px solid transparent;
+  animation:spinRing 2s linear infinite;
+}
+.sp-ring:nth-child(1){inset:0;border-top-color:var(--hill);animation-duration:2s;}
+.sp-ring:nth-child(2){inset:8px;border-top-color:var(--eker);animation-duration:1.7s;animation-direction:reverse;}
+.sp-ring:nth-child(3){inset:16px;border-top-color:var(--kiyo);animation-duration:1.4s;}
+.sp-ring:nth-child(4){inset:24px;border-top-color:var(--stutz);animation-duration:1.1s;animation-direction:reverse;}
+.sp-ring:nth-child(5){inset:32px;border-top-color:var(--carn);animation-duration:.9s;}
+.sp-ring:nth-child(6){inset:40px;border-top-color:var(--buff);animation-duration:.7s;animation-direction:reverse;}
+@keyframes spinRing{to{transform:rotate(360deg)}}
+#splash h1{font-size:1.6rem;font-weight:700;letter-spacing:-.02em;margin-bottom:.3rem;}
+#splash p{font-size:.8rem;color:var(--ink3);font-family:'DM Mono',monospace;letter-spacing:.1em;}
+
+/* ── APP SHELL ── */
+#app{height:100%;display:flex;flex-direction:column;opacity:0;transition:opacity .4s ease;}
+#app.show{opacity:1;}
+
+/* TOP BAR */
+.top-bar{
+  flex-shrink:0;
+  padding-top:calc(var(--safe-top) + .5rem);
+  padding-bottom:.75rem;padding-left:1.2rem;padding-right:1.2rem;
+  background:var(--bg);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  position:relative;z-index:10;
+}
+.tb-left h1{font-size:1.1rem;font-weight:700;letter-spacing:-.02em;}
+.tb-left h1 span{color:var(--hill);}
+.tb-date{font-size:.65rem;color:var(--ink3);font-family:'DM Mono',monospace;margin-top:.1rem;}
+.tb-right{display:flex;align-items:center;gap:.6rem;}
+.streak-badge{
+  display:flex;align-items:center;gap:.3rem;
+  background:var(--bg3);border:1px solid var(--border);
+  padding:.3rem .7rem;border-radius:20px;
+  font-size:.72rem;font-weight:600;
+}
+.level-badge{
+  background:var(--hill);color:var(--bg);
+  padding:.3rem .7rem;border-radius:20px;
+  font-size:.72rem;font-weight:700;font-family:'DM Mono',monospace;
+}
+
+/* CONTENT AREA */
+.content{flex:1;overflow:hidden;position:relative;}
+.tab-panel{
+  position:absolute;inset:0;
+  overflow-y:auto;-webkit-overflow-scrolling:touch;
+  padding-bottom:calc(var(--nav-h) + var(--safe-bot) + 1rem);
+  display:none;
+}
+.tab-panel.active{display:block;}
+
+/* BOTTOM NAV */
+.bottom-nav{
+  flex-shrink:0;
+  padding-bottom:var(--safe-bot);
+  background:var(--bg2);border-top:1px solid var(--border);
+  display:flex;
+  position:relative;z-index:10;
+}
+.nav-btn{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:.7rem .3rem;gap:.25rem;
+  cursor:pointer;transition:all .15s;
+  background:none;border:none;color:var(--ink3);
+  min-height:var(--nav-h);
+}
+.nav-btn.active{color:var(--hill);}
+.nav-btn .ni{font-size:1.3rem;transition:transform .2s;}
+.nav-btn.active .ni{transform:scale(1.1);}
+.nav-btn span{font-size:.6rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;}
+
+/* ── SECTION HEADERS ── */
+.sec-head{padding:1.2rem 1.2rem .6rem;position:sticky;top:0;background:var(--bg);z-index:5;border-bottom:1px solid var(--border);}
+.sec-head h2{font-size:1.05rem;font-weight:700;}
+.sec-head p{font-size:.75rem;color:var(--ink3);margin-top:.15rem;}
+
+/* ── HOME TAB ── */
+.home-wrap{padding:1rem 1.2rem;}
+
+.progress-ring-wrap{
+  display:flex;flex-direction:column;align-items:center;
+  padding:1.5rem;background:var(--bg2);border:1px solid var(--border);
+  border-radius:16px;margin-bottom:1rem;
+}
+.ring-container{position:relative;width:120px;height:120px;margin-bottom:.8rem;}
+.ring-svg{width:120px;height:120px;transform:rotate(-90deg);}
+.ring-bg{fill:none;stroke:var(--border);stroke-width:8;}
+.ring-fill{fill:none;stroke:var(--hill);stroke-width:8;stroke-linecap:round;transition:stroke-dashoffset .8s ease;}
+.ring-text{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;
+}
+.ring-pct{font-size:1.5rem;font-weight:700;line-height:1;}
+.ring-label{font-size:.6rem;color:var(--ink3);margin-top:.1rem;font-family:'DM Mono',monospace;}
+.ring-caption{font-size:.8rem;color:var(--ink2);font-weight:500;}
+
+.books-quick{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.6rem;margin-bottom:1rem;}
+.bq-card{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:12px;padding:.8rem .6rem;
+  display:flex;flex-direction:column;align-items:center;
+  gap:.3rem;cursor:pointer;transition:all .15s;
+}
+.bq-card:active{transform:scale(.96);}
+.bq-icon{font-size:1.4rem;}
+.bq-name{font-size:.6rem;font-weight:600;text-align:center;color:var(--ink2);}
+.bq-done{font-size:.58rem;font-family:'DM Mono',monospace;}
+
+.home-quote{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:12px;padding:1.1rem;margin-bottom:1rem;
+  border-left:3px solid var(--hill);
+}
+.hq-label{font-size:.6rem;color:var(--hill);font-family:'DM Mono',monospace;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem;}
+.hq-text{font-size:.88rem;font-style:italic;color:var(--ink);line-height:1.6;}
+.hq-author{font-size:.7rem;color:var(--ink3);margin-top:.4rem;font-family:'DM Mono',monospace;}
+
+.home-stats{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;}
+.stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1rem;}
+.stat-card .sv{font-size:1.6rem;font-weight:700;line-height:1;margin-bottom:.2rem;}
+.stat-card .sl{font-size:.68rem;color:var(--ink3);}
+
+/* ── LIBRARY TAB ── */
+.lib-wrap{padding:.8rem;}
+.book-card{
+  border-radius:14px;margin-bottom:.8rem;overflow:hidden;
+  border:1px solid var(--border);cursor:pointer;transition:all .15s;
+}
+.book-card:active{transform:scale(.98);}
+.bc-header{padding:1.1rem 1.2rem;display:flex;align-items:center;gap:1rem;}
+.bc-icon{font-size:2rem;}
+.bc-info{flex:1;}
+.bc-title{font-size:.95rem;font-weight:700;display:block;}
+.bc-author{font-size:.7rem;opacity:.7;margin-top:.1rem;display:block;}
+.bc-tag{font-size:.58rem;font-family:'DM Mono',monospace;letter-spacing:.08em;text-transform:uppercase;margin-top:.3rem;display:block;}
+.bc-arrow{font-size:.8rem;opacity:.5;}
+.bc-preview{
+  padding:.8rem 1.2rem 1.1rem;
+  border-top:1px solid rgba(255,255,255,.06);
+  font-size:.78rem;color:rgba(255,255,255,.55);
+  line-height:1.7;
+}
+
+/* BOOK DETAIL MODAL */
+.book-modal{
+  position:fixed;inset:0;background:var(--bg);
+  z-index:200;transform:translateY(100%);
+  transition:transform .35s cubic-bezier(.32,.72,0,1);
+  overflow-y:auto;-webkit-overflow-scrolling:touch;
+  padding-bottom:calc(var(--safe-bot) + 1rem);
+}
+.book-modal.open{transform:translateY(0);}
+.bm-header{
+  padding:calc(var(--safe-top) + .8rem) 1.2rem 1rem;
+  display:flex;align-items:center;gap:.8rem;
+  position:sticky;top:0;z-index:5;
+  background:var(--bg);border-bottom:1px solid var(--border);
+}
+.bm-back{
+  width:36px;height:36px;border-radius:50%;
+  background:var(--bg3);border:none;color:var(--ink);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:1rem;flex-shrink:0;
+}
+.bm-title{font-size:1rem;font-weight:700;}
+.bm-body{padding:1rem 1.2rem;}
+.bm-section{margin-bottom:1.5rem;}
+.bm-sec-title{
+  font-size:.65rem;font-family:'DM Mono',monospace;
+  letter-spacing:.15em;text-transform:uppercase;
+  margin-bottom:.7rem;padding-bottom:.4rem;
+  border-bottom:1px solid var(--border);
+}
+.principle-item{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:10px;padding:.9rem 1rem;margin-bottom:.5rem;
+}
+.pi-num{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.1em;margin-bottom:.2rem;}
+.pi-title{font-size:.88rem;font-weight:600;margin-bottom:.3rem;}
+.pi-desc{font-size:.78rem;color:var(--ink2);line-height:1.7;}
+.key-concept{
+  border-radius:10px;padding:.9rem 1rem;margin-bottom:.5rem;
+  background:rgba(255,255,255,.04);border-left:3px solid;
+}
+.kc-label{font-size:.6rem;font-family:'DM Mono',monospace;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.3rem;opacity:.7;}
+.kc-text{font-size:.82rem;line-height:1.7;color:var(--ink);}
+
+/* ── HABITS TAB ── */
+.habits-wrap{padding:.8rem;}
+.habit-group{margin-bottom:1.2rem;}
+.hg-header{
+  display:flex;align-items:center;gap:.7rem;
+  padding:.6rem .8rem;border-radius:10px;
+  margin-bottom:.5rem;
+}
+.hg-icon{font-size:1.1rem;}
+.hg-name{font-size:.82rem;font-weight:700;}
+.hg-count{font-size:.65rem;font-family:'DM Mono',monospace;margin-left:auto;opacity:.7;}
+.habit-item{
+  display:flex;align-items:center;gap:.8rem;
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:10px;padding:.75rem .9rem;
+  margin-bottom:.4rem;cursor:pointer;transition:all .15s;
+  user-select:none;
+}
+.habit-item:active{transform:scale(.98);}
+.habit-item.done{opacity:.45;}
+.habit-item.done .hcheck{border-color:transparent;}
+.hcheck{
+  width:22px;height:22px;min-width:22px;
+  border-radius:6px;border:1.5px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  transition:all .2s;font-size:.75rem;
+}
+.htext{flex:1;}
+.htext strong{font-size:.84rem;font-weight:600;display:block;margin-bottom:.1rem;}
+.htext span{font-size:.7rem;color:var(--ink3);}
+
+.habits-footer{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:12px;padding:1rem;margin-top:.5rem;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.hf-info p{font-size:.78rem;font-weight:600;}
+.hf-info span{font-size:.68rem;color:var(--ink3);}
+.hf-btn{
+  background:var(--bg3);border:1px solid var(--border);
+  color:var(--ink2);padding:.4rem .9rem;border-radius:8px;
+  font-size:.7rem;cursor:pointer;font-family:'DM Sans',sans-serif;
+}
+
+/* ── PROGRESS TAB ── */
+.prog-wrap{padding:.8rem;}
+.chart-card{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:14px;padding:1.1rem;margin-bottom:.8rem;
+}
+.cc-title{font-size:.78rem;font-weight:600;margin-bottom:.2rem;}
+.cc-sub{font-size:.65rem;color:var(--ink3);font-family:'DM Mono',monospace;margin-bottom:.9rem;}
+.chart-wrap{position:relative;height:160px;}
+
+.heatmap-grid{
+  display:grid;grid-template-columns:repeat(12,1fr);
+  gap:2px;margin-top:.5rem;
+}
+.hm-cell{
+  aspect-ratio:1;border-radius:2px;
+  background:var(--border);transition:background .3s;
+}
+
+.radar-wrap{position:relative;height:200px;}
+
+/* ── MORE TAB ── */
+.more-wrap{padding:.8rem;}
+
+/* THERMOSTAT */
+.thermo-card{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:14px;padding:1.2rem;margin-bottom:.8rem;
+}
+.thermo-title{font-size:.95rem;font-weight:700;margin-bottom:.3rem;}
+.thermo-sub{font-size:.72rem;color:var(--ink3);margin-bottom:1rem;}
+.thermo-visual{
+  display:flex;flex-direction:column;align-items:center;
+  gap:.8rem;margin:.5rem 0 1rem;
+}
+.thermo-dial{position:relative;width:140px;height:80px;}
+.td-svg{width:140px;height:80px;}
+.thermo-value{
+  font-size:2.2rem;font-weight:700;color:var(--eker);
+  font-family:'DM Mono',monospace;line-height:1;
+}
+.thermo-level{font-size:.7rem;color:var(--ink3);}
+.thermo-slider{width:100%;margin:.5rem 0;}
+.thermo-slider input[type=range]{
+  -webkit-appearance:none;width:100%;height:6px;
+  border-radius:3px;outline:none;
+  background:linear-gradient(to right,var(--eker) var(--pct,50%),var(--border) var(--pct,50%));
+}
+.thermo-slider input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:22px;height:22px;
+  border-radius:50%;background:var(--eker);
+  border:3px solid var(--bg);box-shadow:0 0 8px rgba(224,112,32,.5);
+}
+.thermo-labels{display:flex;justify-content:space-between;font-size:.62rem;color:var(--ink3);font-family:'DM Mono',monospace;}
+.thermo-desc{
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:8px;padding:.8rem;margin-top:.8rem;
+  font-size:.78rem;color:var(--ink2);line-height:1.7;
+  border-left:3px solid var(--eker);
+}
+
+/* SCREENER */
+.screener-card{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:14px;overflow:hidden;margin-bottom:.8rem;
+}
+.sc-header{
+  background:var(--bg3);padding:.9rem 1.1rem;
+  font-size:.85rem;font-weight:700;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.sc-result{padding:.2rem .6rem;border-radius:6px;font-size:.68rem;font-family:'DM Mono',monospace;}
+.sc-result.pass{background:rgba(32,160,80,.15);color:var(--kiyo);}
+.sc-result.fail{background:rgba(192,64,64,.15);color:var(--stutz);}
+.screener-item{
+  display:flex;align-items:center;gap:.8rem;
+  padding:.85rem 1.1rem;border-bottom:1px solid var(--border);
+  cursor:pointer;user-select:none;
+}
+.screener-item:last-child{border-bottom:none;}
+.si-check{
+  width:20px;height:20px;min-width:20px;border-radius:4px;
+  border:1.5px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.7rem;transition:all .2s;
+}
+.si-check.on{background:var(--kiyo);border-color:var(--kiyo);color:white;}
+.si-check.off{background:var(--stutz-bg);border-color:var(--stutz);color:var(--stutz);}
+.si-text{flex:1;font-size:.8rem;font-weight:500;}
+.si-meta{font-size:.65rem;color:var(--ink3);font-family:'DM Mono',monospace;}
+
+/* NET WORTH */
+.nw-card{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:14px;padding:1.1rem;margin-bottom:.8rem;
+}
+.nw-title{font-size:.9rem;font-weight:700;margin-bottom:.8rem;}
+.nw-inputs{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:.8rem;}
+.nw-field label{font-size:.65rem;color:var(--ink3);display:block;margin-bottom:.3rem;font-family:'DM Mono',monospace;letter-spacing:.06em;text-transform:uppercase;}
+.nw-field input{
+  width:100%;background:var(--bg3);border:1px solid var(--border);
+  color:var(--ink);padding:.6rem .8rem;border-radius:8px;
+  font-size:.88rem;font-family:'DM Sans',sans-serif;outline:none;
+  transition:border-color .2s;
+}
+.nw-field input:focus{border-color:var(--kiyo);}
+.nw-btn{
+  width:100%;padding:.75rem;background:var(--kiyo);
+  color:white;border:none;border-radius:10px;
+  font-size:.9rem;font-weight:600;cursor:pointer;
+  font-family:'DM Sans',sans-serif;transition:all .2s;
+}
+.nw-btn:active{transform:scale(.97);}
+.nw-total{
+  text-align:center;padding:1rem;
+  background:var(--bg3);border-radius:10px;margin-top:.8rem;
+}
+.nw-total .nwt-val{
+  font-size:2rem;font-weight:700;
+  font-family:'DM Mono',monospace;
+}
+.nw-total .nwt-label{font-size:.65rem;color:var(--ink3);margin-top:.2rem;}
+
+/* UTILS */
+.pill{
+  display:inline-flex;align-items:center;
+  padding:.2rem .6rem;border-radius:20px;
+  font-size:.6rem;font-weight:600;font-family:'DM Mono',monospace;
+  letter-spacing:.05em;text-transform:uppercase;
+}
+
+.open-doc-btn{
+  display:flex;align-items:center;justify-content:center;gap:.6rem;
+  width:100%;padding:.9rem;border-radius:12px;
+  border:none;cursor:pointer;font-family:'DM Sans',sans-serif;
+  font-size:.92rem;font-weight:700;letter-spacing:-.01em;
+  margin-bottom:1.2rem;transition:all .2s;
+}
+.open-doc-btn:active{transform:scale(.97);}
+/* SCROLLBAR */
+::-webkit-scrollbar{width:0;}
+</style>
+</head>
+<body>
+
+<!-- SPLASH -->
+<div id="splash">
+  <div class="sp-rings">
+    <div class="sp-ring"></div><div class="sp-ring"></div>
+    <div class="sp-ring"></div><div class="sp-ring"></div>
+    <div class="sp-ring"></div><div class="sp-ring"></div>
+  </div>
+  <h1>Mi Sistema</h1>
+  <p>cargando los 6 sistemas...</p>
+</div>
+
+<!-- APP -->
+<div id="app">
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="tb-left">
+      <h1>Mi <span>Sistema</span></h1>
+      <div class="tb-date" id="tbDate"></div>
+    </div>
+    <div class="tb-right">
+      <div class="streak-badge">🔥 <span id="streakNum">0</span></div>
+      <div class="level-badge" id="levelBadge">N1</div>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- ═══ HOME ═══ -->
+    <div class="tab-panel active" id="tab-home">
+      <div class="home-wrap">
+
+        <!-- Progress ring -->
+        <div class="progress-ring-wrap">
+          <div class="ring-container">
+            <svg class="ring-svg" viewBox="0 0 120 120">
+              <circle class="ring-bg" cx="60" cy="60" r="52"/>
+              <circle class="ring-fill" id="ringFill" cx="60" cy="60" r="52"
+                stroke-dasharray="327" stroke-dashoffset="327"/>
+            </svg>
+            <div class="ring-text">
+              <span class="ring-pct" id="ringPct">0%</span>
+              <span class="ring-label">HOY</span>
+            </div>
+          </div>
+          <div class="ring-caption" id="ringCaption">Completa tus hábitos de hoy</div>
+        </div>
+
+        <!-- Books quick access -->
+        <div class="books-quick" id="booksQuick"></div>
+
+        <!-- Quote of the day -->
+        <div class="home-quote" id="homeQuote"></div>
+
+        <!-- Stats -->
+        <div class="home-stats">
+          <div class="stat-card">
+            <div class="sv" id="statTotal" style="color:var(--hill)">0</div>
+            <div class="sl">Hábitos completados</div>
+          </div>
+          <div class="stat-card">
+            <div class="sv" id="statDays" style="color:var(--kiyo)">0</div>
+            <div class="sl">Días activos</div>
+          </div>
+          <div class="stat-card">
+            <div class="sv" id="statBest" style="color:var(--eker)">0</div>
+            <div class="sl">Mejor racha</div>
+          </div>
+          <div class="stat-card">
+            <div class="sv" id="statXP" style="color:var(--buff)">0</div>
+            <div class="sl">Puntos XP</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ LIBRARY ═══ -->
+    <div class="tab-panel" id="tab-library">
+      <div class="lib-wrap" id="libWrap"></div>
+    </div>
+
+    <!-- ═══ HABITS ═══ -->
+    <div class="tab-panel" id="tab-habits">
+      <div class="habits-wrap" id="habitsWrap"></div>
+    </div>
+
+    <!-- ═══ PROGRESS ═══ -->
+    <div class="tab-panel" id="tab-progress">
+      <div class="prog-wrap">
+        <!-- Weekly bar chart -->
+        <div class="chart-card">
+          <div class="cc-title">Hábitos esta semana</div>
+          <div class="cc-sub">// Completados por día</div>
+          <div class="chart-wrap"><canvas id="chartWeek"></canvas></div>
+        </div>
+        <!-- Doughnut by book -->
+        <div class="chart-card">
+          <div class="cc-title">Por sistema</div>
+          <div class="cc-sub">// Distribución total de hábitos completados</div>
+          <div class="chart-wrap"><canvas id="chartBooks"></canvas></div>
+        </div>
+        <!-- Radar -->
+        <div class="chart-card">
+          <div class="cc-title">Equilibrio entre sistemas</div>
+          <div class="cc-sub">// Progreso de hoy en los 6 libros</div>
+          <div class="radar-wrap"><canvas id="chartRadar"></canvas></div>
+        </div>
+        <!-- Heatmap -->
+        <div class="chart-card">
+          <div class="cc-title">Mapa de actividad</div>
+          <div class="cc-sub">// Últimas 12 semanas</div>
+          <div class="heatmap-grid" id="heatmapGrid"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ MORE ═══ -->
+    <div class="tab-panel" id="tab-more">
+      <div class="more-wrap">
+
+        <!-- THERMOSTAT -->
+        <div class="thermo-card">
+          <div class="thermo-title">🌡️ Termostato Financiero</div>
+          <div class="thermo-sub">Tu nivel de setpoint de riqueza interno (Eker)</div>
+          <div class="thermo-visual">
+            <div class="thermo-value" id="thermoVal">$0</div>
+            <div class="thermo-level" id="thermoLevel">Define tu setpoint</div>
+          </div>
+          <div class="thermo-slider">
+            <input type="range" id="thermoRange" min="0" max="10" value="5"
+              oninput="updateThermo(this.value)">
+          </div>
+          <div class="thermo-labels">
+            <span>$0</span><span>$10K</span><span>$50K</span><span>$200K</span><span>$1M+</span>
+          </div>
+          <div class="thermo-desc" id="thermoDesc"></div>
+        </div>
+
+        <!-- BUFFETT SCREENER -->
+        <div class="screener-card">
+          <div class="sc-header">
+            🔍 Screener Buffett
+            <div class="sc-result" id="scResult">0/7 Pasa</div>
+          </div>
+          <div id="screenerItems"></div>
+        </div>
+
+        <!-- NET WORTH -->
+        <div class="nw-card">
+          <div class="nw-title">💰 Patrimonio Neto</div>
+          <div class="nw-inputs">
+            <div class="nw-field">
+              <label>Activos ($)</label>
+              <input type="number" id="nwActivos" placeholder="0">
+            </div>
+            <div class="nw-field">
+              <label>Pasivos ($)</label>
+              <input type="number" id="nwPasivos" placeholder="0">
+            </div>
+          </div>
+          <button class="nw-btn" onclick="saveNW()">Registrar mes</button>
+          <div class="nw-total">
+            <div class="nwt-val" id="nwTotal" style="color:var(--kiyo)">$0</div>
+            <div class="nwt-label">Patrimonio neto actual</div>
+          </div>
+          <div class="chart-card" style="margin-top:.8rem;margin-bottom:0;">
+            <div class="cc-title">Evolución</div>
+            <div class="chart-wrap"><canvas id="chartNW"></canvas></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- /content -->
+
+  <!-- BOTTOM NAV -->
+  <div class="bottom-nav">
+    <button class="nav-btn active" onclick="switchTab('home',this)">
+      <span class="ni">⬡</span><span>Inicio</span>
+    </button>
+    <button class="nav-btn" onclick="switchTab('library',this)">
+      <span class="ni">📚</span><span>Libros</span>
+    </button>
+    <button class="nav-btn" onclick="switchTab('habits',this)">
+      <span class="ni">✅</span><span>Hábitos</span>
+    </button>
+    <button class="nav-btn" onclick="switchTab('progress',this)">
+      <span class="ni">📊</span><span>Progreso</span>
+    </button>
+    <button class="nav-btn" onclick="switchTab('more',this)">
+      <span class="ni">⚙️</span><span>Más</span>
+    </button>
+  </div>
+
+</div><!-- /app -->
+
+<!-- BOOK DETAIL MODAL -->
+<!-- BOOK SUMMARY MODAL -->
+<div class="book-modal" id="bookModal">
+  <div class="bm-header" id="bmHeader">
+    <button class="bm-back" onclick="closeModal()">←</button>
+    <span class="bm-title" id="bmTitle"></span>
+    <button id="bmFullBtn" onclick="openFullDoc()"
+      style="margin-left:auto;background:var(--hill);color:var(--bg);border:none;
+      padding:.35rem .8rem;border-radius:8px;font-size:.7rem;font-weight:700;
+      font-family:'DM Mono',monospace;cursor:pointer;white-space:nowrap;">
+      Ver Plan Completo →
+    </button>
+  </div>
+  <div class="bm-body" id="bmBody"></div>
+</div>
+
+<!-- FULL DOCUMENT VIEWER -->
+<div class="book-modal" id="docViewer" style="z-index:300;display:flex;flex-direction:column;">
+  <div class="bm-header" id="dvHeader"
+    style="border-bottom:1px solid var(--border);flex-shrink:0;">
+    <button class="bm-back" onclick="closeDocViewer()">←</button>
+    <span class="bm-title" id="dvTitle" style="font-size:.85rem;"></span>
+  </div>
+  <iframe id="docFrame"
+    style="width:100%;flex:1;border:none;background:#fff;"
+    src="about:blank" allowfullscreen>
+  </iframe>
+</div>
+
+<script>
+/* ════════════════════════════════════════
+   DATA
+════════════════════════════════════════ */
+const BOOKS = [
+  {
+    id:'hill', icon:'🔥', color:'var(--hill)', bg:'var(--hill-bg)',
+    file:'plan-piense-hagase-rico.html',
+    title:'Piense y Hágase Rico', author:'Napoleon Hill',
+    tag:'Programación Profunda',
+    preview:'El secreto que Hill descubrió en 500 entrevistas con los hombres más ricos de su época: todo logro comienza con un deseo ardiente sostenido por fe inquebrantable.',
+    principles:[
+      {n:'01',t:'Deseo Ardiente',d:'No basta con querer dinero — debes tener un deseo obsesivo, definido con una cifra exacta, una fecha exacta y un plan de acción. El cerebro activa el SRAA (sistema reticular activador ascendente) cuando un deseo se vuelve obsesivo, filtrando toda información relevante hacia ese objetivo.'},
+      {n:'02',t:'Fe',d:'La fe es un estado mental que se puede inducir mediante la autosugestión repetida. No es pasiva — es la convicción activa de que el objetivo ya está en camino. Sin fe, el subconsciente no recibe la orden de buscar el objetivo.'},
+      {n:'03',t:'Autosugestión',d:'El subconsciente no distingue entre experiencia real y experiencia imaginada vívidamente. Las afirmaciones repetidas con emoción reprograman el blueprint mental. Léelas en voz alta, con emoción, dos veces al día.'},
+      {n:'04',t:'Conocimiento Especializado',d:'El conocimiento general no produce riqueza. Solo el conocimiento especializado aplicado en un área específica crea valor monetario. Hill dice: no necesitas saber todo — necesitas saber dónde encontrar lo que necesitas.'},
+      {n:'05',t:'Imaginación',d:'Existen dos tipos: sintética (reorganizar conceptos existentes) y creativa (acceder a la inteligencia infinita). Los grandes inventores y empresarios usaban imaginación creativa. Se desarrolla con práctica deliberada.'},
+      {n:'06',t:'Planificación Organizada',d:'El deseo sin plan es sueño. El plan debe ser escrito, específico, con fechas. Debe revisarse cuando falla — el fracaso de un plan no es fracaso del objetivo. Crea un Mastermind para ejecutar el plan.'},
+      {n:'07',t:'Decisión',d:'El análisis de 25,000 personas mostró que el éxito requiere decisión rápida y cambio de opinión lento. El fracaso requiere lo opuesto. La procrastinación es el enemigo número uno de la riqueza.'},
+      {n:'08',t:'Persistencia',d:'La persistencia es al carácter lo que el carbono al acero — lo endurece. Se construye con un deseo ardiente definido, un plan escrito, una mente cerrada a influencias negativas y un Mastermind de apoyo.'},
+      {n:'09',t:'El Mastermind',d:'La mente maestra: coordinación de conocimiento y esfuerzo entre dos o más personas hacia un objetivo definido. La sinergia de dos mentes crea una tercera mente invisible más poderosa que cualquiera por separado.'},
+      {n:'10',t:'El Subconsciente',d:'El subconsciente trabaja 24 horas al día. Tu única forma de influir en él es a través de emociones fuertes. Los 7 emociones positivas (deseo, fe, amor, sexo, entusiasmo, romance, esperanza) son la vía de acceso.'},
+    ],
+    quotes:['"Un deseo ardiente de ser y hacer es el punto de partida desde el que el soñador debe lanzarse."','"Todo lo que la mente puede concebir y creer, puede lograrlo."'],
+  },
+  {
+    id:'eker', icon:'🌡️', color:'var(--eker)', bg:'var(--eker-bg)',
+    file:'plan-mente-millonaria.html',
+    title:'Los Secretos de la Mente Millonaria', author:'T. Harv Eker',
+    tag:'Blueprint Mental',
+    preview:'Tu termostato financiero interno determina exactamente cuánto dinero tendrás. Fue programado en tu infancia y opera en piloto automático — saboteando cualquier cantidad de dinero que supere tu setpoint.',
+    principles:[
+      {n:'01',t:'El Proceso de Manifestación',d:'Pensamientos → Sentimientos → Acciones → Resultados. No puedes cambiar los resultados directamente — tienes que cambiar los pensamientos. Y los pensamientos vienen de tu programación subconsciente de infancia.'},
+      {n:'02',t:'El Termostato Financiero',d:'Tienes un setpoint para cuánto dinero te sientes merecedor de tener. Si ganas más, lo gastas o lo pierdes hasta volver al setpoint. Si ganas menos, encuentras formas de subir. La solución: reprogramar el setpoint hacia arriba conscientemente.'},
+      {n:'03',t:'Los 4 Pasos del Cambio',d:'(1) Consciencia: observa el patrón. (2) Comprensión: entiende de dónde viene. (3) Disocia: ese patrón no eres tú. (4) Recondiciónate: crea un nuevo patrón con repetición y emoción.'},
+      {n:'04',t:'Los Ricos vs. Los Pobres',d:'17 diferencias de mentalidad entre ricos y pobres: los ricos crean su propia vida / los pobres culpan. Los ricos piensan en grande / los pobres piensan pequeño. Los ricos se enfocan en oportunidades / los pobres en obstáculos.'},
+      {n:'05',t:'El Sistema de los 6 Frascos',d:'Divide todos tus ingresos: 55% necesidades, 10% ahorro largo plazo, 10% educación, 10% diversión, 10% donación, 5% gastos grandes. La disciplina financiera no es restricción — es libertad planificada.'},
+      {n:'06',t:'Ingresos Pasivos',d:'Los ricos trabajan para construir activos que generen dinero mientras duermen. Los pobres trabajan por dinero. La pregunta que cambia todo: ¿cómo puedo ganar dinero mientras duermo?'},
+      {n:'07',t:'Aprender y Crecer',d:'Los ricos son fans del crecimiento personal constante. Cada dólar invertido en educación financiera produce retornos exponencialmente mayores que cualquier otra inversión. Tu nivel de riqueza = tu nivel de conocimiento × tu nivel de implementación.'},
+    ],
+    quotes:['"Si no te programas, alguien más lo hará."','"La raíz produce el fruto. Para cambiar el fruto, debes cambiar la raíz."'],
+  },
+  {
+    id:'kiyo', icon:'💰', color:'var(--kiyo)', bg:'var(--kiyo-bg)',
+    file:'plan-kiyosaki-personalizado.html',
+    title:'Padre Rico, Padre Pobre', author:'Robert Kiyosaki',
+    tag:'Estrategia Financiera',
+    preview:'La diferencia entre ricos y pobres no es el salario — es qué hacen con el dinero que entra. Los ricos compran activos. Los pobres compran pasivos que piensan son activos.',
+    principles:[
+      {n:'01',t:'Activo vs. Pasivo',d:'Activo: algo que pone dinero en tu bolsillo mientras duermes (propiedad en renta, negocio, inversiones). Pasivo: algo que saca dinero de tu bolsillo (auto, casa propia con hipoteca, gadgets). La riqueza = número de activos.'},
+      {n:'02',t:'El Cuadrante ESBI',d:'E (Empleado): intercambias tiempo por dinero. S (Autoempleado/freelancer): tú eres el negocio. B (Dueño de negocio): el negocio trabaja para ti. I (Inversor): el dinero trabaja para ti. Objetivo: moverse de E/S hacia B/I.'},
+      {n:'03',t:'La Carrera de la Rata',d:'Trabajas para pagar deudas. Las deudas requieren más trabajo. El dinero nunca alcanza porque nunca construyes activos. La salida: antes de gastar el ingreso, separa una parte para activos. Págate primero a ti mismo.'},
+      {n:'04',t:'Inteligencia Financiera',d:'Las 4 habilidades: contabilidad básica, estrategia de inversión, comprensión del mercado, leyes (fiscales y corporativas). No necesitas un MBA — necesitas entender cómo fluye el dinero.'},
+      {n:'05',t:'Trabaja para Aprender',d:'Los ricos trabajan para aprender habilidades nuevas, no solo por dinero. Kiyosaki recomienda trabajar en ventas aunque no te guste — el rechazo constante construye la mentalidad de resiliencia que necesitas para los negocios.'},
+      {n:'06',t:'El Poder de las Corporaciones',d:'Los ricos usan estructuras legales (LLC, S-Corp) para pagar impuestos con dinero pre-impuestos. Los empleados pagan impuestos primero, gastan después. Los dueños de negocio gastan primero, pagan impuestos sobre lo que queda.'},
+      {n:'07',t:'6 Activos para Construir',d:'1. Negocios que no requieren tu presencia. 2. Acciones y ETFs. 3. Bonos. 4. Bienes raíces en renta. 5. Notas (préstamos). 6. Propiedad intelectual (libros, música, patentes, cursos digitales).'},
+    ],
+    quotes:['"Los ricos no trabajan por dinero. El dinero trabaja para los ricos."','"Una persona inteligente contrata personas más inteligentes que ella."'],
+  },
+  {
+    id:'stutz', icon:'🛠️', color:'var(--stutz)', bg:'var(--stutz-bg)',
+    file:'plan-stutz-personalizado.html',
+    title:'The Tools (Las Herramientas)', author:'Phil Stutz & Barry Michels',
+    tag:'Psicología de Acción',
+    preview:'Cuando la vida te bloquea, cuando el miedo paraliza, cuando no puedes actuar aunque sabes lo que debes hacer — Stutz tiene una herramienta específica para ese momento exacto.',
+    principles:[
+      {n:'01',t:'La Fuerza de Vida',d:'Toda incomodidad, dolor y frustración contiene energía que puedes usar. En lugar de evitar el dolor, di "tráemelo" y visualiza absorberlo como luz. La Fuerza de Vida transforma obstáculos en combustible. Úsala cuando el miedo bloquea la acción.'},
+      {n:'02',t:'El Reverso del Deseo',d:'El miedo al futuro paraliza porque imaginas lo peor. La herramienta: visualiza el peor escenario posible, acéptalo completamente, luego pregunta "¿puedo actuar a pesar de esto?" Cuando aceptas el peor caso, el miedo pierde poder.'},
+      {n:'03',t:'La Sombra',d:'Tu sombra es la parte de ti que más te avergüenza. La herramienta: preséntate a ella, mírala directamente, y di "tú eres parte de mí también." La energía que usas para ocultar la sombra es la misma que necesitas para crear.'},
+      {n:'04',t:'El Giro',d:'Para la procrastinación. Cuando no puedes empezar, visualiza una fuerza que te arrastra hacia atrás (la inercia) y una fuerza que te lanza hacia adelante (acción). El giro: lanzarte hacia adelante aunque sientas la inercia. La acción genera momentum.'},
+      {n:'05',t:'La Cadena de Perlas',d:'Cada acción que tomas a pesar del miedo es una perla. La cadena de perlas es tu vida construida de actos de valentía pequeños y grandes. No te juzgues por los resultados — solo por si estás añadiendo perlas.'},
+      {n:'06',t:'La Gratitud Radical',d:'La gratitud no como técnica de positividad — como conexión con la Fuerza de Vida detrás de cada experiencia, incluso las dolorosas. Practica encontrar por qué agradecer incluso en los momentos más difíciles.'},
+      {n:'07',t:'El Laberinto',d:'El laberinto es donde te pierdes cuando estás herido por alguien. La salida no es el perdón — es soltar la demanda de que el pasado fuera diferente. La herramienta: visualiza el laberinto, encuentra la salida, y di "el pasado ya pasó."'},
+    ],
+    quotes:['"Las herramientas no cambian tus circunstancias — cambian tu relación con ellas."','"La incomodidad es el precio de admisión a una vida real."'],
+  },
+  {
+    id:'carn', icon:'🤝', color:'var(--carn)', bg:'var(--carn-bg)',
+    file:'plan-carnegie.html',
+    title:'Cómo Ganar Amigos e Influir sobre las Personas', author:'Dale Carnegie',
+    tag:'Relaciones Humanas',
+    preview:'Publicado en 1936. 30 millones de copias. La verdad central: cada persona tiene una necesidad fundamental irresistible de sentirse importante y comprendida. Los 30 principios son respuestas específicas a esa necesidad.',
+    principles:[
+      {n:'01',t:'No critiques, no condenes, no te quejes',d:'La crítica es inútil porque pone a la persona a la defensiva. La neurociencia confirma: la crítica activa la amígdala (respuesta de amenaza) que bloquea la capacidad de escuchar. Para que alguien cambie, primero debe sentirse seguro.'},
+      {n:'02',t:'Da apreciación honesta y sincera',d:'La diferencia entre adulación (falsa, genérica, interesada) y apreciación genuina (específica, honesta, observada). "Buen trabajo" es adulación. "La forma en que manejaste esa objeción manteniendo la calma fue exactamente lo correcto" es apreciación.'},
+      {n:'03',t:'Despierta en los demás un deseo vehemente',d:'La única forma de influir en alguien: habla de lo que ellos quieren y muéstrales cómo conseguirlo. No "yo puedo hacer X" — sino "tu problema es A y lo que propongo resuelve A mejor que cualquier alternativa."'},
+      {n:'04',t:'Interésate genuinamente en los demás',d:'Puedes hacer más amigos en dos meses interesándote en los demás que en dos años intentando que los demás se interesen en ti. El interés genuino activa el sistema de recompensa dopaminérgico del otro.'},
+      {n:'05',t:'Sé un buen oyente',d:'La escucha activa es tan escasa que quien la practica se vuelve inmediatamente memorable. Regla: habla menos del 30% del tiempo en conversaciones importantes. Haz preguntas que la persona disfrute responder.'},
+      {n:'06',t:'Habla en términos de los intereses del otro',d:'Roosevelt estudiaba los intereses de cada visitante la noche anterior a la reunión. El camino hacia el corazón de una persona pasa por hablar de las cosas que más aprecia.'},
+      {n:'07',t:'Haz que el otro se sienta importante — sinceramente',d:'La regla de oro: trata a cada persona como si fuera la más importante del mundo — porque para ella, lo es. Emerson: "Cada hombre que encuentro es superior a mí en alguna cosa."'},
+      {n:'08',t:'La única forma de ganar una discusión: evítala',d:'En una discusión, aunque ganes, pierdes. Si ganas, hiriste el orgullo del otro — ahora tiene resentimiento. Nadie cambia de opinión porque lo derrotaron. La alternativa: "Puede que tengas razón. Examinemos los hechos juntos."'},
+      {n:'09',t:'Admite tus errores rápida y enfáticamente',d:'Cuando sepas que estás equivocado, dilo antes de que alguien te lo diga. Esto desarma al crítico. La humildad genuina genera confianza — una persona que admite errores es percibida como más confiable que una que los justifica.'},
+    ],
+    quotes:['"Puedes hacer más amigos en dos meses interesándote en los demás que en dos años tratando que se interesen en ti."','"La acción parece seguir al sentimiento, pero realmente acción y sentimiento van juntos."'],
+  },
+  {
+    id:'buff', icon:'📈', color:'var(--buff)', bg:'var(--buff-bg)',
+    file:'plan-buffett.html',
+    title:'El Método Buffett', author:'Warren Buffett / Robert Hagstrom',
+    tag:'Capital Real',
+    preview:'Buffett no compra acciones — compra participaciones en negocios extraordinarios a precios razonables. 20% de rendimiento anual promedio durante 58 años. La clave: paciencia y pensamiento independiente.',
+    principles:[
+      {n:'01',t:'El Círculo de Competencia',d:'Solo invierte en negocios que entiendes completamente. Lo importante no es el tamaño del círculo — es conocer sus límites. Un freelancer ya tiene un círculo de competencia profesional que puede usar como ventaja informacional.'},
+      {n:'02',t:'El Foso Económico (Moat)',d:'¿Qué protege al negocio de sus competidores en 10 años? Tipos de foso: marca (poder de precio), costos de cambio, efecto de red, ventaja de costos, activos intangibles. Sin foso = trampa de valor.'},
+      {n:'03',t:'Mr. Market',d:'El mercado es un socio maníaco-depresivo que ofrece precios irracionales todos los días. Tu trabajo es aprovecharte de su irracionalidad, no seguirla. El precio es lo que pagas. El valor es lo que recibes.'},
+      {n:'04',t:'Margen de Seguridad',d:'Nunca pagues el valor intrínseco estimado — siempre paga al menos 30% menos. Protección contra errores de estimación que siempre ocurren. Sin margen de seguridad, hasta un análisis correcto puede producir pérdidas.'},
+      {n:'05',t:'Management Honesto y Racional',d:'Busca tres cualidades: integridad, inteligencia y energía. Si no tienen la primera, las otras dos te matarán. Lee las cartas anuales: ¿admiten errores? ¿Cumplieron proyecciones pasadas?'},
+      {n:'06',t:'ROE superior al 15% sostenido',d:'El Retorno sobre Capital Propio mide cuánto beneficio genera la empresa por cada dólar invertido. ROE alto + poca deuda = foso real. ROE alto + mucha deuda = señal de alarma.'},
+      {n:'07',t:'El Tiempo como Arma',d:'El horizonte favorito de Buffett es "para siempre." El 99% de su riqueza fue acumulada después de los 52 años. $1,000/mes al 10% anual: 10 años = $204K · 20 años = $765K · 30 años = $2.26M.'},
+    ],
+    quotes:['"El precio es lo que pagas. El valor es lo que recibes."','"Alguien está sentado a la sombra hoy porque alguien plantó un árbol hace mucho tiempo."'],
+  },
+];
+
+const HABITS = [
+  // HILL
+  {id:'h1',book:'hill',icon:'🔥',text:'Leer mi declaración de deseo en voz alta',tip:'Con emoción. Cifra exacta, fecha exacta, plan.'},
+  {id:'h2',book:'hill',icon:'🔥',text:'10 min de visualización del objetivo cumplido',tip:'Cierra los ojos. Vívelo con todos los sentidos.'},
+  {id:'h3',book:'hill',icon:'🔥',text:'Una acción concreta hacia mi objetivo principal',tip:'No perfecta. Solo una acción real hoy.'},
+  {id:'h4',book:'hill',icon:'🔥',text:'Rechazar un pensamiento de duda o rendición',tip:'Identificarlo, nombrarlo, reemplazarlo por la visión.'},
+  {id:'h5',book:'hill',icon:'🔥',text:'Contactar o nutrir a un miembro de mi Mastermind',tip:'Un mensaje, llamada o reunión con alguien que impulsa tu visión.'},
+  // EKER
+  {id:'e1',book:'eker',icon:'🌡️',text:'Observar un pensamiento de escasez sin juzgarlo',tip:'"Ese es mi condicionamiento. No soy yo."'},
+  {id:'e2',book:'eker',icon:'🌡️',text:'Separar el 10% de cualquier ingreso recibido hoy',tip:'Aunque sea pequeño. El hábito > el monto.'},
+  {id:'e3',book:'eker',icon:'🌡️',text:'Afirmación: "Tengo una mente millonaria"',tip:'Di en voz alta. Toca tu cabeza. Hazlo 10 veces.'},
+  {id:'e4',book:'eker',icon:'🌡️',text:'Leer un Archivo de Riqueza del plan Eker',tip:'Uno por día. Lee, reflexiona, escribe una acción derivada.'},
+  {id:'e5',book:'eker',icon:'🌡️',text:'Registrar activos y pasivos del mes',tip:'Lo que genera dinero vs. lo que lo consume. La conciencia cambia el patrón.'},
+  // KIYOSAKI
+  {id:'k1',book:'kiyo',icon:'💰',text:'Identificar un posible activo a construir o comprar',tip:'Producto digital, contenido, inversión pequeña. ¿Genera flujo sin tu presencia?'},
+  {id:'k2',book:'kiyo',icon:'💰',text:'Revisar o crear un estado de flujo de caja',tip:'Ingresos − gastos = flujo de caja. ¿El número sube o baja este mes?'},
+  {id:'k3',book:'kiyo',icon:'💰',text:'30 min aprendiendo sobre inversiones o activos',tip:'Libro, podcast, análisis de empresa. Conocimiento especializado = ventaja.'},
+  {id:'k4',book:'kiyo',icon:'💰',text:'Evaluar un gasto: ¿activo o pasivo?',tip:'¿Pone dinero en mi bolsillo o lo saca? Decisión consciente.'},
+  {id:'k5',book:'kiyo',icon:'💰',text:'Aportación a inversión (aunque sea mínima)',tip:'ETF, ahorro de largo plazo. Consistencia > monto.'},
+  // STUTZ
+  {id:'s1',book:'stutz',icon:'🛠️',text:'Usar La Fuerza de Vida en un momento de resistencia',tip:'"Tráeme el dolor." Absorbe la incomodidad como energía.'},
+  {id:'s2',book:'stutz',icon:'🛠️',text:'Completar una tarea que estaba evitando',tip:'La más difícil de la lista. Hacerla primero. Añade una perla a la cadena.'},
+  {id:'s3',book:'stutz',icon:'🛠️',text:'Momento de Gratitud Radical',tip:'¿Por qué puedo estar agradecido por una cosa difícil de hoy?'},
+  {id:'s4',book:'stutz',icon:'🛠️',text:'Nota breve sobre mi Sombra',tip:'¿Qué parte de mí evité hoy? ¿Qué pensamiento me avergüenza? Nómbralo.'},
+  {id:'s5',book:'stutz',icon:'🛠️',text:'Revisión: ¿hubo un momento de bloqueo hoy?',tip:'¿Qué herramienta necesitaba? ¿La usé? Si no, ¿qué pasó?'},
+  // CARNEGIE
+  {id:'c1',book:'carn',icon:'🤝',text:'Sonreír genuinamente en cada interacción',tip:'No mecánicamente. Desde el estado mental real.'},
+  {id:'c2',book:'carn',icon:'🤝',text:'Un elogio específico y genuino a alguien hoy',tip:'"La forma en que [algo concreto]..." No genérico.'},
+  {id:'c3',book:'carn',icon:'🤝',text:'Una conversación donde escuché más del 60%',tip:'Pregunté, escuché, recordé detalles. No interrumpí.'},
+  {id:'c4',book:'carn',icon:'🤝',text:'No critiqué, no me quejé, no condené',tip:'Si apareció el impulso: lo identifiqué y lo transformé.'},
+  {id:'c5',book:'carn',icon:'🤝',text:'Hablé en términos de los intereses del otro',tip:'En una conversación importante: enfoque en lo que ellos quieren.'},
+  // BUFFETT
+  {id:'b1',book:'buff',icon:'📈',text:'30 min de lectura sobre negocios o inversión',tip:'Carta de Berkshire, análisis de empresa, libro financiero.'},
+  {id:'b2',book:'buff',icon:'📈',text:'Aportación a inversión sistemática',tip:'ETF o inversión definida. Sin excepción. Sin "esperar el momento."'},
+  {id:'b3',book:'buff',icon:'📈',text:'Revisar una empresa de la watchlist',tip:'Aplicar el screener Buffett. Anotar la conclusión.'},
+  {id:'b4',book:'buff',icon:'📈',text:'Identificar un sesgo cognitivo en una decisión',tip:'¿Actué por miedo, codicia o imitación? La consciencia es el primer paso.'},
+  {id:'b5',book:'buff',icon:'📈',text:'Escribir una tesis o idea de inversión',tip:'Un párrafo. Si no puedes escribirlo, no lo entiendes aún.'},
+];
+
+const SCREENER_ITEMS = [
+  {id:'sc1',text:'¿Lo entiendo completamente?',meta:'Círculo de competencia'},
+  {id:'sc2',text:'¿Tiene foso económico claro?',meta:'Moat verificable'},
+  {id:'sc3',text:'ROE mayor al 15% últimos 5 años',meta:'Rentabilidad sostenida'},
+  {id:'sc4',text:'Deuda/Capital menor a 0.5',meta:'Balance sólido'},
+  {id:'sc5',text:'Management honesto e íntegro',meta:'Cartas anuales revisadas'},
+  {id:'sc6',text:'Precio con margen de seguridad >30%',meta:'Valor intrínseco calculado'},
+  {id:'sc7',text:'¿Puedo mantenerlo 10 años?',meta:'Horizonte largo plazo'},
+];
+
+const QUOTES = [
+  {text:'"Todo lo que la mente puede concebir y creer, puede lograrlo."',author:'Napoleon Hill'},
+  {text:'"La raíz produce el fruto. Para cambiar el fruto, debes cambiar la raíz."',author:'T. Harv Eker'},
+  {text:'"Los ricos no trabajan por dinero. El dinero trabaja para los ricos."',author:'Robert Kiyosaki'},
+  {text:'"La incomodidad es el precio de admisión a una vida real."',author:'Phil Stutz'},
+  {text:'"Puedes hacer más amigos en dos meses interesándote en los demás que en dos años al revés."',author:'Dale Carnegie'},
+  {text:'"El precio es lo que pagas. El valor es lo que recibes."',author:'Warren Buffett'},
+  {text:'"Un deseo ardiente de ser y hacer es el punto de partida desde el que el soñador debe lanzarse."',author:'Napoleon Hill'},
+  {text:'"Alguien está sentado a la sombra hoy porque alguien plantó un árbol hace mucho tiempo."',author:'Warren Buffett'},
+];
+
+const THERMO_DATA = [
+  {val:0, label:'Escasez total', desc:'Setpoint en $0: el subconsciente cree que el dinero es malo, escaso o inmerecido. Origen típico: frases repetidas en infancia como "el dinero no crece en los árboles" o "los ricos son codiciosos."'},
+  {val:1, label:'Supervivencia', desc:'Setpoint de supervivencia: solo lo justo para cubrir necesidades básicas. El patrón sabotea cualquier ingreso extra con gastos impulsivos o pérdidas.'},
+  {val:2, label:'Estabilidad básica', desc:'Setpoint de estabilidad: puedes mantener tus gastos pero no ahorras ni inviertes. Cada vez que te acercas al ahorro, algo "inesperado" gasta ese dinero.'},
+  {val:3, label:'Confort moderado', desc:'Setpoint de confort: tienes lo suficiente pero no construyes activos. El patrón es gastar hasta el límite del ingreso sin importar cuánto sube.'},
+  {val:4, label:'Ahorro activo', desc:'Setpoint de ahorro: puedes guardar dinero regularmente. El siguiente bloqueo es invertir — el miedo a perder congela el capital acumulado.'},
+  {val:5, label:'Inversión básica', desc:'Setpoint inversor: ya tienes dinero trabajando para ti aunque sea en ETFs o ahorro. El bloqueo siguiente es escalar — creer que "la gente como yo" puede tener mucho más.'},
+  {val:6, label:'Activos múltiples', desc:'Setpoint de múltiples activos: tienes varias fuentes de ingreso pasivo en construcción. El desafío: delegar y confiar en sistemas sin controlarlo todo personalmente.'},
+  {val:7, label:'Libertad financiera', desc:'Setpoint de libertad: tus activos cubren tus gastos básicos sin trabajar. El siguiente nivel: crecer desde la libertad, no desde el miedo.'},
+  {val:8, label:'Abundancia', desc:'Setpoint de abundancia: dinero trabajando activamente, múltiples flujos pasivos. El desafío es el propósito — ¿para qué seguir construyendo? Requiere visión más allá del dinero.'},
+  {val:9, label:'Riqueza creativa', desc:'Setpoint de riqueza creativa: el dinero ya no es el objetivo sino el resultado de crear valor masivo. Piensas en impacto, legado y proyectos de escala.'},
+  {val:10, label:'Legado millonario', desc:'Setpoint de legado: la riqueza es un vehículo para crear impacto duradero en el mundo. El dinero fluye naturalmente como resultado de la misión. Carnegie y Buffett viven aquí.'},
+];
+
+/* ════════════════════════════════════════
+   STATE
+════════════════════════════════════════ */
+let state = {
+  habits:{},        // {date: {habitId: bool}}
+  streak:0,
+  bestStreak:0,
+  totalCompleted:0,
+  activeDays:0,
+  xp:0,
+  thermoValue:5,
+  screener:{},      // {id: bool}
+  netWorth:[],      // [{month, activos, pasivos}]
+  weeklyData:[],    // last 7 days completed counts
+};
+
+const TODAY = new Date().toISOString().split('T')[0];
+
+function loadState(){
+  try{
+    const s = localStorage.getItem('ms2_state');
+    if(s) state = {...state,...JSON.parse(s)};
+  }catch(e){}
+}
+function saveState(){
+  try{ localStorage.setItem('ms2_state', JSON.stringify(state)); }catch(e){}
+}
+
+/* ════════════════════════════════════════
+   INIT
+════════════════════════════════════════ */
+loadState();
+if(!state.habits[TODAY]) state.habits[TODAY]={};
+if(!state.screener) state.screener={};
+
+function startApp(){
+  if(startApp.done) return;
+  startApp.done = true;
+  document.getElementById('splash').classList.add('hide');
+  document.getElementById('app').classList.add('show');
+  initAll();
+}
+// Arrange multiple triggers so it never gets stuck
+document.addEventListener('DOMContentLoaded', ()=>setTimeout(startApp, 1800));
+window.addEventListener('load', ()=>setTimeout(startApp, 500));
+setTimeout(startApp, 3000); // Hard fallback — fires no matter what
+
+function initAll(){
+  setTopBar();
+  renderBooksQuick();
+  renderHomeQuote();
+  renderHomeStats();
+  updateRing();
+  renderLibrary();
+  renderHabits();
+  renderProgress();
+  renderScreener();
+  renderThermo();
+  renderNW();
+}
+
+/* ════════════════════════════════════════
+   TOP BAR
+════════════════════════════════════════ */
+function setTopBar(){
+  const d = new Date();
+  const dias=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+  const meses=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+  document.getElementById('tbDate').textContent = `${dias[d.getDay()]}, ${d.getDate()} ${meses[d.getMonth()]}`;
+  document.getElementById('streakNum').textContent = state.streak || 0;
+  const xp = state.xp || 0;
+  const lvl = Math.floor(xp/100)+1;
+  document.getElementById('levelBadge').textContent = `N${lvl}`;
+}
+
+/* ════════════════════════════════════════
+   HOME
+════════════════════════════════════════ */
+function updateRing(){
+  const todayH = state.habits[TODAY]||{};
+  const done = HABITS.filter(h=>todayH[h.id]).length;
+  const total = HABITS.length;
+  const pct = Math.round((done/total)*100);
+  const circ = 2*Math.PI*52;
+  const offset = circ*(1-done/total);
+  const fill = document.getElementById('ringFill');
+  fill.style.strokeDasharray = circ;
+  fill.style.strokeDashoffset = offset;
+  // Color by progress
+  const color = pct>=80?'var(--kiyo)':pct>=50?'var(--eker)':'var(--hill)';
+  fill.style.stroke = color;
+  document.getElementById('ringPct').textContent = pct+'%';
+  const caps=['¡Empieza tu día!','¡Buen comienzo!','¡A mitad del camino!','¡Casi terminado!','¡Día perfecto! 🎉'];
+  const ci = pct>=100?4:pct>=75?3:pct>=50?2:pct>=25?1:0;
+  document.getElementById('ringCaption').textContent = caps[ci];
+  // Update stats
+  let total2=0;
+  Object.values(state.habits).forEach(d=>{ Object.values(d).forEach(v=>{if(v)total2++;}) });
+  state.totalCompleted=total2;
+  document.getElementById('statTotal').textContent=total2;
+  document.getElementById('statDays').textContent=Object.keys(state.habits).filter(d=>Object.values(state.habits[d]).some(v=>v)).length;
+  document.getElementById('statBest').textContent=state.bestStreak||0;
+  document.getElementById('statXP').textContent=state.xp||0;
+  saveState();
+}
+
+function renderBooksQuick(){
+  const todayH = state.habits[TODAY]||{};
+  const el = document.getElementById('booksQuick');
+  el.innerHTML = BOOKS.map(b=>{
+    const bHabits = HABITS.filter(h=>h.book===b.id);
+    const done = bHabits.filter(h=>todayH[h.id]).length;
+    const pct = Math.round((done/bHabits.length)*100);
+    return `<div class="bq-card" onclick="openBook('${b.id}')" style="border-top:2px solid ${b.color}">
+      <div class="bq-icon">${b.icon}</div>
+      <div class="bq-name">${b.author.split(' ')[b.author.split(' ').length-1]}</div>
+      <div class="bq-done" style="color:${b.color}">${done}/${bHabits.length}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderHomeQuote(){
+  const q = QUOTES[new Date().getDate()%QUOTES.length];
+  document.getElementById('homeQuote').innerHTML=`
+    <div class="hq-label">// Cita del día</div>
+    <div class="hq-text">${q.text}</div>
+    <div class="hq-author">— ${q.author}</div>`;
+}
+
+function renderHomeStats(){
+  document.getElementById('statTotal').textContent=state.totalCompleted||0;
+  document.getElementById('statDays').textContent=Object.keys(state.habits).filter(d=>Object.values(state.habits[d]).some(v=>v)).length;
+  document.getElementById('statBest').textContent=state.bestStreak||0;
+  document.getElementById('statXP').textContent=state.xp||0;
+}
+
+/* ════════════════════════════════════════
+   LIBRARY
+════════════════════════════════════════ */
+function renderLibrary(){
+  const el = document.getElementById('libWrap');
+  el.innerHTML = BOOKS.map(b=>`
+    <div class="book-card" onclick="openBook('${b.id}')" style="border-top:3px solid ${b.color};background:var(--bg2)">
+      <div class="bc-header" style="background:${b.bg}">
+        <div class="bc-icon">${b.icon}</div>
+        <div class="bc-info">
+          <span class="bc-title">${b.title}</span>
+          <span class="bc-author">${b.author}</span>
+          <span class="bc-tag" style="color:${b.color}">${b.tag}</span>
+        </div>
+        <span class="bc-arrow">›</span>
+      </div>
+      <div class="bc-preview">${b.preview}</div>
+    </div>`).join('');
+}
+
+const BOOK_FILES = {
+  hill: 'plan-piense-hagase-rico.html',
+  eker: 'plan-mente-millonaria.html',
+  kiyo: 'plan-kiyosaki-personalizado.html',
+  stutz: 'plan-stutz-personalizado.html',
+  carn: 'plan-carnegie.html',
+  buff: 'plan-buffett.html',
+};
+
+let currentBookId = null;
+
+function openBook(id){
+  currentBookId = id;
+  const b = BOOKS.find(x=>x.id===id);
+  if(!b) return;
+  const modal = document.getElementById('bookModal');
+  const header = document.getElementById('bmHeader');
+  header.style.borderBottom = `2px solid ${b.color}`;
+  document.getElementById('bmTitle').textContent = b.title;
+  // Update full doc button color
+  const btn = document.getElementById('bmFullBtn');
+  btn.style.background = b.color;
+  document.getElementById('bmBody').innerHTML = `
+    <div class="bm-section">
+      <div class="bm-sec-title" style="color:${b.color}">// Idea Central</div>
+      <div class="key-concept" style="border-left-color:${b.color};background:${b.bg}">
+        <div class="kc-label" style="color:${b.color}">${b.tag}</div>
+        <div class="kc-text">${b.preview}</div>
+      </div>
+    </div>
+    <div class="bm-section">
+      <div class="bm-sec-title" style="color:${b.color}">// Principios Clave</div>
+      ${b.principles.map(p=>`
+        <div class="principle-item" style="border-left:3px solid ${b.color}">
+          <div class="pi-num" style="color:${b.color}">${p.n}</div>
+          <div class="pi-title">${p.t}</div>
+          <div class="pi-desc">${p.d}</div>
+        </div>`).join('')}
+    </div>
+    <div class="bm-section">
+      <div class="bm-sec-title" style="color:${b.color}">// Citas</div>
+      ${b.quotes.map(q=>`
+        <div class="key-concept" style="border-left-color:${b.color};background:${b.bg}">
+          <div class="kc-text" style="font-style:italic">${q}</div>
+          <div class="kc-label" style="color:${b.color};margin-top:.4rem;">— ${b.author}</div>
+        </div>`).join('')}
+    </div>
+    <div style="padding:1rem 0 2rem;">
+      <button onclick="openFullDoc()"
+        style="width:100%;padding:1rem;background:${b.color};color:var(--bg);
+        border:none;border-radius:12px;font-size:1rem;font-weight:700;
+        font-family:'DM Sans',sans-serif;cursor:pointer;letter-spacing:-.01em;">
+        📖 Ver Plan Completo
+      </button>
+    </div>`;
+  modal.classList.add('open');
+}
+
+function closeModal(){
+  document.getElementById('bookModal').classList.remove('open');
+}
+
+function openFullDoc(){
+  const b = BOOKS.find(x=>x.id===currentBookId);
+  if(!b) return;
+  const file = BOOK_FILES[currentBookId];
+  if(!file) return;
+  const viewer = document.getElementById('docViewer');
+  const dvHeader = document.getElementById('dvHeader');
+  dvHeader.style.borderBottom = `2px solid ${b.color}`;
+  document.getElementById('dvTitle').textContent = b.title;
+  document.getElementById('docFrame').src = file;
+  viewer.classList.add('open');
+}
+
+function closeDocViewer(){
+  const viewer = document.getElementById('docViewer');
+  viewer.classList.remove('open');
+  // Reset iframe to avoid keeping it loaded when closed
+  setTimeout(()=>{ document.getElementById('docFrame').src='about:blank'; }, 400);
+}
+
+/* ════════════════════════════════════════
+   HABITS
+════════════════════════════════════════ */
+function renderHabits(){
+  const todayH = state.habits[TODAY]||{};
+  const el = document.getElementById('habitsWrap');
+  let html = '';
+  BOOKS.forEach(b=>{
+    const bH = HABITS.filter(h=>h.book===b.id);
+    const done = bH.filter(h=>todayH[h.id]).length;
+    html += `<div class="habit-group">
+      <div class="hg-header" style="background:${b.bg}">
+        <span class="hg-icon">${b.icon}</span>
+        <span class="hg-name" style="color:${b.color}">${b.title}</span>
+        <span class="hg-count" style="color:${b.color}">${done}/${bH.length}</span>
+      </div>`;
+    bH.forEach(h=>{
+      const isDone = !!todayH[h.id];
+      html += `<div class="habit-item ${isDone?'done':''}" onclick="toggleHabit('${h.id}')">
+        <div class="hcheck" style="${isDone?`background:${b.color};border-color:${b.color};color:var(--bg)`:''}">
+          ${isDone?'✓':''}
+        </div>
+        <div class="htext">
+          <strong>${h.text}</strong>
+          <span>${h.tip}</span>
+        </div>
+      </div>`;
+    });
+    html += '</div>';
+  });
+  const totalDone = HABITS.filter(h=>todayH[h.id]).length;
+  html += `<div class="habits-footer">
+    <div class="hf-info">
+      <p>${totalDone}/${HABITS.length} completados hoy</p>
+      <span>${Math.round((totalDone/HABITS.length)*100)}% del día</span>
+    </div>
+    <button class="hf-btn" onclick="resetToday()">Reiniciar</button>
+  </div>`;
+  el.innerHTML = html;
+}
+
+function toggleHabit(id){
+  if(!state.habits[TODAY]) state.habits[TODAY]={};
+  const wasD = state.habits[TODAY][id];
+  state.habits[TODAY][id] = !wasD;
+  if(!wasD){ state.xp=(state.xp||0)+10; }
+  else{ state.xp=Math.max(0,(state.xp||0)-10); }
+  calcStreak();
+  saveState();
+  renderHabits();
+  updateRing();
+  renderBooksQuick();
+  setTopBar();
+}
+
+function calcStreak(){
+  let streak=0;
+  const today=new Date();
+  for(let i=0;i<365;i++){
+    const d=new Date(today); d.setDate(d.getDate()-i);
+    const key=d.toISOString().split('T')[0];
+    const h=state.habits[key]||{};
+    const done=Object.values(h).filter(v=>v).length;
+    if(done>0) streak++;
+    else if(i>0) break;
+  }
+  state.streak=streak;
+  state.bestStreak=Math.max(state.bestStreak||0,streak);
+}
+
+function resetToday(){
+  state.habits[TODAY]={};
+  saveState();
+  renderHabits();
+  updateRing();
+  renderBooksQuick();
+}
+
+/* ════════════════════════════════════════
+   PROGRESS CHARTS
+════════════════════════════════════════ */
+let charts = {};
+function renderProgress(){
+  renderWeekChart();
+  renderBooksChart();
+  renderRadarChart();
+  renderHeatmap();
+}
+
+function getWeekData(){
+  const data=[];
+  const labels=[];
+  const dias=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+  for(let i=6;i>=0;i--){
+    const d=new Date(); d.setDate(d.getDate()-i);
+    const key=d.toISOString().split('T')[0];
+    const h=state.habits[key]||{};
+    data.push(Object.values(h).filter(v=>v).length);
+    labels.push(dias[d.getDay()]);
+  }
+  return{data,labels};
+}
+
+function renderWeekChart(){
+  const ctx=document.getElementById('chartWeek');
+  if(!ctx)return;
+  const {data,labels}=getWeekData();
+  if(charts.week) charts.week.destroy();
+  charts.week=new Chart(ctx,{
+    type:'bar',
+    data:{labels,datasets:[{
+      data,backgroundColor:data.map((_,i)=>i===6?'rgba(212,165,32,.8)':'rgba(212,165,32,.3)'),
+      borderRadius:6,borderSkipped:false
+    }]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+      scales:{y:{max:HABITS.length,ticks:{color:'#606070',font:{size:10}},grid:{color:'rgba(255,255,255,.05)'}},
+        x:{ticks:{color:'#606070',font:{size:10}},grid:{display:false}}}}
+  });
+}
+
+function renderBooksChart(){
+  const ctx=document.getElementById('chartBooks');
+  if(!ctx)return;
+  const todayH=state.habits[TODAY]||{};
+  const data=BOOKS.map(b=>HABITS.filter(h=>h.book===b.id&&todayH[h.id]).length);
+  const colors=['rgba(212,165,32,.8)','rgba(224,112,32,.8)','rgba(32,160,80,.8)','rgba(192,64,64,.8)','rgba(160,104,48,.8)','rgba(139,58,58,.8)'];
+  if(charts.books) charts.books.destroy();
+  charts.books=new Chart(ctx,{
+    type:'doughnut',
+    data:{labels:BOOKS.map(b=>b.author.split(' ')[b.author.split(' ').length-1]),
+      datasets:[{data,backgroundColor:colors,borderColor:'rgba(0,0,0,0)',borderWidth:0}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{
+      legend:{position:'right',labels:{color:'#a0a0b0',font:{size:10},boxWidth:10}}}}
+  });
+}
+
+function renderRadarChart(){
+  const ctx=document.getElementById('chartRadar');
+  if(!ctx)return;
+  const todayH=state.habits[TODAY]||{};
+  const data=BOOKS.map(b=>{
+    const bH=HABITS.filter(h=>h.book===b.id);
+    return Math.round((bH.filter(h=>todayH[h.id]).length/bH.length)*100);
+  });
+  if(charts.radar) charts.radar.destroy();
+  charts.radar=new Chart(ctx,{
+    type:'radar',
+    data:{labels:['Hill','Eker','Kiyo','Stutz','Carn','Buff'],
+      datasets:[{data,backgroundColor:'rgba(212,165,32,.15)',borderColor:'rgba(212,165,32,.8)',
+        pointBackgroundColor:'rgba(212,165,32,1)',pointRadius:4,borderWidth:2}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      scales:{r:{min:0,max:100,ticks:{stepSize:25,color:'#606070',font:{size:9},backdropColor:'transparent'},
+        grid:{color:'rgba(255,255,255,.08)'},angleLines:{color:'rgba(255,255,255,.08)'},
+        pointLabels:{color:'#a0a0b0',font:{size:10}}}},
+      plugins:{legend:{display:false}}}
+  });
+}
+
+function renderHeatmap(){
+  const grid=document.getElementById('heatmapGrid');
+  if(!grid)return;
+  grid.innerHTML='';
+  const TOTAL=84;
+  for(let i=TOTAL-1;i>=0;i--){
+    const d=new Date(); d.setDate(d.getDate()-i);
+    const key=d.toISOString().split('T')[0];
+    const h=state.habits[key]||{};
+    const cnt=Object.values(h).filter(v=>v).length;
+    const opacity=cnt===0?0.1:Math.min(1,0.3+cnt/HABITS.length*0.7);
+    const cell=document.createElement('div');
+    cell.className='hm-cell';
+    cell.style.background=`rgba(212,165,32,${opacity})`;
+    grid.appendChild(cell);
+  }
+}
+
+/* ════════════════════════════════════════
+   THERMOSTAT
+════════════════════════════════════════ */
+function renderThermo(){
+  const v=state.thermoValue||5;
+  document.getElementById('thermoRange').value=v;
+  updateThermo(v);
+}
+
+function updateThermo(v){
+  state.thermoValue=parseInt(v);
+  const vals=['$0','$1K','$5K','$15K','$30K','$50K','$100K','$200K','$500K','$750K','$1M+'];
+  document.getElementById('thermoVal').textContent=vals[v];
+  document.getElementById('thermoLevel').textContent=THERMO_DATA[v].label;
+  document.getElementById('thermoDesc').textContent=THERMO_DATA[v].desc;
+  // Update slider fill
+  const pct=(v/10)*100;
+  document.getElementById('thermoRange').style.setProperty('--pct',pct+'%');
+  saveState();
+}
+
+/* ════════════════════════════════════════
+   SCREENER
+════════════════════════════════════════ */
+function renderScreener(){
+  const el=document.getElementById('screenerItems');
+  if(!state.screener) state.screener={};
+  el.innerHTML=SCREENER_ITEMS.map(s=>{
+    const on=!!state.screener[s.id];
+    return `<div class="screener-item" onclick="toggleScreener('${s.id}')">
+      <div class="si-check ${on?'on':'off'}">${on?'✓':'✗'}</div>
+      <div class="si-text">${s.text}</div>
+      <div class="si-meta">${s.meta}</div>
+    </div>`;
+  }).join('');
+  updateScResult();
+}
+
+function toggleScreener(id){
+  if(!state.screener) state.screener={};
+  state.screener[id]=!state.screener[id];
+  saveState();
+  renderScreener();
+}
+
+function updateScResult(){
+  const passes=SCREENER_ITEMS.filter(s=>state.screener&&state.screener[s.id]).length;
+  const el=document.getElementById('scResult');
+  el.textContent=`${passes}/7 ${passes>=5?'✓ Pasa':'✗ No pasa'}`;
+  el.className=`sc-result ${passes>=5?'pass':'fail'}`;
+}
+
+/* ════════════════════════════════════════
+   NET WORTH
+════════════════════════════════════════ */
+function saveNW(){
+  const a=parseFloat(document.getElementById('nwActivos').value)||0;
+  const p=parseFloat(document.getElementById('nwPasivos').value)||0;
+  const d=new Date();
+  const label=`${d.getMonth()+1}/${d.getFullYear().toString().slice(-2)}`;
+  if(!state.netWorth) state.netWorth=[];
+  state.netWorth.push({label,activos:a,pasivos:p,net:a-p});
+  if(state.netWorth.length>24) state.netWorth=state.netWorth.slice(-24);
+  saveState();
+  renderNW();
+  document.getElementById('nwActivos').value='';
+  document.getElementById('nwPasivos').value='';
+}
+
+function renderNW(){
+  if(!state.netWorth) state.netWorth=[];
+  const last=state.netWorth[state.netWorth.length-1];
+  const net=last?last.net:0;
+  const el=document.getElementById('nwTotal');
+  el.textContent='$'+Math.abs(net).toLocaleString();
+  el.style.color=net>=0?'var(--kiyo)':'var(--stutz)';
+  const ctx=document.getElementById('chartNW');
+  if(!ctx)return;
+  if(charts.nw) charts.nw.destroy();
+  if(state.netWorth.length<1){charts.nw=null;return;}
+  charts.nw=new Chart(ctx,{
+    type:'line',
+    data:{labels:state.netWorth.map(x=>x.label),
+      datasets:[{data:state.netWorth.map(x=>x.net),
+        borderColor:'rgba(32,160,80,.8)',backgroundColor:'rgba(32,160,80,.1)',
+        fill:true,tension:.4,pointRadius:3,pointBackgroundColor:'rgba(32,160,80,1)'}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+      scales:{y:{ticks:{color:'#606070',font:{size:10}},grid:{color:'rgba(255,255,255,.05)'}},
+        x:{ticks:{color:'#606070',font:{size:10}},grid:{display:false}}}}
+  });
+}
+
+/* ════════════════════════════════════════
+   NAVIGATION
+════════════════════════════════════════ */
+function switchTab(name, btn){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  btn.classList.add('active');
+  if(name==='progress'){ setTimeout(renderProgress,100); }
+}
+
+/* ════════════════════════════════════════
+   PWA
+════════════════════════════════════════ */
+if('serviceWorker' in navigator){
+  const sw=`self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request))));`;
+  const blob=new Blob([sw],{type:'application/javascript'});
+  navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(()=>{});
+}
+
+// Manifest inline
+const manifest={name:'Mi Sistema',short_name:'Mi Sistema',display:'standalone',
+  start_url:'./',background_color:'#0d0d0f',theme_color:'#0d0d0f',
+  icons:[{src:'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="20" fill="%230d0d0f"/><text y=".9em" font-size="80">📚</text></svg>',sizes:'192x192',type:'image/svg+xml'}]};
+const mBlob=new Blob([JSON.stringify(manifest)],{type:'application/json'});
+const mLink=document.createElement('link');
+mLink.rel='manifest';mLink.href=URL.createObjectURL(mBlob);
+document.head.appendChild(mLink);
+</script>
+</body>
+</html>
